@@ -1,12 +1,19 @@
 package com.rpggame.mapeditor.view;
 
-import javax.swing.*;
+import java.awt.BorderLayout;
+import java.awt.Color;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Random;
+
+import javax.swing.JFrame;
+import javax.swing.JPanel;
 
 import com.rpggame.mapeditor.view.tileselector.TileSelectorView;
 
-import java.awt.*;
-
 public class MapEditorWindow {
+
+	private List<Color> tileList;
 
 	public MapEditorWindow() {
 		buildAndShowView();
@@ -20,7 +27,15 @@ public class MapEditorWindow {
 
 		JPanel root = new JPanel();
 		root.setLayout(new BorderLayout());
-		root.add(new TileSelectorView(), BorderLayout.EAST);
+
+		// TODO outsource tileList creation
+		this.tileList = new ArrayList<>();
+		Random random = new Random();
+		for (int i = 0; i < 150; i++) {
+			this.tileList.add(new Color(random.nextInt(255), random.nextInt(255), random.nextInt(255)));
+		}
+
+		root.add(new TileSelectorView(this.tileList), BorderLayout.EAST);
 		root.add(new MapEditingPanel(), BorderLayout.CENTER);
 		root.add(new LayerPanelView(), BorderLayout.WEST);
 
