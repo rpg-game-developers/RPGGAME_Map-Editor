@@ -4,7 +4,6 @@
   <artifactId>RPGGAMEMapEditor</artifactId>
   <version>0.0.1-SNAPSHOT</version>
   <properties>
-    <maven.compiler.source>11</maven.compiler.source>
-    <maven.compiler.target>11</maven.compiler.target>
-  </properties>
+    <maven.compiler.release>11</maven.compiler.release>
+</properties>
 </project>
