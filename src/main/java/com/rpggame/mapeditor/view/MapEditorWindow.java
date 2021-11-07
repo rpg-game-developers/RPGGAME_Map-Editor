@@ -1,6 +1,9 @@
 package com.rpggame.mapeditor.view;
 
 import javax.swing.*;
+
+import com.rpggame.mapeditor.view.tileselector.TileSelectorView;
+
 import java.awt.*;
 
 public class MapEditorWindow {
