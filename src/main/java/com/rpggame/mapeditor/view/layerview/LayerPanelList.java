@@ -20,7 +20,7 @@ public class LayerPanelList extends JPanel {
 		layers.addListSelectionListener(layerPanelController::onItemSelected);
 
 		JScrollPane layersScroller = new JScrollPane(layers);
-		layersScroller.setPreferredSize(new Dimension(screenSize.width/5, screenSize.height));
+		layersScroller.setPreferredSize(new Dimension(screenSize.width/5, screenSize.height/2));
 		this.add(layersScroller);
 	}
 

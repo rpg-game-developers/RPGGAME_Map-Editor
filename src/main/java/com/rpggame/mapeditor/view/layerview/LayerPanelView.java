@@ -1,24 +1,31 @@
 package com.rpggame.mapeditor.view.layerview;
 
-import com.rpggame.mapeditor.controller.LayerPanelController;
+import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.Toolkit;
 
-import javax.swing.*;
-import java.awt.*;
+import javax.swing.BorderFactory;
+import javax.swing.JPanel;
+
+import com.rpggame.mapeditor.controller.LayerPanelController;
 
 public class LayerPanelView extends JPanel {
 
 	public LayerPanelView() {
-		LayerPanelController layerPanelController = new LayerPanelController();
 
 		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
 		this.setBorder(BorderFactory.createLineBorder(Color.black));
-		this.setPreferredSize(new Dimension(screenSize.width/5, screenSize.height));
+		this.setPreferredSize(new Dimension(screenSize.width / 5, screenSize.height));
 
 		this.setLayout(new BorderLayout());
 
 		this.add(new LayerPanelHeader(), BorderLayout.NORTH);
+
+		LayerPanelSettings layerPanelSettings = new LayerPanelSettings();
+		LayerPanelController layerPanelController = new LayerPanelController(layerPanelSettings);
 		this.add(new LayerPanelList(layerPanelController), BorderLayout.CENTER);
-		this.add(new LayerPanelSettings(), BorderLayout.SOUTH);
+		this.add(layerPanelSettings, BorderLayout.SOUTH);
 
 	}
 }
