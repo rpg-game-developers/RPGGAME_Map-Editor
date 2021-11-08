@@ -10,11 +10,13 @@ import javax.swing.BoxLayout;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 
+import com.rpggame.mapeditor.model.MapTile;
+
 public class TileSelectorView extends JPanel {
 
 	private static final long serialVersionUID = 1L;
 
-	public TileSelectorView(List<Color> tileList) {
+	public TileSelectorView(List<MapTile> tileList) {
 		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
 		int selectorViewWidth = screenSize.width / 5;
 		this.setPreferredSize(new Dimension(selectorViewWidth, screenSize.height));

@@ -1,8 +1,15 @@
 package com.rpggame.mapeditor.view.layerview;
 
-import java.awt.*;
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.GridLayout;
+import java.awt.Toolkit;
 
-import javax.swing.*;
+import javax.swing.BorderFactory;
+import javax.swing.JButton;
+import javax.swing.JComboBox;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
 
 public class LayerPanelSettings extends JPanel {
 

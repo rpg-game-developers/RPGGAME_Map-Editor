@@ -10,6 +10,8 @@ import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
 import javax.swing.JPanel;
 
+import com.rpggame.mapeditor.model.MapTile;
+
 public class TileSelectorGrid extends JPanel {
 
 	private static final long serialVersionUID = 1L;
@@ -17,7 +19,7 @@ public class TileSelectorGrid extends JPanel {
 	private final int columns = 3;
 	private final int tileSize = 100;
 
-	public TileSelectorGrid(int parentWidth, List<Color> tileList) {
+	public TileSelectorGrid(int parentWidth, List<MapTile> tileList) {
 
 		this.setPreferredSize(new Dimension(parentWidth - 30, (tileSize - (3 * padding)) * tileList.size()));
 		this.setBackground(Color.orange);
@@ -39,7 +41,8 @@ public class TileSelectorGrid extends JPanel {
 				p.setPreferredSize(new Dimension(tileSize, tileSize));
 				p.setMinimumSize(new Dimension(tileSize, tileSize));
 				p.setMaximumSize(new Dimension(tileSize, tileSize));
-				p.setBackground(tileList.get(index));
+				p.setBackground(Color.red);
+				p.setBorder(BorderFactory.createLineBorder(Color.black));
 				index++;
 				a.add(p);
 			}

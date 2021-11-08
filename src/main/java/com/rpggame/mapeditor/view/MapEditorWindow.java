@@ -9,12 +9,13 @@ import java.util.Random;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
+import com.rpggame.mapeditor.model.MapTile;
 import com.rpggame.mapeditor.view.layerview.LayerPanelView;
 import com.rpggame.mapeditor.view.tileselector.TileSelectorView;
 
 public class MapEditorWindow {
 
-	private List<Color> tileList;
+	private List<MapTile> tileList;
 
 	public MapEditorWindow() {
 		buildAndShowView();
@@ -31,14 +32,14 @@ public class MapEditorWindow {
 
 		// TODO outsource tileList creation
 		this.tileList = new ArrayList<>();
-		Random random = new Random();
-		for (int i = 0; i < 150; i++) {
-			this.tileList.add(new Color(random.nextInt(255), random.nextInt(255), random.nextInt(255)));
-		}
+	
+		this.tileList.add(new MapTile("Background", "Water", 0, "imgPath"));
+		this.tileList.add(new MapTile("Forground", "Grass", 1, "imgPath"));
+		this.tileList.add(new MapTile("Forground", "Dirt", 1, "imgPath"));
 
 		root.add(new TileSelectorView(this.tileList), BorderLayout.EAST);
 		root.add(new MapEditingPanel(), BorderLayout.CENTER);
-		root.add(new LayerPanelView(), BorderLayout.WEST);
+		root.add(new LayerPanelView(tileList), BorderLayout.WEST);
 
 		frame.add(root);
 		frame.setVisible(true);
