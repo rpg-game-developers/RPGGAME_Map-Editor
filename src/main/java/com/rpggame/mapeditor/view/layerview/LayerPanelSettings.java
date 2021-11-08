@@ -1,32 +1,47 @@
 package com.rpggame.mapeditor.view.layerview;
 
-import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.Toolkit;
+import java.awt.*;
 
-import javax.swing.BorderFactory;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
+import javax.swing.*;
 
 public class LayerPanelSettings extends JPanel {
 
-	private int panelHeight = 400;
+	private int panelHeight = 200;
 
 	public LayerPanelSettings() {
+		// TODO Pass screenSize as a parameter to all the different classes
 		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-
+		this.setLayout(new GridLayout(4, 2, screenSize.height / 10, 0));
 		this.setBorder(BorderFactory.createLineBorder(Color.black));
-		this.setBackground(Color.red);
-		JLabel elementName = new JLabel();
-		this.setPreferredSize(new Dimension(10, 20));
+		this.setVisible(false);
 	}
 
 	// TODO replace Sting with layer data
 	public void updatePanelContents(String s) {
+		this.removeAll();
+		this.setVisible(true);
 		this.setPreferredSize(new Dimension(200, this.panelHeight));
-		System.out.println(s);
+
+		JLabel typeLabel = new JLabel("Type:");
+		this.add(typeLabel);
+		JComboBox<String> types = new JComboBox<>();
+		this.add(types);
+
+		JLabel nameLabel = new JLabel("Name:");
+		this.add(nameLabel);
+		JLabel elementName = new JLabel(s);
+		this.add(elementName);
+
+		JLabel levelLabel = new JLabel("Level:");
+		this.add(levelLabel);
+		JComboBox<Integer> levels = new JComboBox<>();
+		this.add(levels);
+
+		JLabel deleteButtonLabel = new JLabel("Actions:");
+		this.add(deleteButtonLabel);
+		JButton deleteButton = new JButton("Delete");
+		this.add(deleteButton);
+
 		this.revalidate();
-		
-		System.out.println("size: " + this.getPreferredSize());
 	}
 }
