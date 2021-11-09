@@ -27,7 +27,6 @@ public class TileSelectorGrid extends JPanel {
 		this.setPreferredSize(new Dimension(parentWidth - 30, (tileSize - (columns * padding)) * tileList.size()));
 		this.setLayout(new BorderLayout());
 		MapTile[][] mapTiles = new MapTile[columns][tileList.size()];
-		int index = 0;
 
 		int rowCount = 0;
 		int columnCount = 0;
@@ -45,6 +44,9 @@ public class TileSelectorGrid extends JPanel {
 
 		final DefaultTableModel model = new DefaultTableModel(mapTiles,
 				IntStream.range(0, columns).mapToObj(e -> "").toArray(String[]::new)) {
+
+			private static final long serialVersionUID = 1L;
+
 			@Override
 			public Class<?> getColumnClass(int columnIndex) {
 				return MapTile.class;
