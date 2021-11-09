@@ -42,7 +42,6 @@ public class SelectionTile extends JPanel {
 
 			int width = this.spriteTile.getWidth();
 			int height = this.spriteTile.getHeight();
-			System.out.println(height + " * " + sizeMultiplier);
 			BufferedImage updatedTileImage = new BufferedImage(width * sizeMultiplier, height * sizeMultiplier,
 					BufferedImage.TYPE_INT_ARGB_PRE);
 			AffineTransform at = new AffineTransform();

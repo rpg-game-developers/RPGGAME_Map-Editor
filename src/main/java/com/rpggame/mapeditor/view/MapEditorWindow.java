@@ -1,6 +1,7 @@
 package com.rpggame.mapeditor.view;
 
 import java.awt.BorderLayout;
+import java.awt.Dimension;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -30,6 +31,7 @@ public class MapEditorWindow {
 		JFrame frame = new JFrame();
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
+		//frame.setSize(new Dimension(1920, 1080));
 		frame.setLocationRelativeTo(null);
 
 		JPanel root = new JPanel();
@@ -38,14 +40,19 @@ public class MapEditorWindow {
 		// TODO outsource tileList creation
 		this.tileList = new ArrayList<>();
 
-		this.tileList.add(new MapTile("Background", "Water", 0, 0, 3));
+		this.tileList.add(new MapTile("Background", "Water", 0, 2, 3));
 		this.tileList.add(new MapTile("Forground", "Grass", 1, 0, 1));
 		this.tileList.add(new MapTile("Forground", "Dirt", 1, 0, 2));
+		this.tileList.add(new MapTile("Background", "Water", 0, 5, 3));
+		this.tileList.add(new MapTile("Forground", "Grass", 1, 7, 1));
+		this.tileList.add(new MapTile("Forground", "Dirt", 1, 10, 2));
+		this.tileList.add(new MapTile("Background", "Water", 0, 1, 3));
+		this.tileList.add(new MapTile("Forground", "Grass", 1, 21, 1));
+		this.tileList.add(new MapTile("Forground", "Dirt", 1, 1, 2));
 
 		try {
 			this.sheet = ImageIO.read(MapEditorWindow.class.getResourceAsStream("/spriteAssets/testSpriteSheet.png"));
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		this.spriteSheet = new SpriteSheetBuilder().withSheet(this.sheet).withColumns(28).withRows(18).build();
