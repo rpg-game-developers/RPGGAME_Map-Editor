@@ -10,6 +10,7 @@ import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
 import javax.swing.JPanel;
 
+import com.rpggame.mapeditor.controller.spritesheet.SpriteSheet;
 import com.rpggame.mapeditor.model.MapTile;
 
 public class TileSelectorGrid extends JPanel {
@@ -19,7 +20,7 @@ public class TileSelectorGrid extends JPanel {
 	private final int columns = 3;
 	private final int tileSize = 100;
 
-	public TileSelectorGrid(int parentWidth, List<MapTile> tileList) {
+	public TileSelectorGrid(int parentWidth, List<MapTile> tileList, SpriteSheet spriteSheet) {
 
 		this.setPreferredSize(new Dimension(parentWidth - 30, (tileSize - (3 * padding)) * tileList.size()));
 		this.setBackground(Color.orange);
@@ -37,14 +38,8 @@ public class TileSelectorGrid extends JPanel {
 			a.setBorder(BorderFactory.createEmptyBorder(padding, padding, padding, padding));
 			a.setLayout(new GridLayout(1, columns, padding, 0));
 			for (int j = 0; j < columns; j++) {
-				JPanel p = new JPanel();
-				p.setPreferredSize(new Dimension(tileSize, tileSize));
-				p.setMinimumSize(new Dimension(tileSize, tileSize));
-				p.setMaximumSize(new Dimension(tileSize, tileSize));
-				p.setBackground(Color.red);
-				p.setBorder(BorderFactory.createLineBorder(Color.black));
+				a.add(new SelectionTile(tileSize, tileList.get(index), spriteSheet));
 				index++;
-				a.add(p);
 			}
 			s.add(a);
 

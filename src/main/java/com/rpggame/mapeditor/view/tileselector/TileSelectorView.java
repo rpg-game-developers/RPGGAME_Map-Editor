@@ -10,13 +10,14 @@ import javax.swing.BoxLayout;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 
+import com.rpggame.mapeditor.controller.spritesheet.SpriteSheet;
 import com.rpggame.mapeditor.model.MapTile;
 
 public class TileSelectorView extends JPanel {
 
 	private static final long serialVersionUID = 1L;
 
-	public TileSelectorView(List<MapTile> tileList) {
+	public TileSelectorView(List<MapTile> tileList, SpriteSheet spriteSheet) {
 		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
 		int selectorViewWidth = screenSize.width / 5;
 		this.setPreferredSize(new Dimension(selectorViewWidth, screenSize.height));
@@ -26,7 +27,7 @@ public class TileSelectorView extends JPanel {
 
 		this.add(new TileSelectionHeader());
 
-		JScrollPane scroll = new JScrollPane(new TileSelectorGrid(selectorViewWidth, tileList));
+		JScrollPane scroll = new JScrollPane(new TileSelectorGrid(selectorViewWidth, tileList, spriteSheet));
 		this.setPreferredSize(new Dimension(screenSize.width / 5, screenSize.height));
 		this.add(scroll);
 

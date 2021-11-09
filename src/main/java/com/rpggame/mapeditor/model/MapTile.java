@@ -5,13 +5,15 @@ public class MapTile {
 	private String tileType;
 	private final String tileName;
 	private int level;
-	private final String imagePath;
+	private final int sheetRow;
+	private final int sheetColumn;
 
-	public MapTile(String tileType, String tileName, int level, String imagePath) {
+	public MapTile(String tileType, String tileName, int level, int sheetRow, int sheetColumn) {
 		this.tileType = tileType;
 		this.tileName = tileName;
 		this.level = level;
-		this.imagePath = imagePath;
+		this.sheetColumn = sheetColumn;
+		this.sheetRow = sheetRow;
 	}
 
 	public void setLevel(int level) {
@@ -34,8 +36,12 @@ public class MapTile {
 		return level;
 	}
 
-	public String getImagePath() {
-		return imagePath;
+	public int getSheetColumn() {
+		return sheetColumn;
+	}
+	
+	public int getSheetRow() {
+		return sheetRow;
 	}
 
 }

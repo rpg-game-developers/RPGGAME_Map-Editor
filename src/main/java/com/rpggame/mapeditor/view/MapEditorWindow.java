@@ -1,14 +1,17 @@
 package com.rpggame.mapeditor.view;
 
 import java.awt.BorderLayout;
-import java.awt.Color;
+import java.awt.image.BufferedImage;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 
+import javax.imageio.ImageIO;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
+import com.rpggame.mapeditor.controller.spritesheet.SpriteSheet;
+import com.rpggame.mapeditor.controller.spritesheet.SpriteSheetBuilder;
 import com.rpggame.mapeditor.model.MapTile;
 import com.rpggame.mapeditor.view.layerview.LayerPanelView;
 import com.rpggame.mapeditor.view.tileselector.TileSelectorView;
@@ -16,6 +19,8 @@ import com.rpggame.mapeditor.view.tileselector.TileSelectorView;
 public class MapEditorWindow {
 
 	private List<MapTile> tileList;
+	private BufferedImage sheet;
+	private SpriteSheet spriteSheet;
 
 	public MapEditorWindow() {
 		buildAndShowView();
@@ -32,12 +37,20 @@ public class MapEditorWindow {
 
 		// TODO outsource tileList creation
 		this.tileList = new ArrayList<>();
-	
-		this.tileList.add(new MapTile("Background", "Water", 0, "imgPath"));
-		this.tileList.add(new MapTile("Forground", "Grass", 1, "imgPath"));
-		this.tileList.add(new MapTile("Forground", "Dirt", 1, "imgPath"));
 
-		root.add(new TileSelectorView(this.tileList), BorderLayout.EAST);
+		this.tileList.add(new MapTile("Background", "Water", 0, 0, 3));
+		this.tileList.add(new MapTile("Forground", "Grass", 1, 0, 1));
+		this.tileList.add(new MapTile("Forground", "Dirt", 1, 0, 2));
+
+		try {
+			this.sheet = ImageIO.read(MapEditorWindow.class.getResourceAsStream("/spriteAssets/testSpriteSheet.png"));
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		this.spriteSheet = new SpriteSheetBuilder().withSheet(this.sheet).withColumns(28).withRows(18).build();
+
+		root.add(new TileSelectorView(this.tileList, this.spriteSheet), BorderLayout.EAST);
 		root.add(new MapEditingPanel(), BorderLayout.CENTER);
 		root.add(new LayerPanelView(tileList), BorderLayout.WEST);
 
