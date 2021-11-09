@@ -16,7 +16,7 @@ import com.rpggame.mapeditor.model.MapTile;
 public class SelectionTile extends JPanel {
 
 	private static final long serialVersionUID = 1L;
-	public static final int SPRITE_SIZE = 32; // TODO extract to file for static variables
+	public static final int SPRITE_SIZE = 16; // TODO extract to file for static variables
 
 	private BufferedImage spriteTile;
 	private int tileSize;
@@ -46,7 +46,7 @@ public class SelectionTile extends JPanel {
 					BufferedImage.TYPE_INT_ARGB_PRE);
 			AffineTransform at = new AffineTransform();
 			at.scale(sizeMultiplier, sizeMultiplier);
-			AffineTransformOp scaleOp = new AffineTransformOp(at, AffineTransformOp.TYPE_BILINEAR);
+			AffineTransformOp scaleOp = new AffineTransformOp(at, AffineTransformOp.TYPE_NEAREST_NEIGHBOR);
 			updatedTileImage = scaleOp.filter(spriteTile, updatedTileImage);
 			this.spriteTile = updatedTileImage;
 		}
