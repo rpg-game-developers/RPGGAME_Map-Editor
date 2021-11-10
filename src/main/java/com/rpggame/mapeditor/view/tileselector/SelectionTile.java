@@ -25,13 +25,11 @@ public class SelectionTile extends JPanel {
 
 		this.spriteTile = ImageHelper.getImageWithMultipliedSize(spriteTile,
 				(double) tileSize / (double) MapEditorConstants.TILE_SIZE);
-
 		this.revalidate();
 
 		this.setPreferredSize(new Dimension(tileSize, tileSize));
 		this.setMinimumSize(new Dimension(tileSize, tileSize));
 		this.setMaximumSize(new Dimension(tileSize, tileSize));
-		this.setBackground(Color.red);
 		this.setBorder(BorderFactory.createLineBorder(Color.black));
 
 	}

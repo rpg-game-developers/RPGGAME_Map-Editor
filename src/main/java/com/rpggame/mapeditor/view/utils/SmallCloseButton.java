@@ -9,8 +9,9 @@ public class SmallCloseButton extends JButton{
 
 	public SmallCloseButton() {
 		this.setText("x");
+		this.setFont(MapEditorConstants.REGULAR_FONT);
 		this.setForeground(MapEditorConstants.LIGHT_GRAY);
-		this.setBorder(BorderFactory.createEmptyBorder(5, 10, 5, 10));
+		this.setBorder(BorderFactory.createEmptyBorder(5, 15, 5, 15));
 		this.setBackground(MapEditorConstants.TRANSPARENT);
 	}
 	
