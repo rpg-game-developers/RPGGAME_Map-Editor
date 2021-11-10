@@ -3,19 +3,16 @@ package com.rpggame.mapeditor.view.layerview;
 import com.rpggame.mapeditor.controller.LayerPanelController;
 import com.rpggame.mapeditor.model.LayerRow;
 import com.rpggame.mapeditor.model.MapTile;
-import com.rpggame.mapeditor.view.MapEditorWindow;
 
-import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.util.List;
-import java.util.Objects;
 
 import static com.rpggame.mapeditor.constants.FrameVariables.FRAME_HEIGHT;
 import static com.rpggame.mapeditor.constants.FrameVariables.FRAME_WIDTH;
-import static com.rpggame.mapeditor.constants.MapEditorConstants.REGULAR_FONT;
 
 public class LayerPanelList extends JPanel {
 
@@ -27,13 +24,18 @@ public class LayerPanelList extends JPanel {
 			layersModel.addElement(new LayerRow(layer));
 		}
 		JList<LayerRow> layers = new JList<>(layersModel);
-		layers.setCellRenderer((list, value, index, isSelected, cellHasFocus) -> {
-			return new LayerPanelItem(layerPanelController, value.getTileName(), index);
-		});
+		layers.setCellRenderer((list, value, index, isSelected, cellHasFocus) ->
+				new LayerPanelItem(layerPanelController, value.getTileName(), index));
 		layers.setFixedCellHeight(FRAME_HEIGHT/20);
 		layers.setSelectionMode(ListSelectionModel.SINGLE_INTERVAL_SELECTION);
 		layers.setLayoutOrientation(JList.VERTICAL);
 		layers.setVisibleRowCount(-1);
+		layers.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent event) {
+				// TODO fix mouse adapter stuff
+			}
+		});
 		layers.addListSelectionListener(layerPanelController::onItemSelected);
 
 		JScrollPane layersScroller = new JScrollPane(layers);
