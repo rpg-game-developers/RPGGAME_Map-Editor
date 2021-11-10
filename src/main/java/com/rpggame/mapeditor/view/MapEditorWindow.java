@@ -17,6 +17,7 @@ import com.rpggame.mapeditor.controller.spritesheet.SpriteSheetBuilder;
 import com.rpggame.mapeditor.model.MapTile;
 import com.rpggame.mapeditor.view.layerview.LayerPanelView;
 import com.rpggame.mapeditor.view.tileselector.TileSelectorView;
+import com.rpggame.mapeditor.view.topbar.TopBarView;
 
 public class MapEditorWindow {
 
@@ -54,6 +55,23 @@ public class MapEditorWindow {
 		this.tileList.add(new MapTile("Background", "Water", 0, 1, 3));
 		this.tileList.add(new MapTile("Forground", "Grass", 1, 21, 1));
 		this.tileList.add(new MapTile("Forground", "Dirt", 1, 1, 2));
+		this.tileList.add(new MapTile("Background", "Water", 0, 2, 3));
+		this.tileList.add(new MapTile("Forground", "Grass", 1, 0, 1));
+		this.tileList.add(new MapTile("Forground", "Dirt", 1, 0, 2));
+		this.tileList.add(new MapTile("Background", "Water", 0, 5, 3));
+		this.tileList.add(new MapTile("Forground", "Grass", 1, 7, 1));
+		this.tileList.add(new MapTile("Forground", "Dirt", 1, 10, 2));
+		this.tileList.add(new MapTile("Background", "Water", 0, 1, 3));
+		this.tileList.add(new MapTile("Forground", "Grass", 1, 21, 1));
+		this.tileList.add(new MapTile("Forground", "Dirt", 1, 1, 2));
+		this.tileList.add(new MapTile("Forground", "Grass", 1, 7, 1));
+		this.tileList.add(new MapTile("Forground", "Dirt", 1, 10, 2));
+		this.tileList.add(new MapTile("Background", "Water", 0, 1, 3));
+		this.tileList.add(new MapTile("Forground", "Grass", 1, 21, 1));
+		this.tileList.add(new MapTile("Forground", "Dirt", 1, 1, 2));
+		this.tileList.add(new MapTile("Forground", "Dirt", 1, 10, 2));
+
+
 
 		try {
 			this.sheet = ImageIO.read(Objects.requireNonNull(MapEditorWindow.class.getResourceAsStream("/spriteAssets/testSpriteSheet.png")));

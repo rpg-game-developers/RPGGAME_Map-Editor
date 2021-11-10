@@ -1,5 +1,6 @@
 package com.rpggame.mapeditor.controller;
 
+import java.awt.event.ActionEvent;
 import java.util.List;
 
 import javax.swing.event.ListSelectionEvent;
@@ -21,5 +22,9 @@ public class LayerPanelController {
 		if (e.getValueIsAdjusting()) {
 			this.panelSettings.updatePanelContents(loadedMapTiles.get(e.getLastIndex()).getTileName());
 		}
+	}
+
+	public void visibilityButtonClick(ActionEvent e) {
+		System.out.println("test");
 	}
 }

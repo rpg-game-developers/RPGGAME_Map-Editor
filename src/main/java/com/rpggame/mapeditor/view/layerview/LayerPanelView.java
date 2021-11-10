@@ -19,7 +19,7 @@ public class LayerPanelView extends JPanel {
 	public LayerPanelView(List<MapTile> tileList) {
 
 		this.setBorder(BorderFactory.createMatteBorder(0,1,1,1, Color.black));
-		this.setPreferredSize(new Dimension(FRAME_WIDTH / 5, FRAME_HEIGHT));
+		this.setPreferredSize(new Dimension(FRAME_WIDTH / 5, (FRAME_HEIGHT)));
 
 		this.setLayout(new BorderLayout());
 
