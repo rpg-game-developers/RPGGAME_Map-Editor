@@ -34,7 +34,6 @@ public class MapEditorWindow {
 		frame.setResizable(false);
 		frame.pack();
 		frame.setVisible(true);
-		System.out.println(frame.getWidth());
 		FrameVariables.FRAME_WIDTH = frame.getWidth();
 		FrameVariables.FRAME_HEIGHT = frame.getHeight();
 		//frame.setSize(new Dimension(1920, 1080));
@@ -63,7 +62,7 @@ public class MapEditorWindow {
 		}
 		this.spriteSheet = new SpriteSheetBuilder().withSheet(this.sheet).withColumns(28).withRows(18).build();
 
-		root.add(new TileSelectorView(this.tileList, this.spriteSheet), BorderLayout.EAST);
+		root.add(new TileSelectorView(this.tileList, this.spriteSheet), BorderLayout.EAST); //TODO wrap tileSelector & HistoryView
 		root.add(new MapEditingPanel(), BorderLayout.CENTER);
 		root.add(new LayerPanelView(tileList), BorderLayout.WEST);
 
