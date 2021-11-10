@@ -1,10 +1,11 @@
 package com.rpggame.mapeditor.view;
 
-import java.awt.BorderLayout;
+import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 import javax.imageio.ImageIO;
 import javax.swing.JFrame;
@@ -28,15 +29,13 @@ public class MapEditorWindow {
 	}
 
 	public void buildAndShowView() {
-		JFrame frame = new JFrame();
+		JFrame frame = new JFrame("Map Editor");
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setExtendedState(frame.getExtendedState()|JFrame.MAXIMIZED_BOTH);
 		frame.setResizable(false);
-		frame.pack();
-		frame.setVisible(true);
-		System.out.println(frame.getWidth());
-		FrameVariables.FRAME_WIDTH = frame.getWidth();
-		FrameVariables.FRAME_HEIGHT = frame.getHeight();
+		Rectangle bounds = GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice().getDefaultConfiguration().getBounds();
+		FrameVariables.FRAME_WIDTH = bounds.width;
+		FrameVariables.FRAME_HEIGHT = bounds.height;
 		//frame.setSize(new Dimension(1920, 1080));
 		frame.setLocationRelativeTo(null);
 
@@ -57,12 +56,13 @@ public class MapEditorWindow {
 		this.tileList.add(new MapTile("Forground", "Dirt", 1, 1, 2));
 
 		try {
-			this.sheet = ImageIO.read(MapEditorWindow.class.getResourceAsStream("/spriteAssets/testSpriteSheet.png"));
+			this.sheet = ImageIO.read(Objects.requireNonNull(MapEditorWindow.class.getResourceAsStream("/spriteAssets/testSpriteSheet.png")));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 		this.spriteSheet = new SpriteSheetBuilder().withSheet(this.sheet).withColumns(26).withRows(18).build();
 
+		root.add(new TopBarView(), BorderLayout.NORTH);
 		root.add(new TileSelectorView(this.tileList, this.spriteSheet), BorderLayout.EAST);
 		root.add(new MapEditingPanel(), BorderLayout.CENTER);
 		root.add(new LayerPanelView(tileList), BorderLayout.WEST);

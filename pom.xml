@@ -6,4 +6,11 @@
   <properties>
     <maven.compiler.release>11</maven.compiler.release>
 </properties>
+  <dependencies>
+    <dependency>
+      <groupId>com.formdev</groupId>
+      <artifactId>flatlaf</artifactId>
+      <version>1.6.1</version>
+    </dependency>
+  </dependencies>
 </project>

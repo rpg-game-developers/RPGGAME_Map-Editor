@@ -19,8 +19,7 @@ import com.rpggame.mapeditor.model.MapTile;
 public class LayerPanelList extends JPanel {
 
 	public LayerPanelList(LayerPanelController layerPanelController, List<MapTile> loadedTiles) {
-		String[] layerTiles = loadedTiles.stream().map(MapTile::getTileName).collect(Collectors.toList())
-				.toArray(new String[0]);
+		String[] layerTiles = loadedTiles.stream().map(MapTile::getTileName).toArray(String[]::new);
 		this.setLayout(new FlowLayout(FlowLayout.LEFT));
 
 		/*
