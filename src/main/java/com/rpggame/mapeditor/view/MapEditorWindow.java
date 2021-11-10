@@ -1,6 +1,8 @@
 package com.rpggame.mapeditor.view;
 
-import java.awt.*;
+import java.awt.BorderLayout;
+import java.awt.GraphicsEnvironment;
+import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -33,9 +35,11 @@ public class MapEditorWindow {
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setExtendedState(frame.getExtendedState()|JFrame.MAXIMIZED_BOTH);
 		frame.setResizable(false);
+
 		Rectangle bounds = GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice().getDefaultConfiguration().getBounds();
 		FrameVariables.FRAME_WIDTH = bounds.width;
 		FrameVariables.FRAME_HEIGHT = bounds.height;
+
 		//frame.setSize(new Dimension(1920, 1080));
 		frame.setLocationRelativeTo(null);
 
@@ -61,6 +65,7 @@ public class MapEditorWindow {
 			e.printStackTrace();
 		}
 		this.spriteSheet = new SpriteSheetBuilder().withSheet(this.sheet).withColumns(26).withRows(18).build();
+
 
 		root.add(new TopBarView(), BorderLayout.NORTH);
 		root.add(new TileSelectorView(this.tileList, this.spriteSheet), BorderLayout.EAST);
