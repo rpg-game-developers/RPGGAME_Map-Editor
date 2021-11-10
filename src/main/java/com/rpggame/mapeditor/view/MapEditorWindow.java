@@ -18,6 +18,7 @@ import com.rpggame.mapeditor.constants.FrameVariables;
 import com.rpggame.mapeditor.controller.spritesheet.SpriteSheet;
 import com.rpggame.mapeditor.controller.spritesheet.SpriteSheetBuilder;
 import com.rpggame.mapeditor.model.MapTile;
+import com.rpggame.mapeditor.model.TileMap;
 import com.rpggame.mapeditor.view.history.HistoryView;
 import com.rpggame.mapeditor.view.layerview.LayerPanelView;
 import com.rpggame.mapeditor.view.tileselector.TileSelectorView;
@@ -89,6 +90,12 @@ public class MapEditorWindow {
 		}
 		this.spriteSheet = new SpriteSheetBuilder().withSheet(this.sheet).withColumns(26).withRows(18).build();
 
+		// tile map
+		MapEditingPanel mapEditingPanel = new MapEditingPanel();
+		TileMap tileMap = new TileMap(50, 50);
+		tileMap.setSpriteSheet(this.spriteSheet);
+		mapEditingPanel.addTileMap(tileMap);
+
 		root.add(new TopBarView(), BorderLayout.NORTH);
 
 		JPanel wrapperPanel = new JPanel();
@@ -96,7 +103,7 @@ public class MapEditorWindow {
 		wrapperPanel.add(new HistoryView(), BorderLayout.NORTH);
 		wrapperPanel.add(new TileSelectorView(this.tileList, this.spriteSheet), BorderLayout.CENTER);
 		root.add(wrapperPanel, BorderLayout.EAST);
-		root.add(new MapEditingPanel(), BorderLayout.CENTER);
+		root.add(mapEditingPanel, BorderLayout.CENTER);
 		root.add(new LayerPanelView(tileList), BorderLayout.WEST);
 
 		frame.add(root);
