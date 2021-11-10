@@ -6,6 +6,7 @@ import java.awt.Font;
 import java.awt.GridBagLayout;
 
 import javax.swing.BorderFactory;
+import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
@@ -31,6 +32,7 @@ public class TileSelectionHeader extends JPanel {
 
 		this.add(selectorLabel);
 
+		JButton button = new JButton();
 		
 		this.add(new SmallCloseButton());
 

@@ -33,7 +33,9 @@ public class LayerPanelList extends JPanel {
 			visibilityButton.addActionListener(layerPanelController::visibilityButtonClick);
 			try {
 				Image img = ImageIO.read(Objects.requireNonNull(MapEditorWindow.class.getResourceAsStream(
-						"/notvisible.png")));
+						"/icons/non-visible-eye-symbol-50.png")));
+//				Image img = ImageIO.read(Objects.requireNonNull(MapEditorWindow.class.getResourceAsStream(
+//						"/icons/eye-symbol-50.png")));
 				visibilityButton.setIcon(new ImageIcon(img));
 			} catch (Exception ex) {
 				ex.printStackTrace();
