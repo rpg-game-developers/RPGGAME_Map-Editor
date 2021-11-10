@@ -6,7 +6,6 @@ import java.awt.Font;
 import java.awt.GridBagLayout;
 
 import javax.swing.BorderFactory;
-import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
@@ -20,7 +19,7 @@ public class TileSelectionHeader extends JPanel {
 
 	public TileSelectionHeader() {
 		this.setBorder(BorderFactory.createEmptyBorder(500, 0, 10, 0));
-		//this.setBackground(MapEditorConstants.PRIMARY);
+		this.setBackground(MapEditorConstants.PRIMARY);
 		this.setLayout(new GridBagLayout());
 		this.setPreferredSize(new Dimension(FrameVariables.FRAME_WIDTH / 5, 100));
 
@@ -32,7 +31,6 @@ public class TileSelectionHeader extends JPanel {
 
 		this.add(selectorLabel);
 
-		JButton button = new JButton();
 		
 		this.add(new SmallCloseButton());
 

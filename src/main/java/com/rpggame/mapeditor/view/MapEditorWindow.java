@@ -42,6 +42,7 @@ public class MapEditorWindow {
 				.getDefaultConfiguration().getBounds();
 		FrameVariables.FRAME_WIDTH = bounds.width;
 		FrameVariables.FRAME_HEIGHT = bounds.height;
+		frame.setExtendedState(frame.getExtendedState() | JFrame.MAXIMIZED_BOTH);
 		frame.setSize(new Dimension(FrameVariables.FRAME_WIDTH, FrameVariables.FRAME_HEIGHT));
 
 		// frame.setSize(new Dimension(1920, 1080));

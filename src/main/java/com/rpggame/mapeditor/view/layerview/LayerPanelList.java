@@ -28,32 +28,7 @@ public class LayerPanelList extends JPanel {
 		}
 		JList<LayerRow> layers = new JList<>(layersModel);
 		layers.setCellRenderer((list, value, index, isSelected, cellHasFocus) -> {
-			JPanel layerPanel = new JPanel();
-			JButton visibilityButton = new JButton();
-			visibilityButton.addActionListener(layerPanelController::visibilityButtonClick);
-			try {
-				Image img = ImageIO.read(Objects.requireNonNull(MapEditorWindow.class.getResourceAsStream(
-						"/icons/non-visible-eye-symbol-50.png")));
-//				Image img = ImageIO.read(Objects.requireNonNull(MapEditorWindow.class.getResourceAsStream(
-//						"/icons/eye-symbol-50.png")));
-				visibilityButton.setIcon(new ImageIcon(img));
-			} catch (Exception ex) {
-				ex.printStackTrace();
-			}
-			layerPanel.setLayout(new BorderLayout());
-			layerPanel.setOpaque(false);
-			if(index == 0) { // checking if it's the first element
-				layerPanel.setBorder(BorderFactory.createMatteBorder(0,0,0,1, Color.black));
-			} else {
-				layerPanel.setBorder(BorderFactory.createMatteBorder(1, 0, 0, 1, Color.black));
-			}
-			JLabel tileName = new JLabel(value.getTileName());
-			tileName.setBorder(BorderFactory.createEmptyBorder(0,10,0,0));
-			tileName.setFont(REGULAR_FONT);
-			layerPanel.add(tileName, BorderLayout.WEST);
-			layerPanel.add(visibilityButton, BorderLayout.EAST);
-			layerPanel.setBackground(Color.lightGray);
-			return layerPanel;
+			return new LayerPanelItem(layerPanelController, value.getTileName(), index);
 		});
 		layers.setFixedCellHeight(FRAME_HEIGHT/20);
 		layers.setSelectionMode(ListSelectionModel.SINGLE_INTERVAL_SELECTION);
