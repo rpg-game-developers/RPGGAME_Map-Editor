@@ -55,30 +55,11 @@ public class MapEditorWindow {
 
 		// TODO outsource tileList creation
 		this.tileList = new ArrayList<>();
-		this.tileList.add(new Tile(2, 3));
-		this.tileList.add(new Tile(0, 1));
-		this.tileList.add(new Tile(0, 2));
-		this.tileList.add(new Tile(5, 3));
-		this.tileList.add(new Tile(7, 1));
-		this.tileList.add(new Tile(10, 2));
-		this.tileList.add(new Tile(1, 3));
-		this.tileList.add(new Tile(21, 1));
-		this.tileList.add(new Tile(1, 2));
-		this.tileList.add(new Tile(2, 3));
-		this.tileList.add(new Tile(0, 1));
-		this.tileList.add(new Tile(0, 2));
-		this.tileList.add(new Tile(5, 3));
-		this.tileList.add(new Tile(7, 1));
-		this.tileList.add(new Tile(10, 2));
-		this.tileList.add(new Tile(1, 3));
-		this.tileList.add(new Tile(21, 1));
-		this.tileList.add(new Tile(1, 2));
-		this.tileList.add(new Tile(7, 1));
-		this.tileList.add(new Tile(10, 2));
-		this.tileList.add(new Tile(1, 3));
-		this.tileList.add(new Tile(21, 1));
-		this.tileList.add(new Tile(1, 2));
-		this.tileList.add(new Tile(10, 2));
+		for (int i=0; i<18; i++) {
+			for (int j=0; j<26; j++) {
+				this.tileList.add(new Tile(i, j));
+			}
+		}
 
 		try {
 			this.sheet = ImageIO.read(Objects
