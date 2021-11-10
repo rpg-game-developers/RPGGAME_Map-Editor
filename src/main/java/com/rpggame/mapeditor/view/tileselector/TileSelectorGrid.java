@@ -24,10 +24,8 @@ public class TileSelectorGrid extends JPanel {
 	private int columns = 0;
 	private final int tileSize = TILE_SIZE * 4;
 
-		
-		columns = parentWidth / 68;
 	public TileSelectorGrid(int parentWidth, List<Tile> tileList, SpriteSheet spriteSheet) {
-
+		columns = parentWidth / 68;
 		this.setPreferredSize(new Dimension(parentWidth - 30, (tileSize - (columns * padding)) * tileList.size()));
 		this.setLayout(new BorderLayout());
 		Tile[][] mapTiles = new Tile[columns][tileList.size()];
@@ -45,22 +43,20 @@ public class TileSelectorGrid extends JPanel {
 			rowCount++;
 
 		}
-		
-		
-		
+
 		final DefaultTableModel model = new DefaultTableModel(mapTiles,
 				IntStream.range(0, columns).mapToObj(e -> "").toArray(String[]::new)) {
 
 			private static final long serialVersionUID = 1L;
-			
+
 			@Override
 			public Class<?> getColumnClass(int columnIndex) {
 				return Tile.class;
 			}
-			
+
 		};
 		final DefaultTableCellRenderer renderer = new DefaultTableCellRenderer() {
-			
+
 			@Override
 			public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected,
 					boolean hasFocus, int row, int column) {
