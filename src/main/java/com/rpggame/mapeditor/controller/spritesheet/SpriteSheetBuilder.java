@@ -1,8 +1,8 @@
 package com.rpggame.mapeditor.controller.spritesheet;
 
-import java.awt.image.BufferedImage;
+import static com.rpggame.mapeditor.constants.MapEditorConstants.TILE_SIZE;
 
-import com.rpggame.mapeditor.view.tileselector.SelectionTile;
+import java.awt.image.BufferedImage;
 
 public class SpriteSheetBuilder {
 
@@ -61,8 +61,7 @@ public class SpriteSheetBuilder {
 		BufferedImage[][] sprites = new BufferedImage[cols][rows];
 		for (int x = 0; x < cols; x++) {
 			for (int y = 0; y < rows; y++) {
-				sprites[x][y] = sheet.getSubimage(x * SelectionTile.SPRITE_SIZE, y * SelectionTile.SPRITE_SIZE,
-						SelectionTile.SPRITE_SIZE, SelectionTile.SPRITE_SIZE);
+				sprites[x][y] = sheet.getSubimage(x * TILE_SIZE, y * TILE_SIZE, TILE_SIZE, TILE_SIZE);
 			}
 		}
 

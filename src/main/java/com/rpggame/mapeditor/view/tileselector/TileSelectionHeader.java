@@ -6,20 +6,20 @@ import java.awt.Font;
 import java.awt.GridBagLayout;
 
 import javax.swing.BorderFactory;
-import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import com.rpggame.mapeditor.constants.FrameVariables;
 import com.rpggame.mapeditor.constants.MapEditorConstants;
+import com.rpggame.mapeditor.view.utils.SmallCloseButton;
 
 public class TileSelectionHeader extends JPanel {
 
 	private static final long serialVersionUID = 1L;
 
 	public TileSelectionHeader() {
-		this.setBorder(BorderFactory.createEmptyBorder(15, 0, 10, 0));
-		this.setBackground(MapEditorConstants.PRIMARY);
+		this.setBorder(BorderFactory.createEmptyBorder(500, 0, 10, 0));
+		//this.setBackground(MapEditorConstants.PRIMARY);
 		this.setLayout(new GridBagLayout());
 		this.setPreferredSize(new Dimension(FrameVariables.FRAME_WIDTH / 5, 100));
 
@@ -31,14 +31,8 @@ public class TileSelectionHeader extends JPanel {
 
 		this.add(selectorLabel);
 
-		// Close button
-
-		JButton closeButton = new JButton("x");
-		closeButton.setForeground(MapEditorConstants.LIGHT_GRAY);
-		closeButton.setBorder(BorderFactory.createEmptyBorder(5, 10, 5, 10));
-		closeButton.setBackground(MapEditorConstants.TRANSPARENT);
 		
-		this.add(closeButton);
+		this.add(new SmallCloseButton());
 
 	}
 

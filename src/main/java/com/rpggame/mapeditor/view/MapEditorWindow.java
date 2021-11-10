@@ -1,6 +1,7 @@
 package com.rpggame.mapeditor.view;
 
 import java.awt.BorderLayout;
+import java.awt.Dimension;
 import java.awt.GraphicsEnvironment;
 import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
@@ -17,6 +18,7 @@ import com.rpggame.mapeditor.constants.FrameVariables;
 import com.rpggame.mapeditor.controller.spritesheet.SpriteSheet;
 import com.rpggame.mapeditor.controller.spritesheet.SpriteSheetBuilder;
 import com.rpggame.mapeditor.model.MapTile;
+import com.rpggame.mapeditor.view.history.HistoryView;
 import com.rpggame.mapeditor.view.layerview.LayerPanelView;
 import com.rpggame.mapeditor.view.tileselector.TileSelectorView;
 
@@ -33,14 +35,15 @@ public class MapEditorWindow {
 	public void buildAndShowView() {
 		JFrame frame = new JFrame("Map Editor");
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.setExtendedState(frame.getExtendedState()|JFrame.MAXIMIZED_BOTH);
 		frame.setResizable(false);
 
-		Rectangle bounds = GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice().getDefaultConfiguration().getBounds();
+		Rectangle bounds = GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice()
+				.getDefaultConfiguration().getBounds();
 		FrameVariables.FRAME_WIDTH = bounds.width;
 		FrameVariables.FRAME_HEIGHT = bounds.height;
+		frame.setSize(new Dimension(FrameVariables.FRAME_WIDTH, FrameVariables.FRAME_HEIGHT));
 
-		//frame.setSize(new Dimension(1920, 1080));
+		// frame.setSize(new Dimension(1920, 1080));
 		frame.setLocationRelativeTo(null);
 
 		JPanel root = new JPanel();
@@ -60,15 +63,20 @@ public class MapEditorWindow {
 		this.tileList.add(new MapTile("Forground", "Dirt", 1, 1, 2));
 
 		try {
-			this.sheet = ImageIO.read(Objects.requireNonNull(MapEditorWindow.class.getResourceAsStream("/spriteAssets/testSpriteSheet.png")));
+			this.sheet = ImageIO.read(Objects
+					.requireNonNull(MapEditorWindow.class.getResourceAsStream("/spriteAssets/testSpriteSheet.png")));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 		this.spriteSheet = new SpriteSheetBuilder().withSheet(this.sheet).withColumns(26).withRows(18).build();
 
-
 		root.add(new TopBarView(), BorderLayout.NORTH);
-		root.add(new TileSelectorView(this.tileList, this.spriteSheet), BorderLayout.EAST);
+
+		JPanel wrapperPanel = new JPanel();
+		wrapperPanel.setLayout(new BorderLayout());
+		wrapperPanel.add(new HistoryView(), BorderLayout.NORTH);
+		wrapperPanel.add(new TileSelectorView(this.tileList, this.spriteSheet), BorderLayout.CENTER);
+		root.add(wrapperPanel, BorderLayout.EAST);
 		root.add(new MapEditingPanel(), BorderLayout.CENTER);
 		root.add(new LayerPanelView(tileList), BorderLayout.WEST);
 
