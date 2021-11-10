@@ -22,7 +22,7 @@ public class TileSelectorView extends JPanel {
 	public TileSelectorView(List<MapTile> tileList, SpriteSheet spriteSheet) {
 		int selectorViewWidth = FRAME_WIDTH / 5;
 		this.setPreferredSize(new Dimension(selectorViewWidth, FRAME_HEIGHT));
-		this.setBorder(BorderFactory.createLineBorder(Color.black));
+		this.setBorder(BorderFactory.createMatteBorder(0,1,1,1, Color.black));
 
 		this.setLayout(new BoxLayout(this, BoxLayout.PAGE_AXIS));
 
