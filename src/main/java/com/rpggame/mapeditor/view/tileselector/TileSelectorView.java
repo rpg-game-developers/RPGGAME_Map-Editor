@@ -14,13 +14,13 @@ import javax.swing.JScrollPane;
 import javax.swing.border.CompoundBorder;
 
 import com.rpggame.mapeditor.controller.spritesheet.SpriteSheet;
-import com.rpggame.mapeditor.model.MapTile;
+import com.rpggame.mapeditor.model.Tile;
 
 public class TileSelectorView extends JPanel {
 
 	private static final long serialVersionUID = 1L;
 
-	public TileSelectorView(List<MapTile> tileList, SpriteSheet spriteSheet) {
+	public TileSelectorView(List<Tile> tileList, SpriteSheet spriteSheet) {
 		int selectorViewWidth = FRAME_WIDTH / 5;
 		this.setPreferredSize(new Dimension(selectorViewWidth, FRAME_HEIGHT));
 		this.setBorder(new CompoundBorder(BorderFactory.createEmptyBorder(0, 0, 25, 15),

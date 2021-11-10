@@ -2,7 +2,8 @@ package com.rpggame.mapeditor.view.layerview;
 
 import com.rpggame.mapeditor.controller.LayerPanelController;
 import com.rpggame.mapeditor.model.LayerRow;
-import com.rpggame.mapeditor.model.MapTile;
+import com.rpggame.mapeditor.model.Tile;
+import com.rpggame.mapeditor.model.TileMap;
 
 import javax.swing.*;
 import java.awt.*;
@@ -18,9 +19,9 @@ import static com.rpggame.mapeditor.constants.FrameVariables.FRAME_WIDTH;
 
 public class LayerPanelList extends JPanel {
 
-	public LayerPanelList(LayerPanelController layerPanelController, List<MapTile> loadedTiles) {
+	public LayerPanelList(LayerPanelController layerPanelController, List<TileMap> loadedMaps) {
 		List<LayerPanelItem> layerPanels = new ArrayList<>();
-		String[] layerTiles = loadedTiles.stream().map(MapTile::getTileName).toArray(String[]::new);
+		String[] layerTiles = loadedMaps.stream().map(TileMap::getName).toArray(String[]::new);
 		this.setLayout(new BorderLayout());
 		DefaultListModel<LayerRow> layersModel = new DefaultListModel<>();
 		for(String layer : layerTiles) {

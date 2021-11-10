@@ -10,7 +10,7 @@ import javax.swing.JPanel;
 
 import com.rpggame.mapeditor.constants.MapEditorConstants;
 import com.rpggame.mapeditor.controller.spritesheet.SpriteSheet;
-import com.rpggame.mapeditor.model.MapTile;
+import com.rpggame.mapeditor.model.Tile;
 import com.rpggame.mapeditor.utils.ImageHelper;
 
 public class SelectionTile extends JPanel {
@@ -19,7 +19,7 @@ public class SelectionTile extends JPanel {
 
 	private BufferedImage spriteTile;
 
-	public SelectionTile(int tileSize, MapTile tile, SpriteSheet spriteSheet) {
+	public SelectionTile(int tileSize, Tile tile, SpriteSheet spriteSheet) {
 
 		this.spriteTile = spriteSheet.getSpriteAt(tile.getSheetColumn(), tile.getSheetRow());
 

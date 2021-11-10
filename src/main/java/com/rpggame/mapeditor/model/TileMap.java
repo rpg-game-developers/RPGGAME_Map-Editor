@@ -5,7 +5,7 @@ import com.rpggame.mapeditor.controller.spritesheet.SpriteSheet;
 import java.awt.image.BufferedImage;
 
 public class TileMap {
-    private final MapTile[][] tiles;
+    private final Tile[][] tiles;
     private final int width;
     private final int height;
     private String type;
@@ -14,14 +14,14 @@ public class TileMap {
     private SpriteSheet spriteSheet;
 
 
-    public TileMap(int width, int height) {
-        this.tiles = new MapTile[width][height];
+    public TileMap(String name, SpriteSheet spriteSheet, int width, int height) {
+        this.spriteSheet = spriteSheet;
         this.width = width;
         this.height = height;
         this.level = 0;
-        this.name = "";
+        this.name = name;
         this.type = "";
-
+        this.tiles = new Tile[width][height];
         for (int i=0; i<width; i++) {
             for (int j=0; j<height; j++) {
                 this.tiles[i][j] = null;
@@ -69,16 +69,16 @@ public class TileMap {
         this.spriteSheet = spriteSheet;
     }
 
-    public void setTile(int column, int row, MapTile tile) {
+    public void setTile(int column, int row, Tile tile) {
         tiles[column][row] = tile;
     }
 
-    public MapTile getTile(int column, int row) {
+    public Tile getTile(int column, int row) {
         return tiles[column][row];
     }
 
     public BufferedImage getSpriteAt(int column, int row) {
-        MapTile tile = tiles[column][row];
+        Tile tile = tiles[column][row];
         return spriteSheet.getSpriteAt(tile.getSheetRow(), tile.getSheetColumn());
     }
 }

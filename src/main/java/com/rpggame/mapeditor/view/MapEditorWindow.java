@@ -17,7 +17,7 @@ import javax.swing.JPanel;
 import com.rpggame.mapeditor.constants.FrameVariables;
 import com.rpggame.mapeditor.controller.spritesheet.SpriteSheet;
 import com.rpggame.mapeditor.controller.spritesheet.SpriteSheetBuilder;
-import com.rpggame.mapeditor.model.MapTile;
+import com.rpggame.mapeditor.model.Tile;
 import com.rpggame.mapeditor.model.TileMap;
 import com.rpggame.mapeditor.view.history.HistoryView;
 import com.rpggame.mapeditor.view.layerview.LayerPanelView;
@@ -26,7 +26,8 @@ import com.rpggame.mapeditor.view.topbar.TopBarView;
 
 public class MapEditorWindow {
 
-	private List<MapTile> tileList;
+	private List<Tile> tileList;
+	private List<TileMap> tileMapList;
 	private BufferedImage sheet;
 	private SpriteSheet spriteSheet;
 
@@ -54,33 +55,30 @@ public class MapEditorWindow {
 
 		// TODO outsource tileList creation
 		this.tileList = new ArrayList<>();
-
-		this.tileList.add(new MapTile("Background", "Water", 0, 2, 3));
-		this.tileList.add(new MapTile("Forground", "Grass", 1, 0, 1));
-		this.tileList.add(new MapTile("Forground", "Dirt", 1, 0, 2));
-		this.tileList.add(new MapTile("Background", "Water", 0, 5, 3));
-		this.tileList.add(new MapTile("Forground", "Grass", 1, 7, 1));
-		this.tileList.add(new MapTile("Forground", "Dirt", 1, 10, 2));
-		this.tileList.add(new MapTile("Background", "Water", 0, 1, 3));
-		this.tileList.add(new MapTile("Forground", "Grass", 1, 21, 1));
-		this.tileList.add(new MapTile("Forground", "Dirt", 1, 1, 2));
-		this.tileList.add(new MapTile("Background", "Water", 0, 2, 3));
-		this.tileList.add(new MapTile("Forground", "Grass", 1, 0, 1));
-		this.tileList.add(new MapTile("Forground", "Dirt", 1, 0, 2));
-		this.tileList.add(new MapTile("Background", "Water", 0, 5, 3));
-		this.tileList.add(new MapTile("Forground", "Grass", 1, 7, 1));
-		this.tileList.add(new MapTile("Forground", "Dirt", 1, 10, 2));
-		this.tileList.add(new MapTile("Background", "Water", 0, 1, 3));
-		this.tileList.add(new MapTile("Forground", "Grass", 1, 21, 1));
-		this.tileList.add(new MapTile("Forground", "Dirt", 1, 1, 2));
-		this.tileList.add(new MapTile("Forground", "Grass", 1, 7, 1));
-		this.tileList.add(new MapTile("Forground", "Dirt", 1, 10, 2));
-		this.tileList.add(new MapTile("Background", "Water", 0, 1, 3));
-		this.tileList.add(new MapTile("Forground", "Grass", 1, 21, 1));
-		this.tileList.add(new MapTile("Forground", "Dirt", 1, 1, 2));
-		this.tileList.add(new MapTile("Forground", "Dirt", 1, 10, 2));
-
-
+		this.tileList.add(new Tile(2, 3));
+		this.tileList.add(new Tile(0, 1));
+		this.tileList.add(new Tile(0, 2));
+		this.tileList.add(new Tile(5, 3));
+		this.tileList.add(new Tile(7, 1));
+		this.tileList.add(new Tile(10, 2));
+		this.tileList.add(new Tile(1, 3));
+		this.tileList.add(new Tile(21, 1));
+		this.tileList.add(new Tile(1, 2));
+		this.tileList.add(new Tile(2, 3));
+		this.tileList.add(new Tile(0, 1));
+		this.tileList.add(new Tile(0, 2));
+		this.tileList.add(new Tile(5, 3));
+		this.tileList.add(new Tile(7, 1));
+		this.tileList.add(new Tile(10, 2));
+		this.tileList.add(new Tile(1, 3));
+		this.tileList.add(new Tile(21, 1));
+		this.tileList.add(new Tile(1, 2));
+		this.tileList.add(new Tile(7, 1));
+		this.tileList.add(new Tile(10, 2));
+		this.tileList.add(new Tile(1, 3));
+		this.tileList.add(new Tile(21, 1));
+		this.tileList.add(new Tile(1, 2));
+		this.tileList.add(new Tile(10, 2));
 
 		try {
 			this.sheet = ImageIO.read(Objects
@@ -90,11 +88,11 @@ public class MapEditorWindow {
 		}
 		this.spriteSheet = new SpriteSheetBuilder().withSheet(this.sheet).withColumns(26).withRows(18).build();
 
+		this.tileMapList = new ArrayList<TileMap>();
+		this.tileMapList.add(new TileMap("water", this.spriteSheet, 100, 100));
+
 		// tile map
-		MapEditingPanel mapEditingPanel = new MapEditingPanel();
-		TileMap tileMap = new TileMap(50, 50);
-		tileMap.setSpriteSheet(this.spriteSheet);
-		mapEditingPanel.addTileMap(tileMap);
+		MapEditingPanel mapEditingPanel = new MapEditingPanel(this.tileMapList);
 
 		root.add(new TopBarView(), BorderLayout.NORTH);
 
@@ -104,7 +102,7 @@ public class MapEditorWindow {
 		wrapperPanel.add(new TileSelectorView(this.tileList, this.spriteSheet), BorderLayout.CENTER);
 		root.add(wrapperPanel, BorderLayout.EAST);
 		root.add(mapEditingPanel, BorderLayout.CENTER);
-		root.add(new LayerPanelView(tileList), BorderLayout.WEST);
+		root.add(new LayerPanelView(tileMapList), BorderLayout.WEST);
 
 		frame.add(root);
 		frame.setVisible(true);
