@@ -1,7 +1,6 @@
 package com.rpggame.mapeditor.view;
 
 import java.awt.BorderLayout;
-import java.awt.Dimension;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -11,6 +10,7 @@ import javax.imageio.ImageIO;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
+import com.rpggame.mapeditor.constants.FrameVariables;
 import com.rpggame.mapeditor.controller.spritesheet.SpriteSheet;
 import com.rpggame.mapeditor.controller.spritesheet.SpriteSheetBuilder;
 import com.rpggame.mapeditor.model.MapTile;
@@ -30,7 +30,13 @@ public class MapEditorWindow {
 	public void buildAndShowView() {
 		JFrame frame = new JFrame();
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
+		frame.setExtendedState(frame.getExtendedState()|JFrame.MAXIMIZED_BOTH);
+		frame.setResizable(false);
+		frame.pack();
+		frame.setVisible(true);
+		System.out.println(frame.getWidth());
+		FrameVariables.FRAME_WIDTH = frame.getWidth();
+		FrameVariables.FRAME_HEIGHT = frame.getHeight();
 		//frame.setSize(new Dimension(1920, 1080));
 		frame.setLocationRelativeTo(null);
 

@@ -1,9 +1,11 @@
 package com.rpggame.mapeditor.view.layerview;
 
+import static com.rpggame.mapeditor.constants.FrameVariables.FRAME_HEIGHT;
+import static com.rpggame.mapeditor.constants.FrameVariables.FRAME_WIDTH;
+
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
-import java.awt.Toolkit;
 import java.util.List;
 
 import javax.swing.BorderFactory;
@@ -16,9 +18,8 @@ public class LayerPanelView extends JPanel {
 
 	public LayerPanelView(List<MapTile> tileList) {
 
-		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
 		this.setBorder(BorderFactory.createLineBorder(Color.black));
-		this.setPreferredSize(new Dimension(screenSize.width / 5, screenSize.height));
+		this.setPreferredSize(new Dimension(FRAME_WIDTH / 5, FRAME_HEIGHT));
 
 		this.setLayout(new BorderLayout());
 

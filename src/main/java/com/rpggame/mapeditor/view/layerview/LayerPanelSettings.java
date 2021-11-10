@@ -1,9 +1,10 @@
 package com.rpggame.mapeditor.view.layerview;
 
+import static com.rpggame.mapeditor.constants.FrameVariables.FRAME_HEIGHT;
+
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.GridLayout;
-import java.awt.Toolkit;
 
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
@@ -16,9 +17,7 @@ public class LayerPanelSettings extends JPanel {
 	private int panelHeight = 200;
 
 	public LayerPanelSettings() {
-		// TODO Pass screenSize as a parameter to all the different classes
-		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-		this.setLayout(new GridLayout(4, 2, screenSize.height / 10, 0));
+		this.setLayout(new GridLayout(4, 2, FRAME_HEIGHT / 10, 0));
 		this.setBorder(BorderFactory.createLineBorder(Color.black));
 		this.setVisible(false);
 	}

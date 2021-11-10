@@ -1,8 +1,10 @@
 package com.rpggame.mapeditor.view.layerview;
 
+import static com.rpggame.mapeditor.constants.FrameVariables.FRAME_HEIGHT;
+import static com.rpggame.mapeditor.constants.FrameVariables.FRAME_WIDTH;
+
 import java.awt.Dimension;
 import java.awt.FlowLayout;
-import java.awt.Toolkit;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -17,20 +19,18 @@ import com.rpggame.mapeditor.model.MapTile;
 public class LayerPanelList extends JPanel {
 
 	public LayerPanelList(LayerPanelController layerPanelController, List<MapTile> loadedTiles) {
-		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-		String[] layerTiles = loadedTiles.stream().map(MapTile::getTileName).collect(Collectors.toList()).toArray(new String[0]);
+		String[] layerTiles = loadedTiles.stream().map(MapTile::getTileName).collect(Collectors.toList())
+				.toArray(new String[0]);
 		this.setLayout(new FlowLayout(FlowLayout.LEFT));
 
 		/*
-		 * WRAP ALL OF IT WITH JSCROLLPAINER :)
-		 * You need a JPanel with BoxLayout(this = container) this.setLayout(new
-		 * BoxLayout(this, BoxLayout.PAGE_AXIS))
+		 * WRAP ALL OF IT WITH JSCROLLPAINER :) You need a JPanel with BoxLayout(this =
+		 * container) this.setLayout(new BoxLayout(this, BoxLayout.PAGE_AXIS))
 		 * 
 		 * WHAT MY SLAVE HAS TO DO
 		 * 
-		 * make nice color
-		 * add some colorized circle infront of text
-		 * add a placeholder at the end (for visibility setting shit) :)
+		 * make nice color add some colorized circle infront of text add a placeholder
+		 * at the end (for visibility setting shit) :)
 		 */
 
 		JList<String> layers = new JList<>(layerTiles);
@@ -40,7 +40,7 @@ public class LayerPanelList extends JPanel {
 		layers.addListSelectionListener(layerPanelController::onItemSelected);
 
 		JScrollPane layersScroller = new JScrollPane(layers);
-		layersScroller.setPreferredSize(new Dimension(screenSize.width / 5, screenSize.height / 2));
+		layersScroller.setPreferredSize(new Dimension(FRAME_WIDTH / 5, FRAME_HEIGHT / 2));
 		this.add(layersScroller);
 	}
 

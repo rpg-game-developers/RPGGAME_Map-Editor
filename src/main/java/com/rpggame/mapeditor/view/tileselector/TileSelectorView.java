@@ -1,8 +1,10 @@
 package com.rpggame.mapeditor.view.tileselector;
 
+import static com.rpggame.mapeditor.constants.FrameVariables.FRAME_HEIGHT;
+import static com.rpggame.mapeditor.constants.FrameVariables.FRAME_WIDTH;
+
 import java.awt.Color;
 import java.awt.Dimension;
-import java.awt.Toolkit;
 import java.util.List;
 
 import javax.swing.BorderFactory;
@@ -18,9 +20,8 @@ public class TileSelectorView extends JPanel {
 	private static final long serialVersionUID = 1L;
 
 	public TileSelectorView(List<MapTile> tileList, SpriteSheet spriteSheet) {
-		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-		int selectorViewWidth = screenSize.width / 5;
-		this.setPreferredSize(new Dimension(selectorViewWidth, screenSize.height));
+		int selectorViewWidth = FRAME_WIDTH / 5;
+		this.setPreferredSize(new Dimension(selectorViewWidth, FRAME_HEIGHT));
 		this.setBorder(BorderFactory.createLineBorder(Color.black));
 
 		this.setLayout(new BoxLayout(this, BoxLayout.PAGE_AXIS));
@@ -28,7 +29,7 @@ public class TileSelectorView extends JPanel {
 		this.add(new TileSelectionHeader());
 
 		JScrollPane scroll = new JScrollPane(new TileSelectorGrid(selectorViewWidth, tileList, spriteSheet));
-		this.setPreferredSize(new Dimension(screenSize.width / 5, screenSize.height));
+		this.setPreferredSize(new Dimension(FRAME_WIDTH / 5, FRAME_HEIGHT));
 		this.add(scroll);
 
 	}
