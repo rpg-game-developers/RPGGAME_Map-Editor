@@ -15,12 +15,14 @@ import javax.swing.table.DefaultTableModel;
 import com.rpggame.mapeditor.controller.spritesheet.SpriteSheet;
 import com.rpggame.mapeditor.model.MapTile;
 
+import static com.rpggame.mapeditor.constants.MapEditorConstants.TILE_SIZE;
+
 public class TileSelectorGrid extends JPanel {
 
 	private static final long serialVersionUID = 1L;
 	private final int padding = 10;
-	private final int columns = 6;
-	private final int tileSize = 100;
+	private final int columns = 5;
+	private final int tileSize = TILE_SIZE * 4;
 
 	public TileSelectorGrid(int parentWidth, List<MapTile> tileList, SpriteSheet spriteSheet) {
 
@@ -66,16 +68,16 @@ public class TileSelectorGrid extends JPanel {
 
 		final JTable selection = new JTable(model);
 		selection.setRowMargin(5);
-		selection.setRowHeight(64);
+		selection.setRowHeight(tileSize + 5);
 		selection.setShowGrid(false);
 		selection.setTableHeader(null);
 		selection.getColumnModel().setColumnMargin(5);
 		IntStream.range(0, selection.getColumnCount())
-				.forEach(e -> selection.getColumnModel().getColumn(e).setMaxWidth(64));
+				.forEach(e -> selection.getColumnModel().getColumn(e).setMaxWidth(tileSize + 5));
 		selection.setDefaultRenderer(MapTile.class, renderer);
 
 		final JScrollPane rightSelectionList = new JScrollPane(selection);
-		rightSelectionList.setMaximumSize(new Dimension(64 * columns, 10000));
+		rightSelectionList.setMaximumSize(new Dimension((tileSize + 5) * columns, 10000));
 		// this.add(s);
 		this.add(rightSelectionList);
 	}

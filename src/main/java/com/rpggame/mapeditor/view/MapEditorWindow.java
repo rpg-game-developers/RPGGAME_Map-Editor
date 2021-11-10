@@ -61,7 +61,7 @@ public class MapEditorWindow {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		this.spriteSheet = new SpriteSheetBuilder().withSheet(this.sheet).withColumns(28).withRows(18).build();
+		this.spriteSheet = new SpriteSheetBuilder().withSheet(this.sheet).withColumns(26).withRows(18).build();
 
 		root.add(new TileSelectorView(this.tileList, this.spriteSheet), BorderLayout.EAST);
 		root.add(new MapEditingPanel(), BorderLayout.CENTER);
