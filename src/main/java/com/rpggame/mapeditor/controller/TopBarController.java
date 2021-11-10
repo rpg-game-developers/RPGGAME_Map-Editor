@@ -1,5 +1,7 @@
 package com.rpggame.mapeditor.controller;
 
+import com.rpggame.mapeditor.view.topbar.AboutDialog;
+
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 
@@ -17,6 +19,6 @@ public class TopBarController {
 	}
 
 	public void aboutItemSelected(ActionEvent e) {
-
+		new AboutDialog();
 	}
 }

@@ -1,4 +1,4 @@
-package com.rpggame.mapeditor.view;
+package com.rpggame.mapeditor.view.topbar;
 
 import com.rpggame.mapeditor.controller.TopBarController;
 
