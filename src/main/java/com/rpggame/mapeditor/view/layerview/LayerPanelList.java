@@ -2,25 +2,26 @@ package com.rpggame.mapeditor.view.layerview;
 
 import com.rpggame.mapeditor.controller.LayerPanelController;
 import com.rpggame.mapeditor.model.LayerRow;
-import com.rpggame.mapeditor.model.MapTile;
-import com.rpggame.mapeditor.view.MapEditorWindow;
+import com.rpggame.mapeditor.model.Tile;
+import com.rpggame.mapeditor.model.TileMap;
 
-import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
-import java.util.Objects;
+import java.util.stream.Collectors;
 
 import static com.rpggame.mapeditor.constants.FrameVariables.FRAME_HEIGHT;
 import static com.rpggame.mapeditor.constants.FrameVariables.FRAME_WIDTH;
-import static com.rpggame.mapeditor.constants.MapEditorConstants.REGULAR_FONT;
 
 public class LayerPanelList extends JPanel {
 
-	public LayerPanelList(LayerPanelController layerPanelController, List<MapTile> loadedTiles) {
-		String[] layerTiles = loadedTiles.stream().map(MapTile::getTileName).toArray(String[]::new);
+	public LayerPanelList(LayerPanelController layerPanelController, List<TileMap> loadedMaps) {
+		List<LayerPanelItem> layerPanels = new ArrayList<>();
+		String[] layerTiles = loadedMaps.stream().map(TileMap::getName).toArray(String[]::new);
 		this.setLayout(new BorderLayout());
 		DefaultListModel<LayerRow> layersModel = new DefaultListModel<>();
 		for(String layer : layerTiles) {
@@ -28,12 +29,24 @@ public class LayerPanelList extends JPanel {
 		}
 		JList<LayerRow> layers = new JList<>(layersModel);
 		layers.setCellRenderer((list, value, index, isSelected, cellHasFocus) -> {
-			return new LayerPanelItem(layerPanelController, value.getTileName(), index);
+			LayerPanelItem layerPanelItem = new LayerPanelItem(layerPanelController, value.getTileName(), index);
+			layerPanels.add(layerPanelItem);
+			return layerPanelItem;
 		});
 		layers.setFixedCellHeight(FRAME_HEIGHT/20);
 		layers.setSelectionMode(ListSelectionModel.SINGLE_INTERVAL_SELECTION);
 		layers.setLayoutOrientation(JList.VERTICAL);
 		layers.setVisibleRowCount(-1);
+		layers.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent event) {
+				int index = layers.locationToIndex(event.getPoint());
+				List<Component> components = Arrays.stream(layerPanels.get(index).getComponents()).
+						filter(component -> component instanceof JButton).collect(Collectors.toList());
+				JButton button = (JButton) components.get(0);
+				button.doClick();
+			}
+		});
 		layers.addListSelectionListener(layerPanelController::onItemSelected);
 
 		JScrollPane layersScroller = new JScrollPane(layers);

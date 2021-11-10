@@ -5,6 +5,7 @@ import static com.rpggame.mapeditor.constants.MapEditorConstants.REGULAR_FONT;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Image;
+import java.util.ArrayList;
 import java.util.Objects;
 
 import javax.imageio.ImageIO;
@@ -18,6 +19,8 @@ import com.rpggame.mapeditor.controller.LayerPanelController;
 import com.rpggame.mapeditor.view.MapEditorWindow;
 
 public class LayerPanelItem extends JPanel {
+
+	private ArrayList<JButton> panelButtons = new ArrayList<>();
 
 	public LayerPanelItem(LayerPanelController controller, String tileName, int index) {
 		JButton visibilityButton = new JButton();
@@ -39,6 +42,7 @@ public class LayerPanelItem extends JPanel {
 			this.setBorder(BorderFactory.createMatteBorder(1, 0, 0, 1, Color.black));
 		}
 		JLabel tileNameLabel = new JLabel(tileName);
+		panelButtons.add(visibilityButton);
 		tileNameLabel.setBorder(BorderFactory.createEmptyBorder(0, 10, 0, 0));
 		tileNameLabel.setFont(REGULAR_FONT);
 		this.add(tileNameLabel, BorderLayout.WEST);
@@ -46,4 +50,7 @@ public class LayerPanelItem extends JPanel {
 		this.setBackground(Color.lightGray);
 	}
 
+	public ArrayList<JButton> getPanelButtons() {
+		return panelButtons;
+	}
 }

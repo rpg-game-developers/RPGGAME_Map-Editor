@@ -15,7 +15,7 @@ import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 
 import com.rpggame.mapeditor.controller.spritesheet.SpriteSheet;
-import com.rpggame.mapeditor.model.MapTile;
+import com.rpggame.mapeditor.model.Tile;
 
 public class TileSelectorGrid extends JPanel {
 
@@ -24,12 +24,13 @@ public class TileSelectorGrid extends JPanel {
 	private int columns = 0;
 	private final int tileSize = TILE_SIZE * 4;
 
-	public TileSelectorGrid(int parentWidth, List<MapTile> tileList, SpriteSheet spriteSheet) {
 		
 		columns = parentWidth / 68;
+	public TileSelectorGrid(int parentWidth, List<Tile> tileList, SpriteSheet spriteSheet) {
+
 		this.setPreferredSize(new Dimension(parentWidth - 30, (tileSize - (columns * padding)) * tileList.size()));
 		this.setLayout(new BorderLayout());
-		MapTile[][] mapTiles = new MapTile[columns][tileList.size()];
+		Tile[][] mapTiles = new Tile[columns][tileList.size()];
 
 		int rowCount = 0;
 		int columnCount = 0;
@@ -54,7 +55,7 @@ public class TileSelectorGrid extends JPanel {
 			
 			@Override
 			public Class<?> getColumnClass(int columnIndex) {
-				return MapTile.class;
+				return Tile.class;
 			}
 			
 		};
@@ -64,7 +65,7 @@ public class TileSelectorGrid extends JPanel {
 			public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected,
 					boolean hasFocus, int row, int column) {
 				if (value != null) {
-					return new SelectionTile(tileSize, ((MapTile) value), spriteSheet);
+					return new SelectionTile(tileSize, ((Tile) value), spriteSheet);
 				}
 				JPanel p = new JPanel();
 				return p;
@@ -79,7 +80,7 @@ public class TileSelectorGrid extends JPanel {
 		selection.getColumnModel().setColumnMargin(5);
 		IntStream.range(0, selection.getColumnCount())
 				.forEach(e -> selection.getColumnModel().getColumn(e).setMaxWidth(tileSize + 5));
-		selection.setDefaultRenderer(MapTile.class, renderer);
+		selection.setDefaultRenderer(Tile.class, renderer);
 
 		final JScrollPane rightSelectionList = new JScrollPane(selection);
 		rightSelectionList.setMaximumSize(new Dimension((tileSize + 5) * columns, 10000));
