@@ -15,18 +15,35 @@ import static com.rpggame.mapeditor.constants.MapEditorConstants.TILE_SIZE;
 
 public class MapEditingPanel extends JPanel {
 	private List<TileMap> tileMaps;
+	private TileSelector tileSelector;
 
 	public MapEditingPanel(List<TileMap> tileMaps, TileSelector tileSelector) {
 		this.tileMaps = tileMaps;
+		this.tileSelector = tileSelector;
+		addMouseListener(new MouseAdapter() {
+			@Override
+			public void mousePressed(MouseEvent e) {
+				handleMouseEvent(e);
+			}
+		});
 		addMouseMotionListener(new MouseAdapter() {
 			@Override
 			public void mouseDragged(MouseEvent e) {
-				int x = e.getX() / TILE_SIZE;
-				int y = e.getY() / TILE_SIZE;
-				tileMaps.get(0).setTile(x, y, tileSelector.getSelectedTile());
-				repaint();
+				handleMouseEvent(e);
 			}
 		});
+	}
+
+	private void handleMouseEvent(MouseEvent e) {
+		int x = e.getX() / TILE_SIZE;
+		int y = e.getY() / TILE_SIZE;
+		if (SwingUtilities.isLeftMouseButton(e)) {
+			tileMaps.get(0).setTile(x, y, tileSelector.getSelectedTile());
+		}
+		if (SwingUtilities.isRightMouseButton(e)) {
+			tileMaps.get(0).setTile(x, y, null);
+		}
+		repaint();
 	}
 
 	@Override
