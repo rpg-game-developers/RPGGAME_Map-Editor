@@ -19,11 +19,20 @@ public class MapEditingPanel extends JPanel {
 	private List<TileMap> tileMaps;
 	private TileSelector tileSelector;
 	private float zoom;
+	private float cameraX;
+	private float cameraY;
+	private int lastMouseX;
+	private int lastMouseY;
 
 	public MapEditingPanel(List<TileMap> tileMaps, TileSelector tileSelector) {
 		this.tileMaps = tileMaps;
 		this.tileSelector = tileSelector;
 		this.zoom = 1.0f;
+		this.cameraX = 0.0f;
+		this.cameraY = 0.0f;
+		this.lastMouseX = 0;
+		this.lastMouseY = 0;
+
 		addMouseWheelListener(new MouseWheelListener() {
 			@Override
 			public void mouseWheelMoved(MouseWheelEvent e) {
@@ -40,6 +49,8 @@ public class MapEditingPanel extends JPanel {
 		addMouseListener(new MouseAdapter() {
 			@Override
 			public void mousePressed(MouseEvent e) {
+				lastMouseX = e.getX();
+				lastMouseY = e.getY();
 				handleMouseEvent(e);
 			}
 		});
@@ -52,14 +63,23 @@ public class MapEditingPanel extends JPanel {
 	}
 
 	private void handleMouseEvent(MouseEvent e) {
-		int x = (int) (e.getX()/zoom) / TILE_SIZE;
-		int y = (int) (e.getY()/zoom) / TILE_SIZE;
+		int x = (int) (e.getX()/zoom - cameraX) / TILE_SIZE;
+		int y = (int) (e.getY()/zoom - cameraY) / TILE_SIZE;
 		if (SwingUtilities.isLeftMouseButton(e)) {
 			tileMaps.get(0).setTile(x, y, tileSelector.getSelectedTile());
 		}
 		if (SwingUtilities.isRightMouseButton(e)) {
 			tileMaps.get(0).setTile(x, y, null);
 		}
+		if (SwingUtilities.isMiddleMouseButton(e)) {
+			int dx = e.getX() - lastMouseX;
+			int dy = e.getY() - lastMouseY;
+			cameraX += dx / zoom;
+			cameraY += dy / zoom;
+			repaint();
+		}
+		lastMouseX = e.getX();
+		lastMouseY = e.getY();
 		repaint();
 	}
 
@@ -69,6 +89,7 @@ public class MapEditingPanel extends JPanel {
 		Graphics2D g2 = (Graphics2D) g;
 
 		g2.scale(zoom, zoom);
+		g2.translate((float)cameraX, (float)cameraY);
 		for (TileMap tileMap : tileMaps) {
 			for (int i=0; i<tileMap.getWidth(); i++) {
 				for (int j=0; j<tileMap.getHeight(); j++) {
