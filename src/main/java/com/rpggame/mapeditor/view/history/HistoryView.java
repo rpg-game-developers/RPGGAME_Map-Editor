@@ -6,6 +6,7 @@ import java.util.Arrays;
 import javax.swing.BorderFactory;
 import javax.swing.JList;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.border.CompoundBorder;
 
 import com.rpggame.mapeditor.constants.MapEditorConstants;
@@ -23,18 +24,25 @@ public class HistoryView extends JPanel {
 		HistoryAction[] testData = { new HistoryAction("Tile Z", HistoryActionType.ADD),
 				new HistoryAction("Tile Owwww", HistoryActionType.DELETE),
 				new HistoryAction("Tile Ywww", HistoryActionType.EDIT),
+				new HistoryAction("Tile Xwww", HistoryActionType.DELETE),new HistoryAction("Tile Z", HistoryActionType.ADD),
+				new HistoryAction("Tile Owwww", HistoryActionType.DELETE),
+				new HistoryAction("Tile Ywww", HistoryActionType.EDIT),
+				new HistoryAction("Tile Xwww", HistoryActionType.DELETE),new HistoryAction("Tile Z", HistoryActionType.ADD),
+				new HistoryAction("Tile Owwww", HistoryActionType.DELETE),
+				new HistoryAction("Tile Ywww", HistoryActionType.EDIT),
+				new HistoryAction("Tile Xwww", HistoryActionType.DELETE),new HistoryAction("Tile Z", HistoryActionType.ADD),
+				new HistoryAction("Tile Owwww", HistoryActionType.DELETE),
+				new HistoryAction("Tile Ywww", HistoryActionType.EDIT),
 				new HistoryAction("Tile Xwww", HistoryActionType.DELETE) };
 
-		System.out.println("testData: " + Arrays.toString(testData));
-
 		JList<HistoryAction> actionList = new JList<>(testData);
-
-		System.out.println(this.getSize() + " / " + this.getMaximumSize() + " / " + this.getMinimumSize());
-
+		
 		actionList.setCellRenderer(new ActionCellRenderer());
 		
+		JScrollPane scrollPane = new JScrollPane(actionList);
+		
 		this.add(new HistoryViewHeader(), BorderLayout.NORTH);
-		this.add(actionList, BorderLayout.CENTER);
+		this.add(scrollPane, BorderLayout.CENTER);
 	}
 
 }
