@@ -45,7 +45,7 @@ public class TileSelectorGrid extends JPanel {
 		this.removeAll();
 		this.revalidate();
 		int rows = (tileSelector.getList().size() + columns - 1)/columns;
-		int height = (tileSize + padding) * rows + padding*2 + 5;
+		int height = (tileSize + padding) * rows;
 		this.setPreferredSize(new Dimension(width, height));
 		this.setLayout(new BorderLayout());
 		Tile[][] mapTiles = new Tile[rows][columns];
@@ -91,9 +91,7 @@ public class TileSelectorGrid extends JPanel {
 				.forEach(e -> selection.getColumnModel().getColumn(e).setMaxWidth(tileSize + padding));
 		selection.setDefaultRenderer(Tile.class, renderer);
 
-		final JScrollPane rightSelectionList = new JScrollPane(selection);
-		rightSelectionList.setMaximumSize(new Dimension((tileSize + padding) * columns, height));
-		this.add(rightSelectionList);
+		this.add(selection);
 		this.repaint();
 	}
 }
