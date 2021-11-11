@@ -102,4 +102,6 @@ public class MapEditorWindow {
 		this.frame.setVisible(true);
 	}
 
+	
+	
 }
