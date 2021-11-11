@@ -2,8 +2,7 @@ package com.rpggame.mapeditor.view.layerview;
 
 import com.rpggame.mapeditor.controller.LayerPanelController;
 import com.rpggame.mapeditor.model.LayerRow;
-import com.rpggame.mapeditor.model.Tile;
-import com.rpggame.mapeditor.model.TileMap;
+import com.rpggame.mapeditor.model.tile.TileMap;
 
 import javax.swing.*;
 import java.awt.*;

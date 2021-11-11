@@ -5,9 +5,6 @@ import static com.rpggame.mapeditor.constants.FrameVariables.FRAME_WIDTH;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-import java.util.List;
 
 import javax.swing.BorderFactory;
 import javax.swing.JPanel;
@@ -16,8 +13,7 @@ import javax.swing.border.CompoundBorder;
 
 import com.rpggame.mapeditor.constants.MapEditorConstants;
 import com.rpggame.mapeditor.controller.spritesheet.SpriteSheet;
-import com.rpggame.mapeditor.model.Tile;
-import com.rpggame.mapeditor.model.TileSelector;
+import com.rpggame.mapeditor.model.tile.TileSelector;
 
 public class TileSelectorView extends JPanel {
 

@@ -1,6 +1,7 @@
-package com.rpggame.mapeditor.model;
+package com.rpggame.mapeditor.model.tile;
 
 import com.rpggame.mapeditor.controller.spritesheet.SpriteSheet;
+import com.rpggame.mapeditor.model.tile.Tile;
 
 import java.awt.image.BufferedImage;
 

@@ -5,8 +5,7 @@ import java.util.List;
 
 import javax.swing.event.ListSelectionEvent;
 
-import com.rpggame.mapeditor.model.Tile;
-import com.rpggame.mapeditor.model.TileMap;
+import com.rpggame.mapeditor.model.tile.TileMap;
 import com.rpggame.mapeditor.view.layerview.LayerPanelSettings;
 
 public class LayerPanelController {

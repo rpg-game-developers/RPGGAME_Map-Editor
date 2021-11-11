@@ -1,4 +1,4 @@
-package com.rpggame.mapeditor.model;
+package com.rpggame.mapeditor.model.tile;
 
 public class Tile {
 	private final int sheetRow;
