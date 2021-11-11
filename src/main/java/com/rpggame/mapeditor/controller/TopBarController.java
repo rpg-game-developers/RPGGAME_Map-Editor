@@ -8,17 +8,21 @@ import javax.swing.JMenuItem;
 import javax.swing.JPopupMenu;
 import javax.swing.SwingUtilities;
 
+import com.rpggame.mapeditor.view.history.HistoryView;
+import com.rpggame.mapeditor.view.tileselector.TileSelectorView;
 import com.rpggame.mapeditor.view.topbar.AboutDialog;
 import com.rpggame.mapeditor.view.topbar.WindowSizeChangeDialog;
 
 public class TopBarController {
 
-	
-
+	private final TileSelectorView tileSelectorView;
+	private final HistoryView historyView;
 	private final Consumer<String> updateWindowSize;
 
-	public TopBarController(Consumer<String> updateWindowSize) {
+	public TopBarController(Consumer<String> updateWindowSize, TileSelectorView tileSelectorView, HistoryView historyView) {
 		this.updateWindowSize = updateWindowSize;
+		this.tileSelectorView = tileSelectorView;
+		this.historyView = historyView;
 	}
 
 	public void newItemSelected(ActionEvent e) {
@@ -38,5 +42,17 @@ public class TopBarController {
 
 	public void aboutItemSelected(ActionEvent e) {
 		new AboutDialog();
+	}
+
+	public void showTileSelectionItemSelected() {
+		if(!tileSelectorView.isVisible()) {
+			tileSelectorView.setVisible(true);
+		}
+	}
+
+	public void showHistorySelected() {
+		if(!historyView.isVisible()) {
+			historyView.setVisible(true);
+		}
 	}
 }

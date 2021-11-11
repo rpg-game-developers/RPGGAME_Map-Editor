@@ -72,14 +72,17 @@ public class MapEditorWindow {
 		this.tileMapList.add(new TileMap("water", this.spriteSheet, 100, 100));
 
 		// tile map
+		TileSelectorView tileSelectorView = new TileSelectorView(this.tileSelector, this.spriteSheet);
+		HistoryView historyView = new HistoryView();
+
 		MapEditingPanel mapEditingPanel = new MapEditingPanel(this.tileMapList, this.tileSelector);
 
-		root.add(new TopBarView(new TopBarController(this::updateEditorWindow)), BorderLayout.NORTH);
+		root.add(new TopBarView(new TopBarController(this::updateEditorWindow, tileSelectorView, historyView)), BorderLayout.NORTH);
 
 		JPanel wrapperPanel = new JPanel();
 		wrapperPanel.setLayout(new BorderLayout());
-		wrapperPanel.add(new HistoryView(), BorderLayout.NORTH);
-		wrapperPanel.add(new TileSelectorView(this.tileSelector, this.spriteSheet), BorderLayout.CENTER);
+		wrapperPanel.add(historyView, BorderLayout.NORTH);
+		wrapperPanel.add(tileSelectorView, BorderLayout.CENTER);
 		root.add(wrapperPanel, BorderLayout.EAST);
 		root.add(mapEditingPanel, BorderLayout.CENTER);
 		root.add(new LayerPanelView(tileMapList), BorderLayout.WEST);
