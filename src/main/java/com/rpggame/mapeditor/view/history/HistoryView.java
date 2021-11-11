@@ -1,7 +1,6 @@
 package com.rpggame.mapeditor.view.history;
 
 import java.awt.BorderLayout;
-import java.util.Arrays;
 
 import javax.swing.BorderFactory;
 import javax.swing.JList;
@@ -24,23 +23,26 @@ public class HistoryView extends JPanel {
 		HistoryAction[] testData = { new HistoryAction("Tile Z", HistoryActionType.ADD),
 				new HistoryAction("Tile Owwww", HistoryActionType.DELETE),
 				new HistoryAction("Tile Ywww", HistoryActionType.EDIT),
-				new HistoryAction("Tile Xwww", HistoryActionType.DELETE),new HistoryAction("Tile Z", HistoryActionType.ADD),
+				new HistoryAction("Tile Xwww", HistoryActionType.DELETE),
+				new HistoryAction("Tile Z", HistoryActionType.ADD),
 				new HistoryAction("Tile Owwww", HistoryActionType.DELETE),
 				new HistoryAction("Tile Ywww", HistoryActionType.EDIT),
-				new HistoryAction("Tile Xwww", HistoryActionType.DELETE),new HistoryAction("Tile Z", HistoryActionType.ADD),
+				new HistoryAction("Tile Xwww", HistoryActionType.DELETE),
+				new HistoryAction("Tile Z", HistoryActionType.ADD),
 				new HistoryAction("Tile Owwww", HistoryActionType.DELETE),
 				new HistoryAction("Tile Ywww", HistoryActionType.EDIT),
-				new HistoryAction("Tile Xwww", HistoryActionType.DELETE),new HistoryAction("Tile Z", HistoryActionType.ADD),
+				new HistoryAction("Tile Xwww", HistoryActionType.DELETE),
+				new HistoryAction("Tile Z", HistoryActionType.ADD),
 				new HistoryAction("Tile Owwww", HistoryActionType.DELETE),
 				new HistoryAction("Tile Ywww", HistoryActionType.EDIT),
 				new HistoryAction("Tile Xwww", HistoryActionType.DELETE) };
 
 		JList<HistoryAction> actionList = new JList<>(testData);
-		
+
 		actionList.setCellRenderer(new ActionCellRenderer());
-		
+
 		JScrollPane scrollPane = new JScrollPane(actionList);
-		
+
 		this.add(new HistoryViewHeader(), BorderLayout.NORTH);
 		this.add(scrollPane, BorderLayout.CENTER);
 	}

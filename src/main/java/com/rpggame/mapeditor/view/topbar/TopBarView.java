@@ -36,12 +36,13 @@ public class TopBarView extends JPanel {
 		viewMenu.add(changeWindowSizeItem);
 
 		JMenuItem showTileSelectionItem = new JMenuItem("Show TileSelection");
-		showTileSelectionItem.addActionListener(null);
+		showTileSelectionItem.addActionListener(e -> topBarController.showTileSelectionItemSelected());
 		viewMenu.add(showTileSelectionItem);
 
 		JMenuItem showHistoryViewItem = new JMenuItem("Show History");
-		showHistoryViewItem.addActionListener(null);
+		showHistoryViewItem.addActionListener(e -> topBarController.showHistorySelected());
 		viewMenu.add(showHistoryViewItem);
+
 
 		JMenuBar helpDropdown = new JMenuBar();
 		JMenu helpMenu = new JMenu("Help");
