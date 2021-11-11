@@ -3,9 +3,6 @@ package com.rpggame.mapeditor.view.tileselector;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
 import java.awt.image.BufferedImage;
 
 import javax.swing.BorderFactory;
@@ -13,8 +10,7 @@ import javax.swing.JPanel;
 
 import com.rpggame.mapeditor.constants.MapEditorConstants;
 import com.rpggame.mapeditor.controller.spritesheet.SpriteSheet;
-import com.rpggame.mapeditor.model.Tile;
-import com.rpggame.mapeditor.model.TileSelector;
+import com.rpggame.mapeditor.model.tile.Tile;
 import com.rpggame.mapeditor.utils.ImageHelper;
 
 public class SelectionTile extends JPanel {

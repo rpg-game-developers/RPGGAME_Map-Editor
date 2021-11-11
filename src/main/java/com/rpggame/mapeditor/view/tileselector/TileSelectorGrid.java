@@ -5,9 +5,6 @@ import static com.rpggame.mapeditor.constants.MapEditorConstants.TILE_SIZE;
 import java.awt.BorderLayout;
 import java.awt.Component;
 import java.awt.Dimension;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-import java.util.List;
 import java.util.stream.IntStream;
 
 import javax.swing.JPanel;
@@ -17,8 +14,8 @@ import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 
 import com.rpggame.mapeditor.controller.spritesheet.SpriteSheet;
-import com.rpggame.mapeditor.model.Tile;
-import com.rpggame.mapeditor.model.TileSelector;
+import com.rpggame.mapeditor.model.tile.Tile;
+import com.rpggame.mapeditor.model.tile.TileSelector;
 
 public class TileSelectorGrid extends JPanel {
 

@@ -1,4 +1,6 @@
-package com.rpggame.mapeditor.model;
+package com.rpggame.mapeditor.model.tile;
+
+import com.rpggame.mapeditor.model.tile.Tile;
 
 import java.util.ArrayList;
 import java.util.List;

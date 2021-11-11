@@ -1,6 +1,7 @@
-package com.rpggame.mapeditor.model;
+package com.rpggame.mapeditor.model.tile;
 
 import com.rpggame.mapeditor.controller.spritesheet.SpriteSheet;
+import com.rpggame.mapeditor.model.tile.Tile;
 
 import java.awt.image.BufferedImage;
 
@@ -70,10 +71,16 @@ public class TileMap {
     }
 
     public void setTile(int column, int row, Tile tile) {
+        if (column < 0 || column >= width || row < 0 || row >= height)
+            return;
+
         tiles[column][row] = tile;
     }
 
     public Tile getTile(int column, int row) {
+        if (column < 0 || column >= width || row < 0 || row >= height)
+            return null;
+
         return tiles[column][row];
     }
 
