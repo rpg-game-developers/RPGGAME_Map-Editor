@@ -14,37 +14,44 @@ import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 
 import com.rpggame.mapeditor.controller.spritesheet.SpriteSheet;
+import com.rpggame.mapeditor.model.selector.Selector;
+import com.rpggame.mapeditor.model.selector.SelectorListener;
 import com.rpggame.mapeditor.model.tile.Tile;
+import com.rpggame.mapeditor.model.tile.TileMap;
 import com.rpggame.mapeditor.model.tile.TileSelector;
 
 public class TileSelectorGrid extends JPanel {
 
 	private static final long serialVersionUID = 1L;
 	private final int padding = 2;
-	private int columns = 0;
 	private final int tileSize = TILE_SIZE * 3;
+	private int columns;
+	private int width;
 
-	public TileSelectorGrid(int parentWidth, TileSelector tileSelector, SpriteSheet spriteSheet) {
-		int width = parentWidth - 40;
-		columns = width / tileSize;
+	public TileSelectorGrid(int parentWidth, TileSelector tileSelector, Selector<TileMap> tileMapSelector) {
+		this.width = parentWidth - 40;
+		this.columns = width / tileSize;
+
+		tileMapSelector.subscribe(newSelection -> {
+			this.updateTiles(tileSelector, newSelection.getSpriteSheet());
+		});
+
+		TileMap selectedTileMap = tileMapSelector.getSelected();
+		if (selectedTileMap != null)
+			this.updateTiles(tileSelector, selectedTileMap.getSpriteSheet());
+	}
+
+	public void updateTiles(TileSelector tileSelector, SpriteSheet spriteSheet) {
+		this.removeAll();
+		this.revalidate();
 		int rows = (tileSelector.getList().size() + columns - 1)/columns;
 		int height = (tileSize + padding) * rows + padding*2 + 5;
 		this.setPreferredSize(new Dimension(width, height));
 		this.setLayout(new BorderLayout());
 		Tile[][] mapTiles = new Tile[rows][columns];
 
-		int rowCount = 0;
-		int columnCount = 0;
 		for (int i = 0; i < tileSelector.getList().size(); i++) {
-			mapTiles[columnCount][rowCount] = tileSelector.getList().get(i);
-
-			if (rowCount >= columns - 1) {
-				rowCount = -1;
-				columnCount++;
-			}
-
-			rowCount++;
-
+			mapTiles[i/columns][i%columns] = tileSelector.getList().get(i);
 		}
 
 		final DefaultTableModel model = new DefaultTableModel(mapTiles,
@@ -62,7 +69,7 @@ public class TileSelectorGrid extends JPanel {
 
 			@Override
 			public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected,
-					boolean hasFocus, int row, int column) {
+														   boolean hasFocus, int row, int column) {
 				if (value != null) {
 					if (hasFocus) {
 						tileSelector.setSelected(((Tile) value));
@@ -86,8 +93,7 @@ public class TileSelectorGrid extends JPanel {
 
 		final JScrollPane rightSelectionList = new JScrollPane(selection);
 		rightSelectionList.setMaximumSize(new Dimension((tileSize + padding) * columns, height));
-		// this.add(s);
 		this.add(rightSelectionList);
+		this.repaint();
 	}
-
 }

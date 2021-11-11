@@ -2,7 +2,7 @@ package com.rpggame.mapeditor.view;
 
 import com.rpggame.mapeditor.controller.CameraController;
 import com.rpggame.mapeditor.model.Camera;
-import com.rpggame.mapeditor.model.Selector;
+import com.rpggame.mapeditor.model.selector.Selector;
 import com.rpggame.mapeditor.model.tile.TileMap;
 import com.rpggame.mapeditor.model.tile.TileSelector;
 
@@ -10,9 +10,6 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.awt.event.MouseWheelEvent;
-import java.awt.event.MouseWheelListener;
-import java.util.List;
 
 import static com.rpggame.mapeditor.constants.MapEditorConstants.TILE_SIZE;
 

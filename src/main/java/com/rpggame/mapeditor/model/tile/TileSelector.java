@@ -1,6 +1,6 @@
 package com.rpggame.mapeditor.model.tile;
 
-import com.rpggame.mapeditor.model.Selector;
+import com.rpggame.mapeditor.model.selector.Selector;
 
 public class TileSelector extends Selector<Tile> {
     public TileSelector(int rows, int columns) {

@@ -1,7 +1,6 @@
 package com.rpggame.mapeditor.model.tile;
 
 import com.rpggame.mapeditor.controller.spritesheet.SpriteSheet;
-import com.rpggame.mapeditor.model.tile.Tile;
 
 import java.awt.image.BufferedImage;
 
@@ -13,6 +12,7 @@ public class TileMap {
     private String name;
     private int level;
     private SpriteSheet spriteSheet;
+    private boolean visible;
 
 
     public TileMap(String name, SpriteSheet spriteSheet, int width, int height) {
@@ -23,6 +23,7 @@ public class TileMap {
         this.name = name;
         this.type = "";
         this.tiles = new Tile[width][height];
+        this.visible = true;
         for (int i=0; i<width; i++) {
             for (int j=0; j<height; j++) {
                 this.tiles[i][j] = null;
@@ -68,6 +69,14 @@ public class TileMap {
 
     public void setSpriteSheet(SpriteSheet spriteSheet) {
         this.spriteSheet = spriteSheet;
+    }
+
+    public boolean isVisible() {
+        return visible;
+    }
+
+    public void setVisible(boolean visible) {
+        this.visible = visible;
     }
 
     public void setTile(int column, int row, Tile tile) {

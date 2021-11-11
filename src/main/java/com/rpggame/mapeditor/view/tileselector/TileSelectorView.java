@@ -13,13 +13,15 @@ import javax.swing.border.CompoundBorder;
 import com.rpggame.mapeditor.constants.FrameVariables;
 import com.rpggame.mapeditor.constants.MapEditorConstants;
 import com.rpggame.mapeditor.controller.spritesheet.SpriteSheet;
+import com.rpggame.mapeditor.model.selector.Selector;
+import com.rpggame.mapeditor.model.tile.TileMap;
 import com.rpggame.mapeditor.model.tile.TileSelector;
 
 public class TileSelectorView extends JPanel {
 
 	private static final long serialVersionUID = 1L;
 
-	public TileSelectorView(TileSelector tileSelector, SpriteSheet spriteSheet) {
+	public TileSelectorView(TileSelector tileSelector, Selector<TileMap> tileMapSelector) {
 		int selectorViewWidth = FrameVariables.FRAME_WIDTH / MapEditorConstants.PANEL_WIDTH_DIVIDER;
 		this.setPreferredSize(new Dimension(selectorViewWidth, FRAME_HEIGHT));
 		this.setBorder(new CompoundBorder(BorderFactory.createEmptyBorder(0, 0, 25, 15),
@@ -29,7 +31,7 @@ public class TileSelectorView extends JPanel {
 
 		this.add(new TileSelectionHeader(), BorderLayout.NORTH);
 
-		JScrollPane scroll = new JScrollPane(new TileSelectorGrid(selectorViewWidth, tileSelector, spriteSheet));
+		JScrollPane scroll = new JScrollPane(new TileSelectorGrid(selectorViewWidth, tileSelector, tileMapSelector));
 		this.setPreferredSize(new Dimension(selectorViewWidth, FRAME_HEIGHT));
 		this.add(scroll, BorderLayout.CENTER);
 	}

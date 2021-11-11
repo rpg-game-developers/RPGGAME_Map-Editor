@@ -6,7 +6,6 @@ import java.awt.GraphicsEnvironment;
 import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
@@ -21,7 +20,7 @@ import com.rpggame.mapeditor.constants.FrameVariables;
 import com.rpggame.mapeditor.controller.TopBarController;
 import com.rpggame.mapeditor.controller.spritesheet.SpriteSheet;
 import com.rpggame.mapeditor.controller.spritesheet.SpriteSheetBuilder;
-import com.rpggame.mapeditor.model.Selector;
+import com.rpggame.mapeditor.model.selector.Selector;
 import com.rpggame.mapeditor.model.tile.TileMap;
 import com.rpggame.mapeditor.model.tile.TileSelector;
 import com.rpggame.mapeditor.view.history.HistoryView;
@@ -33,8 +32,10 @@ public class MapEditorWindow {
 
 	private TileSelector tileSelector;
 	private Selector<TileMap> tileMapSelector;
-	private BufferedImage sheet;
-	private SpriteSheet spriteSheet;
+	private BufferedImage sheet1;
+	private SpriteSheet spriteSheet1;
+	private BufferedImage sheet2;
+	private SpriteSheet spriteSheet2;
 	private JFrame frame;
 
 	public MapEditorWindow() {
@@ -62,19 +63,27 @@ public class MapEditorWindow {
 		this.tileSelector = new TileSelector(26, 18);
 
 		try {
-			this.sheet = ImageIO.read(Objects
+			this.sheet1 = ImageIO.read(Objects
+					.requireNonNull(MapEditorWindow.class.getResourceAsStream("/spriteAssets/rogueLikeSheet_transparent.png")));
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		this.spriteSheet1 = new SpriteSheetBuilder().withSheet(this.sheet1).withColumns(26).withRows(18).build();
+
+		try {
+			this.sheet2 = ImageIO.read(Objects
 					.requireNonNull(MapEditorWindow.class.getResourceAsStream("/spriteAssets/testSpriteSheet.png")));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		this.spriteSheet = new SpriteSheetBuilder().withSheet(this.sheet).withColumns(26).withRows(18).build();
+		this.spriteSheet2 = new SpriteSheetBuilder().withSheet(this.sheet2).withColumns(26).withRows(18).build();
 
 		this.tileMapSelector = new Selector<>();
-		this.tileMapSelector.getList().add(new TileMap("ground", this.spriteSheet, 100, 100));
-		this.tileMapSelector.getList().add(new TileMap("furniture", this.spriteSheet, 100, 100));
+		this.tileMapSelector.getList().add(new TileMap("ground", this.spriteSheet1, 100, 100));
+		this.tileMapSelector.getList().add(new TileMap("furniture", this.spriteSheet2, 100, 100));
 
 		// tile map
-		TileSelectorView tileSelectorView = new TileSelectorView(this.tileSelector, this.spriteSheet);
+		TileSelectorView tileSelectorView = new TileSelectorView(this.tileSelector, this.tileMapSelector);
 		HistoryView historyView = new HistoryView();
 
 		MapEditingPanel mapEditingPanel = new MapEditingPanel(this.tileMapSelector, this.tileSelector);

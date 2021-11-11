@@ -5,7 +5,6 @@ import static com.rpggame.mapeditor.constants.FrameVariables.FRAME_HEIGHT;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
-import java.util.List;
 
 import javax.swing.BorderFactory;
 import javax.swing.JPanel;
@@ -13,7 +12,7 @@ import javax.swing.JPanel;
 import com.rpggame.mapeditor.constants.FrameVariables;
 import com.rpggame.mapeditor.constants.MapEditorConstants;
 import com.rpggame.mapeditor.controller.LayerPanelController;
-import com.rpggame.mapeditor.model.Selector;
+import com.rpggame.mapeditor.model.selector.Selector;
 import com.rpggame.mapeditor.model.tile.TileMap;
 
 public class LayerPanelView extends JPanel {

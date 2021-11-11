@@ -5,8 +5,7 @@ import java.awt.event.ActionEvent;
 import javax.swing.*;
 import javax.swing.event.ListSelectionEvent;
 
-import com.rpggame.mapeditor.model.Selector;
-import com.rpggame.mapeditor.model.tile.Tile;
+import com.rpggame.mapeditor.model.selector.Selector;
 import com.rpggame.mapeditor.model.tile.TileMap;
 import com.rpggame.mapeditor.view.layerview.LayerPanelSettings;
 
@@ -24,7 +23,7 @@ public class LayerPanelController {
 		if (e.getValueIsAdjusting()) {
 			Object source = e.getSource();
 			if (! (source instanceof JList<?> ) )
-				return;
+				return; // TODO: THROW EXCEPTION
 			JList<?> jList = (JList<?>) source;
 			int index = jList.getSelectedIndex();
 
