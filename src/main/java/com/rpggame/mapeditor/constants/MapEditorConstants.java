@@ -5,7 +5,8 @@ import java.awt.*;
 public interface MapEditorConstants {
 
 	//Tile Size
-	public final static int TILE_SIZE = 17;
+	public final static int TILE_SIZE = 16;
+	public final static int TILE_BORDER = 1;
 	
 	//Colors
 	public static final Color PRIMARY = new Color(60, 63, 65);
