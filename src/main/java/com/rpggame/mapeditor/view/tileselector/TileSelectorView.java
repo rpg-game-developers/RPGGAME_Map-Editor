@@ -24,6 +24,7 @@ public class TileSelectorView extends JPanel {
 	private static final long serialVersionUID = 1L;
 
 	public TileSelectorView(TileSelector tileSelector, SpriteSheet spriteSheet) {
+		System.out.println("building TileSelector = "+FRAME_WIDTH);
 		int selectorViewWidth = FRAME_WIDTH / 5;
 		this.setPreferredSize(new Dimension(selectorViewWidth, FRAME_HEIGHT));
 		this.setBorder(new CompoundBorder(BorderFactory.createEmptyBorder(0, 0, 25, 15),

@@ -1,14 +1,19 @@
 package com.rpggame.mapeditor.view.topbar;
 
-import com.rpggame.mapeditor.controller.TopBarController;
+import java.awt.Color;
+import java.awt.FlowLayout;
 
-import javax.swing.*;
-import java.awt.*;
+import javax.swing.BorderFactory;
+import javax.swing.JMenu;
+import javax.swing.JMenuBar;
+import javax.swing.JMenuItem;
+import javax.swing.JPanel;
+
+import com.rpggame.mapeditor.controller.TopBarController;
 
 public class TopBarView extends JPanel {
 
-	public TopBarView() {
-		TopBarController topBarController = new TopBarController();
+	public TopBarView(TopBarController topBarController) {
 		this.setLayout(new FlowLayout(FlowLayout.LEFT));
 		this.setBorder(BorderFactory.createLineBorder(Color.black));
 
@@ -23,6 +28,21 @@ public class TopBarView extends JPanel {
 		exitItem.addActionListener(topBarController::exitItemSelected);
 		fileMenu.add(exitItem);
 
+		JMenuBar viewDropdown = new JMenuBar();
+		JMenu viewMenu = new JMenu("View");
+
+		JMenuItem changeWindowSizeItem = new JMenuItem("Change window size");
+		changeWindowSizeItem.addActionListener(topBarController::openWindowSizeDialog);
+		viewMenu.add(changeWindowSizeItem);
+
+		JMenuItem showTileSelectionItem = new JMenuItem("Show TileSelection");
+		showTileSelectionItem.addActionListener(null);
+		viewMenu.add(showTileSelectionItem);
+
+		JMenuItem showHistoryViewItem = new JMenuItem("Show History");
+		showHistoryViewItem.addActionListener(null);
+		viewMenu.add(showHistoryViewItem);
+
 		JMenuBar helpDropdown = new JMenuBar();
 		JMenu helpMenu = new JMenu("Help");
 
@@ -31,8 +51,11 @@ public class TopBarView extends JPanel {
 		helpMenu.add(aboutItem);
 
 		fileDropdown.add(fileMenu);
+		viewDropdown.add(viewMenu);
 		helpDropdown.add(helpMenu);
 		this.add(fileDropdown);
+		this.add(viewDropdown);
 		this.add(helpDropdown);
 	}
+
 }
