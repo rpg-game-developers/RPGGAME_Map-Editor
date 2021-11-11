@@ -7,7 +7,7 @@ public class TileSelector extends Selector<Tile> {
         super();
         for (int j=0; j<columns; j++) {
             for (int i=0; i<rows; i++) {
-                this.getList().add(new Tile(i, j));
+                this.add(new Tile(i, j));
             }
         }
     }

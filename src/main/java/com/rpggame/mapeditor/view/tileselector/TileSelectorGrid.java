@@ -44,14 +44,14 @@ public class TileSelectorGrid extends JPanel {
 	public void updateTiles(TileSelector tileSelector, SpriteSheet spriteSheet) {
 		this.removeAll();
 		this.revalidate();
-		int rows = (tileSelector.getList().size() + columns - 1)/columns;
+		int rows = (tileSelector.size() + columns - 1)/columns;
 		int height = (tileSize + padding) * rows;
 		this.setPreferredSize(new Dimension(width, height));
 		this.setLayout(new BorderLayout());
 		Tile[][] mapTiles = new Tile[rows][columns];
 
-		for (int i = 0; i < tileSelector.getList().size(); i++) {
-			mapTiles[i/columns][i%columns] = tileSelector.getList().get(i);
+		for (int i = 0; i < tileSelector.size(); i++) {
+			mapTiles[i/columns][i%columns] = tileSelector.get(i);
 		}
 
 		final DefaultTableModel model = new DefaultTableModel(mapTiles,

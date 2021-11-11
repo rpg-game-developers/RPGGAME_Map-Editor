@@ -2,13 +2,11 @@ package com.rpggame.mapeditor.model.selector;
 
 import java.util.*;
 
-public class Selector<T> {
-    private List<T> list;
+public class Selector<T> extends ArrayList<T> {
     private T selected;
     private Collection<SelectorListener<T>> listeners;
 
     public Selector() {
-        this.list = new ArrayList<>();
         this.selected = null;
         this.listeners = new HashSet<>();
     }
@@ -19,10 +17,6 @@ public class Selector<T> {
 
     public void unsubscribe(SelectorListener<T> listener) {
         listeners.remove(listener);
-    }
-
-    public List<T> getList() {
-        return this.list;
     }
 
     public T getSelected() {

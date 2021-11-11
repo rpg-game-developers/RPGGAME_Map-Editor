@@ -62,7 +62,7 @@ public class MapEditingPanel extends JPanel {
 		Camera camera = cameraController.getCamera();
 		camera.transformGraphics2D(g2);
 
-		for (TileMap tileMap : tileMaps.getList()) {
+		for (TileMap tileMap : tileMaps) {
 			for (int i=0; i<tileMap.getWidth(); i++) {
 				for (int j=0; j<tileMap.getHeight(); j++) {
 					if (tileMap.getTile(i,j) != null) {

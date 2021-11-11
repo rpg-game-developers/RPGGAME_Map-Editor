@@ -79,8 +79,8 @@ public class MapEditorWindow {
 		this.spriteSheet2 = new SpriteSheetBuilder().withSheet(this.sheet2).withColumns(26).withRows(18).build();
 
 		this.tileMapSelector = new Selector<>();
-		this.tileMapSelector.getList().add(new TileMap("ground", this.spriteSheet1, 100, 100));
-		this.tileMapSelector.getList().add(new TileMap("furniture", this.spriteSheet2, 100, 100));
+		this.tileMapSelector.add(new TileMap("ground", this.spriteSheet1, 100, 100));
+		this.tileMapSelector.add(new TileMap("furniture", this.spriteSheet2, 100, 100));
 
 		// tile map
 		TileSelectorView tileSelectorView = new TileSelectorView(this.tileSelector, this.tileMapSelector);
