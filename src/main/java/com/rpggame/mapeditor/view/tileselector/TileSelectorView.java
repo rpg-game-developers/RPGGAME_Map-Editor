@@ -5,6 +5,8 @@ import static com.rpggame.mapeditor.constants.FrameVariables.FRAME_WIDTH;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.util.List;
 
 import javax.swing.BorderFactory;
@@ -15,12 +17,13 @@ import javax.swing.border.CompoundBorder;
 import com.rpggame.mapeditor.constants.MapEditorConstants;
 import com.rpggame.mapeditor.controller.spritesheet.SpriteSheet;
 import com.rpggame.mapeditor.model.Tile;
+import com.rpggame.mapeditor.model.TileSelector;
 
 public class TileSelectorView extends JPanel {
 
 	private static final long serialVersionUID = 1L;
 
-	public TileSelectorView(List<Tile> tileList, SpriteSheet spriteSheet) {
+	public TileSelectorView(TileSelector tileSelector, SpriteSheet spriteSheet) {
 		int selectorViewWidth = FRAME_WIDTH / 5;
 		this.setPreferredSize(new Dimension(selectorViewWidth, FRAME_HEIGHT));
 		this.setBorder(new CompoundBorder(BorderFactory.createEmptyBorder(0, 0, 25, 15),
@@ -30,9 +33,8 @@ public class TileSelectorView extends JPanel {
 
 		this.add(new TileSelectionHeader(), BorderLayout.NORTH);
 
-		JScrollPane scroll = new JScrollPane(new TileSelectorGrid(selectorViewWidth, tileList, spriteSheet));
+		JScrollPane scroll = new JScrollPane(new TileSelectorGrid(selectorViewWidth, tileSelector, spriteSheet));
 		this.setPreferredSize(new Dimension(FRAME_WIDTH / 5, FRAME_HEIGHT));
 		this.add(scroll, BorderLayout.CENTER);
-
 	}
 }

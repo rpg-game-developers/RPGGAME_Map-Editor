@@ -2,6 +2,7 @@ package com.rpggame.mapeditor.view;
 
 import com.rpggame.mapeditor.model.Tile;
 import com.rpggame.mapeditor.model.TileMap;
+import com.rpggame.mapeditor.model.TileSelector;
 
 import javax.swing.*;
 import java.awt.*;
@@ -15,14 +16,14 @@ import static com.rpggame.mapeditor.constants.MapEditorConstants.TILE_SIZE;
 public class MapEditingPanel extends JPanel {
 	private List<TileMap> tileMaps;
 
-	public MapEditingPanel(List<TileMap> tileMaps) {
+	public MapEditingPanel(List<TileMap> tileMaps, TileSelector tileSelector) {
 		this.tileMaps = tileMaps;
 		addMouseMotionListener(new MouseAdapter() {
 			@Override
 			public void mouseDragged(MouseEvent e) {
 				int x = e.getX() / TILE_SIZE;
 				int y = e.getY() / TILE_SIZE;
-				tileMaps.get(0).setTile(x, y, new Tile(0, 0));
+				tileMaps.get(0).setTile(x, y, tileSelector.getSelectedTile());
 				repaint();
 			}
 		});

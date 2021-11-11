@@ -19,6 +19,7 @@ import com.rpggame.mapeditor.controller.spritesheet.SpriteSheet;
 import com.rpggame.mapeditor.controller.spritesheet.SpriteSheetBuilder;
 import com.rpggame.mapeditor.model.Tile;
 import com.rpggame.mapeditor.model.TileMap;
+import com.rpggame.mapeditor.model.TileSelector;
 import com.rpggame.mapeditor.view.history.HistoryView;
 import com.rpggame.mapeditor.view.layerview.LayerPanelView;
 import com.rpggame.mapeditor.view.tileselector.TileSelectorView;
@@ -26,7 +27,7 @@ import com.rpggame.mapeditor.view.topbar.TopBarView;
 
 public class MapEditorWindow {
 
-	private List<Tile> tileList;
+	private TileSelector tileSelector;
 	private List<TileMap> tileMapList;
 	private BufferedImage sheet;
 	private SpriteSheet spriteSheet;
@@ -53,13 +54,7 @@ public class MapEditorWindow {
 		JPanel root = new JPanel();
 		root.setLayout(new BorderLayout());
 
-		// TODO outsource tileList creation
-		this.tileList = new ArrayList<>();
-		for (int i=0; i<18; i++) {
-			for (int j=0; j<26; j++) {
-				this.tileList.add(new Tile(i, j));
-			}
-		}
+		this.tileSelector = new TileSelector(26, 18);
 
 		try {
 			this.sheet = ImageIO.read(Objects
@@ -73,14 +68,14 @@ public class MapEditorWindow {
 		this.tileMapList.add(new TileMap("water", this.spriteSheet, 100, 100));
 
 		// tile map
-		MapEditingPanel mapEditingPanel = new MapEditingPanel(this.tileMapList);
+		MapEditingPanel mapEditingPanel = new MapEditingPanel(this.tileMapList, this.tileSelector);
 
 		root.add(new TopBarView(), BorderLayout.NORTH);
 
 		JPanel wrapperPanel = new JPanel();
 		wrapperPanel.setLayout(new BorderLayout());
 		wrapperPanel.add(new HistoryView(), BorderLayout.NORTH);
-		wrapperPanel.add(new TileSelectorView(this.tileList, this.spriteSheet), BorderLayout.CENTER);
+		wrapperPanel.add(new TileSelectorView(this.tileSelector, this.spriteSheet), BorderLayout.CENTER);
 		root.add(wrapperPanel, BorderLayout.EAST);
 		root.add(mapEditingPanel, BorderLayout.CENTER);
 		root.add(new LayerPanelView(tileMapList), BorderLayout.WEST);
