@@ -1,7 +1,7 @@
 package com.rpggame.mapeditor.view.layerview;
 
 import com.rpggame.mapeditor.controller.LayerPanelController;
-import com.rpggame.mapeditor.model.LayerRow;
+import com.rpggame.mapeditor.model.Selector;
 import com.rpggame.mapeditor.model.tile.TileMap;
 
 import javax.swing.*;
@@ -18,17 +18,17 @@ import static com.rpggame.mapeditor.constants.FrameVariables.FRAME_WIDTH;
 
 public class LayerPanelList extends JPanel {
 
-	public LayerPanelList(LayerPanelController layerPanelController, List<TileMap> loadedMaps) {
+	public LayerPanelList(LayerPanelController layerPanelController, Selector<TileMap> tileMapSelector) {
 		List<LayerPanelItem> layerPanels = new ArrayList<>();
-		String[] layerTiles = loadedMaps.stream().map(TileMap::getName).toArray(String[]::new);
+
 		this.setLayout(new BorderLayout());
-		DefaultListModel<LayerRow> layersModel = new DefaultListModel<>();
-		for(String layer : layerTiles) {
-			layersModel.addElement(new LayerRow(layer));
+		DefaultListModel<TileMap> layersModel = new DefaultListModel<>();
+		for(TileMap tileMap : tileMapSelector.getList()) {
+			layersModel.addElement(tileMap);
 		}
-		JList<LayerRow> layers = new JList<>(layersModel);
+		JList<TileMap> layers = new JList<>(layersModel);
 		layers.setCellRenderer((list, value, index, isSelected, cellHasFocus) -> {
-			LayerPanelItem layerPanelItem = new LayerPanelItem(layerPanelController, value.getTileName(), index);
+			LayerPanelItem layerPanelItem = new LayerPanelItem(layerPanelController, value.getName(), index);
 			layerPanels.add(layerPanelItem);
 			return layerPanelItem;
 		});

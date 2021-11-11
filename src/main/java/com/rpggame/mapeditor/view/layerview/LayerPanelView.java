@@ -12,11 +12,12 @@ import javax.swing.BorderFactory;
 import javax.swing.JPanel;
 
 import com.rpggame.mapeditor.controller.LayerPanelController;
+import com.rpggame.mapeditor.model.Selector;
 import com.rpggame.mapeditor.model.tile.TileMap;
 
 public class LayerPanelView extends JPanel {
 
-	public LayerPanelView(List<TileMap> tileMapList) {
+	public LayerPanelView(Selector<TileMap> tileMapSelector) {
 
 		this.setBorder(BorderFactory.createMatteBorder(0,1,1,1, Color.black));
 		this.setPreferredSize(new Dimension(FRAME_WIDTH / 5, (FRAME_HEIGHT)));
@@ -26,8 +27,8 @@ public class LayerPanelView extends JPanel {
 		this.add(new LayerPanelHeader(), BorderLayout.NORTH);
 
 		LayerPanelSettings layerPanelSettings = new LayerPanelSettings();
-		LayerPanelController layerPanelController = new LayerPanelController(layerPanelSettings, tileMapList);
-		this.add(new LayerPanelList(layerPanelController, tileMapList), BorderLayout.CENTER);
+		LayerPanelController layerPanelController = new LayerPanelController(layerPanelSettings, tileMapSelector);
+		this.add(new LayerPanelList(layerPanelController, tileMapSelector), BorderLayout.CENTER);
 		this.add(layerPanelSettings, BorderLayout.SOUTH);
 
 	}

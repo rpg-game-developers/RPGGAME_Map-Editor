@@ -27,7 +27,7 @@ public class TileSelectorGrid extends JPanel {
 	public TileSelectorGrid(int parentWidth, TileSelector tileSelector, SpriteSheet spriteSheet) {
 		int width = parentWidth - 40;
 		columns = width / tileSize;
-		int rows = (tileSelector.getTiles().size() + columns - 1)/columns;
+		int rows = (tileSelector.getList().size() + columns - 1)/columns;
 		int height = (tileSize + padding) * rows + padding*2 + 5;
 		this.setPreferredSize(new Dimension(width, height));
 		this.setLayout(new BorderLayout());
@@ -35,8 +35,8 @@ public class TileSelectorGrid extends JPanel {
 
 		int rowCount = 0;
 		int columnCount = 0;
-		for (int i = 0; i < tileSelector.getTiles().size(); i++) {
-			mapTiles[columnCount][rowCount] = tileSelector.getTiles().get(i);
+		for (int i = 0; i < tileSelector.getList().size(); i++) {
+			mapTiles[columnCount][rowCount] = tileSelector.getList().get(i);
 
 			if (rowCount >= columns - 1) {
 				rowCount = -1;
@@ -65,7 +65,7 @@ public class TileSelectorGrid extends JPanel {
 					boolean hasFocus, int row, int column) {
 				if (value != null) {
 					if (hasFocus) {
-						tileSelector.setSelectedTile(((Tile) value));
+						tileSelector.setSelected(((Tile) value));
 					}
 					return new SelectionTile(hasFocus, tileSize, ((Tile) value), spriteSheet);
 				}

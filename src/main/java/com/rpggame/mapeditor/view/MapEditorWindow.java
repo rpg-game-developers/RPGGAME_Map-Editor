@@ -21,6 +21,7 @@ import com.rpggame.mapeditor.constants.FrameVariables;
 import com.rpggame.mapeditor.controller.TopBarController;
 import com.rpggame.mapeditor.controller.spritesheet.SpriteSheet;
 import com.rpggame.mapeditor.controller.spritesheet.SpriteSheetBuilder;
+import com.rpggame.mapeditor.model.Selector;
 import com.rpggame.mapeditor.model.tile.TileMap;
 import com.rpggame.mapeditor.model.tile.TileSelector;
 import com.rpggame.mapeditor.view.history.HistoryView;
@@ -31,7 +32,7 @@ import com.rpggame.mapeditor.view.topbar.TopBarView;
 public class MapEditorWindow {
 
 	private TileSelector tileSelector;
-	private List<TileMap> tileMapList;
+	private Selector<TileMap> tileMapSelector;
 	private BufferedImage sheet;
 	private SpriteSheet spriteSheet;
 	private JFrame frame;
@@ -68,11 +69,12 @@ public class MapEditorWindow {
 		}
 		this.spriteSheet = new SpriteSheetBuilder().withSheet(this.sheet).withColumns(26).withRows(18).build();
 
-		this.tileMapList = new ArrayList<TileMap>();
-		this.tileMapList.add(new TileMap("water", this.spriteSheet, 100, 100));
+		this.tileMapSelector = new Selector<>();
+		this.tileMapSelector.getList().add(new TileMap("ground", this.spriteSheet, 100, 100));
+		this.tileMapSelector.getList().add(new TileMap("furniture", this.spriteSheet, 100, 100));
 
 		// tile map
-		MapEditingPanel mapEditingPanel = new MapEditingPanel(this.tileMapList, this.tileSelector);
+		MapEditingPanel mapEditingPanel = new MapEditingPanel(this.tileMapSelector, this.tileSelector);
 
 		root.add(new TopBarView(new TopBarController(this::updateEditorWindow)), BorderLayout.NORTH);
 
@@ -82,7 +84,7 @@ public class MapEditorWindow {
 		wrapperPanel.add(new TileSelectorView(this.tileSelector, this.spriteSheet), BorderLayout.CENTER);
 		root.add(wrapperPanel, BorderLayout.EAST);
 		root.add(mapEditingPanel, BorderLayout.CENTER);
-		root.add(new LayerPanelView(tileMapList), BorderLayout.WEST);
+		root.add(new LayerPanelView(tileMapSelector), BorderLayout.WEST);
 
 		this.frame.add(root);
 		this.frame.setVisible(true);
