@@ -1,5 +1,6 @@
 package com.rpggame.mapeditor.view;
 
+import com.rpggame.mapeditor.controller.CameraController;
 import com.rpggame.mapeditor.model.Camera;
 import com.rpggame.mapeditor.model.tile.TileMap;
 import com.rpggame.mapeditor.model.tile.TileSelector;
@@ -17,30 +18,17 @@ import static com.rpggame.mapeditor.constants.MapEditorConstants.TILE_SIZE;
 public class MapEditingPanel extends JPanel {
 	private List<TileMap> tileMaps;
 	private TileSelector tileSelector;
-	private Camera camera;
-	private int lastMouseX;
-	private int lastMouseY;
+	private CameraController cameraController;
 
 	public MapEditingPanel(List<TileMap> tileMaps, TileSelector tileSelector) {
 		this.tileMaps = tileMaps;
 		this.tileSelector = tileSelector;
-		this.camera = new Camera();
-		this.lastMouseX = 0;
-		this.lastMouseY = 0;
+		this.cameraController = new CameraController();
+		this.cameraController.connectComponent(this);
 
-		addMouseWheelListener(new MouseWheelListener() {
-			@Override
-			public void mouseWheelMoved(MouseWheelEvent e) {
-				int notches = e.getWheelRotation();
-				camera.zoom(Math.pow(0.9, (double)notches));
-				repaint();
-			}
-		});
 		addMouseListener(new MouseAdapter() {
 			@Override
 			public void mousePressed(MouseEvent e) {
-				lastMouseX = e.getX();
-				lastMouseY = e.getY();
 				handleMouseEvent(e);
 			}
 		});
@@ -53,6 +41,7 @@ public class MapEditingPanel extends JPanel {
 	}
 
 	private void handleMouseEvent(MouseEvent e) {
+		Camera camera = cameraController.getCamera();
 		int x = (int) camera.inverseX(e.getX()) / TILE_SIZE;
 		int y = (int) camera.inverseY(e.getY()) / TILE_SIZE;
 		if (SwingUtilities.isLeftMouseButton(e)) {
@@ -61,13 +50,6 @@ public class MapEditingPanel extends JPanel {
 		if (SwingUtilities.isRightMouseButton(e)) {
 			tileMaps.get(0).setTile(x, y, null);
 		}
-		if (SwingUtilities.isMiddleMouseButton(e)) {
-			int dx = e.getX() - lastMouseX;
-			int dy = e.getY() - lastMouseY;
-			camera.translate(dx/camera.getZoom(), dy/camera.getZoom());
-		}
-		lastMouseX = e.getX();
-		lastMouseY = e.getY();
 		repaint();
 	}
 
@@ -76,6 +58,7 @@ public class MapEditingPanel extends JPanel {
 		super.paintComponent(g);
 
 		Graphics2D g2 = (Graphics2D) g;
+		Camera camera = cameraController.getCamera();
 		camera.transformGraphics2D(g2);
 
 		for (TileMap tileMap : tileMaps) {
