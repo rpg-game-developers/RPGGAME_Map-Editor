@@ -1,6 +1,8 @@
 package com.rpggame.mapeditor;
 
 import com.formdev.flatlaf.FlatDarculaLaf;
+import com.google.gson.Gson;
+import com.rpggame.mapeditor.model.tile.TileMapJson;
 import com.rpggame.mapeditor.view.MapEditorWindow;
 
 import javax.swing.*;

@@ -62,21 +62,8 @@ public class MapEditorWindow {
 
 		this.tileSelector = new TileSelector(26, 18);
 
-		try {
-			this.sheet1 = ImageIO.read(Objects
-					.requireNonNull(MapEditorWindow.class.getResourceAsStream("/spriteAssets/rogueLikeSheet_transparent.png")));
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		this.spriteSheet1 = new SpriteSheetBuilder().withSheet(this.sheet1).withColumns(26).withRows(18).build();
-
-		try {
-			this.sheet2 = ImageIO.read(Objects
-					.requireNonNull(MapEditorWindow.class.getResourceAsStream("/spriteAssets/testSpriteSheet.png")));
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		this.spriteSheet2 = new SpriteSheetBuilder().withSheet(this.sheet2).withColumns(26).withRows(18).build();
+		this.spriteSheet1 = new SpriteSheetBuilder().withSheet("/spriteAssets/rogueLikeSheet_transparent.png").withColumns(26).withRows(18).build();
+		this.spriteSheet2 = new SpriteSheetBuilder().withSheet("/spriteAssets/testSpriteSheet.png").withColumns(26).withRows(18).build();
 
 		this.tileMapSelector = new Selector<>();
 		this.tileMapSelector.add(new TileMap("ground", this.spriteSheet1, 100, 100));
@@ -88,7 +75,7 @@ public class MapEditorWindow {
 
 		MapEditingPanel mapEditingPanel = new MapEditingPanel(this.tileMapSelector, this.tileSelector);
 
-		root.add(new TopBarView(new TopBarController(this::updateEditorWindow, tileSelectorView, historyView)), BorderLayout.NORTH);
+		root.add(new TopBarView(new TopBarController(this::updateEditorWindow, tileSelectorView, historyView, tileMapSelector)), BorderLayout.NORTH);
 
 		JPanel wrapperPanel = new JPanel();
 		wrapperPanel.setLayout(new BorderLayout());

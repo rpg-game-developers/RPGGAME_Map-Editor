@@ -1,18 +1,30 @@
 package com.rpggame.mapeditor.controller.spritesheet;
 
+import com.rpggame.mapeditor.view.MapEditorWindow;
+
+import javax.imageio.ImageIO;
+
 import static com.rpggame.mapeditor.constants.MapEditorConstants.TILE_BORDER;
 import static com.rpggame.mapeditor.constants.MapEditorConstants.TILE_SIZE;
 
 import java.awt.image.BufferedImage;
+import java.io.IOException;
+import java.util.Objects;
 
 public class SpriteSheetBuilder {
 
+	private String source;
 	private BufferedImage spriteSheet;
 	private int rows, cols;
 	private int spriteWidth, spriteHeight;
 
-	public SpriteSheetBuilder withSheet(BufferedImage img) {
-		spriteSheet = img;
+	public SpriteSheetBuilder withSheet(String source) {
+		this.source = source;
+		try {
+			this.spriteSheet = ImageIO.read(Objects.requireNonNull(MapEditorWindow.class.getResourceAsStream(source)));
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 		return this;
 	}
 
@@ -66,6 +78,6 @@ public class SpriteSheetBuilder {
 			}
 		}
 
-		return new SpriteSheet(sprites);
+		return new SpriteSheet(source, sprites);
 	}
 }
