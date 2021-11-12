@@ -72,6 +72,10 @@ public class MapEditingPanel extends JPanel {
 		camera.transformGraphics2D(g2);
 
 		for (TileMap tileMap : tileMapSelector.getList()) {
+			// Don't render invisible layers.
+			if (!tileMap.isVisible())
+				continue;
+
 			for (int i=0; i<tileMap.getWidth(); i++) {
 				for (int j=0; j<tileMap.getHeight(); j++) {
 					if (tileMap.getTile(i,j) != null) {
