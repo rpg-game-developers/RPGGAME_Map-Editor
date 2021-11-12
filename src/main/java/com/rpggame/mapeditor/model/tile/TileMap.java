@@ -1,6 +1,7 @@
 package com.rpggame.mapeditor.model.tile;
 
 import com.rpggame.mapeditor.controller.spritesheet.SpriteSheet;
+import com.rpggame.mapeditor.controller.spritesheet.SpriteSheetBuilder;
 
 import java.awt.image.BufferedImage;
 
@@ -14,6 +15,27 @@ public class TileMap {
     private SpriteSheet spriteSheet;
     private boolean visible;
 
+    public TileMap(TileMapJson tileMapJson) {
+        this.spriteSheet = new SpriteSheetBuilder().withSheet(tileMapJson.getSpriteSheet()).withColumns(26).withRows(18).build();
+        this.width = tileMapJson.getWidth();
+        this.height = tileMapJson.getHeight();
+        this.tiles = new Tile[width][height];
+        this.type = tileMapJson.getType();
+        this.name = tileMapJson.getName();
+        this.visible = true;
+
+        for (int i=0; i<width; i++) {
+            for (int j=0; j<height; j++) {
+                int tileX = tileMapJson.getTileX()[i][j];
+                int tileY = tileMapJson.getTileY()[i][j];
+                if(tileX == -1 || tileY == -1) {
+                    this.tiles[i][j] = null;
+                } else {
+                    this.tiles[i][j] = new Tile(tileX, tileY);
+                }
+            }
+        }
+    }
 
     public TileMap(String name, SpriteSheet spriteSheet, int width, int height) {
         this.spriteSheet = spriteSheet;

@@ -4,6 +4,9 @@ import java.awt.event.ActionEvent;
 import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.util.Arrays;
 import java.util.List;
 import java.util.function.Consumer;
 import java.util.stream.Collectors;
@@ -41,7 +44,7 @@ public class TopBarController {
 	}
 
 	public void saveItemSelected(ActionEvent e) {
-		TileMapJson[] tileMaps = tileMapSelector.stream().map(TileMapJson::new).toArray(TileMapJson[]::new);
+		TileMapJson[] tileMaps = tileMapSelector.getList().stream().map(TileMapJson::new).toArray(TileMapJson[]::new);
 
 		Gson gson = new Gson();
 		String s = gson.toJson(tileMaps);
@@ -54,6 +57,17 @@ public class TopBarController {
 			PrintWriter file = new PrintWriter("saves/tilemap.json");
 			file.println(s);
 			file.close();
+		} catch (IOException exception) {
+			System.out.println("An error occurred.");
+		}
+	}
+
+	public void loadItemSelected(ActionEvent e) {
+		try {
+			String jsonString = Files.readString(Path.of("saves/tilemap.json"));
+			Gson gson = new Gson();
+			TileMapJson[] tileMaps = gson.fromJson(jsonString, TileMapJson[].class);
+			tileMapSelector.setList(Arrays.stream(tileMaps).map(TileMap::new).collect(Collectors.toList()));
 		} catch (IOException exception) {
 			System.out.println("An error occurred.");
 		}

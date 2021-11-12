@@ -28,6 +28,10 @@ public class TopBarView extends JPanel {
 		saveItem.addActionListener(topBarController::saveItemSelected);
 		fileMenu.add(saveItem);
 
+		JMenuItem loadItem = new JMenuItem("Load");
+		loadItem.addActionListener(topBarController::loadItemSelected);
+		fileMenu.add(loadItem);
+
 		JMenuItem exitItem = new JMenuItem("Exit");
 		exitItem.addActionListener(topBarController::exitItemSelected);
 		fileMenu.add(exitItem);

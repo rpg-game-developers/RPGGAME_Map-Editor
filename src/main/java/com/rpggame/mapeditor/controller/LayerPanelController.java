@@ -27,8 +27,8 @@ public class LayerPanelController {
 			JList<?> jList = (JList<?>) source;
 			int index = jList.getSelectedIndex();
 
-			tileMapSelector.setSelected(tileMapSelector.get(index));
-			this.panelSettings.updatePanelContents(tileMapSelector.get(index).getName());
+			tileMapSelector.setSelected(tileMapSelector.getList().get(index));
+			this.panelSettings.updatePanelContents(tileMapSelector.getList().get(index).getName());
 		}
 	}
 

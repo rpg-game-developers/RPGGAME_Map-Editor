@@ -23,7 +23,7 @@ public class LayerPanelList extends JPanel {
 
 		this.setLayout(new BorderLayout());
 		DefaultListModel<TileMap> layersModel = new DefaultListModel<>();
-		for(TileMap tileMap : tileMapSelector) {
+		for(TileMap tileMap : tileMapSelector.getList()) {
 			layersModel.addElement(tileMap);
 		}
 		JList<TileMap> layers = new JList<>(layersModel);

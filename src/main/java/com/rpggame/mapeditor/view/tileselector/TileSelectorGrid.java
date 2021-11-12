@@ -5,6 +5,7 @@ import static com.rpggame.mapeditor.constants.MapEditorConstants.TILE_SIZE;
 import java.awt.BorderLayout;
 import java.awt.Component;
 import java.awt.Dimension;
+import java.util.List;
 import java.util.stream.IntStream;
 
 import javax.swing.JPanel;
@@ -32,8 +33,11 @@ public class TileSelectorGrid extends JPanel {
 		this.width = parentWidth - 40;
 		this.columns = width / tileSize;
 
-		tileMapSelector.subscribe(newSelection -> {
-			this.updateTiles(tileSelector, newSelection.getSpriteSheet());
+		tileMapSelector.subscribe(new SelectorListener<TileMap>() {
+			@Override
+			public void onSelectionChange(TileMap newSelection) {
+				updateTiles(tileSelector, newSelection.getSpriteSheet());
+			}
 		});
 
 		TileMap selectedTileMap = tileMapSelector.getSelected();
@@ -44,14 +48,14 @@ public class TileSelectorGrid extends JPanel {
 	public void updateTiles(TileSelector tileSelector, SpriteSheet spriteSheet) {
 		this.removeAll();
 		this.revalidate();
-		int rows = (tileSelector.size() + columns - 1)/columns;
+		int rows = (tileSelector.getList().size() + columns - 1)/columns;
 		int height = (tileSize + padding) * rows;
 		this.setPreferredSize(new Dimension(width, height));
 		this.setLayout(new BorderLayout());
 		Tile[][] mapTiles = new Tile[rows][columns];
 
-		for (int i = 0; i < tileSelector.size(); i++) {
-			mapTiles[i/columns][i%columns] = tileSelector.get(i);
+		for (int i = 0; i < tileSelector.getList().size(); i++) {
+			mapTiles[i/columns][i%columns] = tileSelector.getList().get(i);
 		}
 
 		final DefaultTableModel model = new DefaultTableModel(mapTiles,
