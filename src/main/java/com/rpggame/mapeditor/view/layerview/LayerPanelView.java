@@ -22,14 +22,14 @@ public class LayerPanelView extends JPanel {
 		this.setBorder(BorderFactory.createMatteBorder(0, 1, 1, 1, Color.black));
 		this.setPreferredSize(
 				new Dimension(FrameVariables.FRAME_WIDTH / MapEditorConstants.PANEL_WIDTH_DIVIDER, (FRAME_HEIGHT)));
-
 		this.setLayout(new BorderLayout());
-
-		this.add(new LayerPanelHeader(), BorderLayout.NORTH);
 
 		LayerPanelSettings layerPanelSettings = new LayerPanelSettings();
 		LayerPanelController layerPanelController = new LayerPanelController(layerPanelSettings, tileMapSelector);
-		this.add(new LayerPanelList(layerPanelController, tileMapSelector), BorderLayout.CENTER);
+		LayerPanelList layerPanelList = new LayerPanelList(layerPanelController, tileMapSelector);
+
+		this.add(new LayerPanelHeader(layerPanelList), BorderLayout.NORTH);
+		this.add(layerPanelList, BorderLayout.CENTER);
 		this.add(layerPanelSettings, BorderLayout.SOUTH);
 
 	}

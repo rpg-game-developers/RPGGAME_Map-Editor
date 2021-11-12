@@ -51,7 +51,6 @@ public class TopBarView extends JPanel {
 		showHistoryViewItem.addActionListener(e -> topBarController.showHistorySelected());
 		viewMenu.add(showHistoryViewItem);
 
-
 		JMenuBar helpDropdown = new JMenuBar();
 		JMenu helpMenu = new JMenu("Help");
 

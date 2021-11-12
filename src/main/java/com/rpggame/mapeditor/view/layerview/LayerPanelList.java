@@ -15,23 +15,22 @@ import java.util.stream.Collectors;
 
 import static com.rpggame.mapeditor.constants.FrameVariables.FRAME_HEIGHT;
 import static com.rpggame.mapeditor.constants.FrameVariables.FRAME_WIDTH;
+import static com.rpggame.mapeditor.constants.MapEditorConstants.GROUND;
+import static com.rpggame.mapeditor.constants.MapEditorConstants.FURNITURE;
+
 
 public class LayerPanelList extends JPanel {
 
-	public LayerPanelList(LayerPanelController layerPanelController, Selector<TileMap> tileMapSelector) {
-		List<LayerPanelItem> layerPanels = new ArrayList<>();
+	private final DefaultListModel<TileMap> layersModel = new DefaultListModel<>();
+	private final JList<TileMap> layers;
+	private final List<LayerPanelItem> layerPanels;
+	private final LayerPanelController layerPanelController;
 
+	public LayerPanelList(LayerPanelController layerPanelController, Selector<TileMap> tileMapSelector) {
+		this.layerPanelController = layerPanelController;
+		layerPanels = new ArrayList<>();
 		this.setLayout(new BorderLayout());
-		DefaultListModel<TileMap> layersModel = new DefaultListModel<>();
-		for(TileMap tileMap : tileMapSelector.getList()) {
-			layersModel.addElement(tileMap);
-		}
-		JList<TileMap> layers = new JList<>(layersModel);
-		layers.setCellRenderer((list, value, index, isSelected, cellHasFocus) -> {
-			LayerPanelItem layerPanelItem = new LayerPanelItem(layerPanelController, value.getName(), index);
-			layerPanels.add(layerPanelItem);
-			return layerPanelItem;
-		});
+		layers = new JList<>(layersModel);
 		layers.setFixedCellHeight(FRAME_HEIGHT/20);
 		layers.setSelectionMode(ListSelectionModel.SINGLE_INTERVAL_SELECTION);
 		layers.setLayoutOrientation(JList.VERTICAL);
@@ -46,7 +45,7 @@ public class LayerPanelList extends JPanel {
 				button.doClick();
 			}
 		});
-		layers.addListSelectionListener(layerPanelController::onItemSelected);
+		layers.addListSelectionListener(this.layerPanelController::onItemSelected);
 
 		JScrollPane layersScroller = new JScrollPane(layers);
 		layersScroller.getVerticalScrollBar().setPreferredSize(new Dimension(FRAME_WIDTH/85, Integer.MAX_VALUE));
@@ -54,6 +53,31 @@ public class LayerPanelList extends JPanel {
 		layersScroller.setBorder(BorderFactory.createMatteBorder(1,1,1,0, Color.black));
 		layersScroller.setPreferredSize(new Dimension(FRAME_WIDTH / 5, FRAME_HEIGHT / 2));
 		this.add(layersScroller);
+	}
+
+	// TODO: maybe refactor this to the controller
+	public void addLayer(String layer) {
+		switch(layer.toLowerCase()) {
+			case "ground":
+				layersModel.addElement(GROUND);
+				break;
+			case "furniture":
+				layersModel.addElement(FURNITURE);
+				break;
+		}
+		repaintLayersList();
+	}
+
+	/**
+	 * Paints the new LayerList after a new Layer has been added.
+	 */
+	public void repaintLayersList() {
+		layers.setCellRenderer((list, value, index, isSelected, cellHasFocus) -> {
+			LayerPanelItem layerPanelItem = new LayerPanelItem(layerPanelController, value.getName(), index);
+			layerPanels.add(layerPanelItem);
+			return layerPanelItem;
+		});
+		this.repaint();
 	}
 
 }
