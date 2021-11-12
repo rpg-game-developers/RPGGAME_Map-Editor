@@ -26,9 +26,9 @@ public class MapEditorWindow {
 	private TileSelector tileSelector;
 	private Selector<TileMap> tileMapSelector;
 	private BufferedImage sheet1;
-	private SpriteSheet furnitureSpriteSheet;
+	private SpriteSheet spriteSheet1;
 	private BufferedImage sheet2;
-	private SpriteSheet groundSpriteSheet;
+	private SpriteSheet spriteSheet2;
 	private JFrame frame;
 
 	public MapEditorWindow() {

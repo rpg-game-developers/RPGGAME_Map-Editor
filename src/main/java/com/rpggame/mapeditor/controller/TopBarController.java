@@ -1,21 +1,5 @@
 package com.rpggame.mapeditor.controller;
 
-import java.awt.event.ActionEvent;
-import java.io.File;
-import java.io.IOException;
-import java.io.PrintWriter;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.util.Arrays;
-import java.util.List;
-import java.util.function.Consumer;
-import java.util.stream.Collectors;
-
-import javax.swing.JFrame;
-import javax.swing.JMenuItem;
-import javax.swing.JPopupMenu;
-import javax.swing.SwingUtilities;
-
 import com.google.gson.Gson;
 import com.rpggame.mapeditor.model.selector.Selector;
 import com.rpggame.mapeditor.model.tile.TileMap;
@@ -23,7 +7,19 @@ import com.rpggame.mapeditor.model.tile.TileMapJson;
 import com.rpggame.mapeditor.view.history.HistoryView;
 import com.rpggame.mapeditor.view.tileselector.TileSelectorView;
 import com.rpggame.mapeditor.view.topbar.AboutDialog;
+import com.rpggame.mapeditor.view.topbar.LayerDialog;
 import com.rpggame.mapeditor.view.topbar.WindowSizeChangeDialog;
+
+import javax.swing.*;
+import java.awt.event.ActionEvent;
+import java.io.File;
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.util.Arrays;
+import java.util.function.Consumer;
+import java.util.stream.Collectors;
 
 public class TopBarController {
 
@@ -98,5 +94,9 @@ public class TopBarController {
 		if(!historyView.isVisible()) {
 			historyView.setVisible(true);
 		}
+	}
+
+	public void addNewLayerDialog() {
+		new LayerDialog();
 	}
 }

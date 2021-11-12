@@ -33,6 +33,7 @@ public class LayerPanelController {
 	}
 
 	public void visibilityButtonClick(ActionEvent e) {
+		// TODO: show and hide layers
 		System.out.println("test");
 	}
 }

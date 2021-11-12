@@ -39,6 +39,9 @@ public class TopBarView extends JPanel {
 		JMenuBar viewDropdown = new JMenuBar();
 		JMenu viewMenu = new JMenu("View");
 
+		JMenuItem addLayer = new JMenuItem("Add layer");
+		addLayer.addActionListener(e -> topBarController.addNewLayerDialog());
+
 		JMenuItem changeWindowSizeItem = new JMenuItem("Change window size");
 		changeWindowSizeItem.addActionListener(topBarController::openWindowSizeDialog);
 		viewMenu.add(changeWindowSizeItem);
