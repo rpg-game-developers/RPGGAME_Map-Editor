@@ -1,21 +1,16 @@
 package com.rpggame.mapeditor.view.tileselector;
 
-import static com.rpggame.mapeditor.constants.FrameVariables.FRAME_HEIGHT;
-
-import java.awt.BorderLayout;
-import java.awt.Dimension;
-
-import javax.swing.BorderFactory;
-import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-import javax.swing.border.CompoundBorder;
-
 import com.rpggame.mapeditor.constants.FrameVariables;
 import com.rpggame.mapeditor.constants.MapEditorConstants;
-import com.rpggame.mapeditor.controller.spritesheet.SpriteSheet;
 import com.rpggame.mapeditor.model.selector.Selector;
 import com.rpggame.mapeditor.model.tile.TileMap;
 import com.rpggame.mapeditor.model.tile.TileSelector;
+
+import javax.swing.*;
+import javax.swing.border.CompoundBorder;
+import java.awt.*;
+
+import static com.rpggame.mapeditor.constants.FrameVariables.FRAME_HEIGHT;
 
 public class TileSelectorView extends JPanel {
 

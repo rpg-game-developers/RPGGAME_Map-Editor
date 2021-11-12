@@ -1,5 +1,7 @@
 package com.rpggame.mapeditor.view.topbar;
 
+import static com.rpggame.mapeditor.constants.MapEditorConstants.REGULAR_FONT;
+
 import java.awt.Dimension;
 import java.awt.Toolkit;
 import java.util.ArrayList;

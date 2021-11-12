@@ -11,8 +11,8 @@ import com.rpggame.mapeditor.view.layerview.LayerPanelSettings;
 
 public class LayerPanelController {
 
-	private LayerPanelSettings panelSettings;
-	private Selector<TileMap> tileMapSelector;
+	private final LayerPanelSettings panelSettings;
+	private final Selector<TileMap> tileMapSelector;
 
 	public LayerPanelController(LayerPanelSettings panelSettings, Selector<TileMap> tileMapSelector) {
 		this.panelSettings = panelSettings;

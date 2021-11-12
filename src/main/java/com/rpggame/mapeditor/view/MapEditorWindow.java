@@ -1,25 +1,8 @@
 package com.rpggame.mapeditor.view;
 
-import java.awt.BorderLayout;
-import java.awt.Dimension;
-import java.awt.GraphicsEnvironment;
-import java.awt.Rectangle;
-import java.awt.image.BufferedImage;
-import java.io.IOException;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Objects;
-import java.util.stream.Collectors;
-
-import javax.imageio.ImageIO;
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.SwingUtilities;
-
 import com.rpggame.mapeditor.constants.FrameVariables;
 import com.rpggame.mapeditor.controller.TopBarController;
 import com.rpggame.mapeditor.controller.spritesheet.SpriteSheet;
-import com.rpggame.mapeditor.controller.spritesheet.SpriteSheetBuilder;
 import com.rpggame.mapeditor.model.selector.Selector;
 import com.rpggame.mapeditor.model.tile.TileMap;
 import com.rpggame.mapeditor.model.tile.TileSelector;
@@ -28,14 +11,24 @@ import com.rpggame.mapeditor.view.layerview.LayerPanelView;
 import com.rpggame.mapeditor.view.tileselector.TileSelectorView;
 import com.rpggame.mapeditor.view.topbar.TopBarView;
 
+import javax.swing.*;
+import java.awt.*;
+import java.awt.image.BufferedImage;
+import java.util.Arrays;
+import java.util.List;
+import java.util.stream.Collectors;
+
+import static com.rpggame.mapeditor.constants.MapEditorConstants.FURNITURE;
+import static com.rpggame.mapeditor.constants.MapEditorConstants.GROUND;
+
 public class MapEditorWindow {
 
 	private TileSelector tileSelector;
 	private Selector<TileMap> tileMapSelector;
 	private BufferedImage sheet1;
-	private SpriteSheet spriteSheet1;
+	private SpriteSheet furnitureSpriteSheet;
 	private BufferedImage sheet2;
-	private SpriteSheet spriteSheet2;
+	private SpriteSheet groundSpriteSheet;
 	private JFrame frame;
 
 	public MapEditorWindow() {
@@ -60,14 +53,13 @@ public class MapEditorWindow {
 		JPanel root = new JPanel();
 		root.setLayout(new BorderLayout());
 
+
 		this.tileSelector = new TileSelector(26, 18);
 
-		this.spriteSheet1 = new SpriteSheetBuilder().withSheet("/spriteAssets/rogueLikeSheet_transparent.png").withColumns(26).withRows(18).build();
-		this.spriteSheet2 = new SpriteSheetBuilder().withSheet("/spriteAssets/testSpriteSheet.png").withColumns(26).withRows(18).build();
 
 		this.tileMapSelector = new Selector<>();
-		this.tileMapSelector.getList().add(new TileMap("ground", this.spriteSheet1, 100, 100));
-		this.tileMapSelector.getList().add(new TileMap("furniture", this.spriteSheet2, 100, 100));
+//		this.tileMapSelector.getList().add(FURNITURE);
+//		this.tileMapSelector.getList().add(GROUND);
 
 		// tile map
 		TileSelectorView tileSelectorView = new TileSelectorView(this.tileSelector, this.tileMapSelector);
