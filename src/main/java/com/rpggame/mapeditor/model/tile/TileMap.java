@@ -31,7 +31,7 @@ public class TileMap {
                 if(tileX == -1 || tileY == -1) {
                     this.tiles[i][j] = null;
                 } else {
-                    this.tiles[i][j] = new Tile(tileX, tileY);
+                    this.tiles[i][j] = new Tile(tileY, tileX);
                 }
             }
         }
