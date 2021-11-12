@@ -58,8 +58,8 @@ public class MapEditorWindow {
 
 
 		this.tileMapSelector = new Selector<>();
-		this.tileMapSelector.getList().add(FURNITURE);
-		this.tileMapSelector.getList().add(GROUND);
+//		this.tileMapSelector.getList().add(FURNITURE);
+//		this.tileMapSelector.getList().add(GROUND);
 
 		// tile map
 		TileSelectorView tileSelectorView = new TileSelectorView(this.tileSelector, this.tileMapSelector);

@@ -29,9 +29,9 @@ public interface MapEditorConstants {
 	public final static Font REGULAR_FONT = new Font("Comic Sans", Font.BOLD, 15);
 
 	// Sprite Sheets
-	public final static SpriteSheet FURNITURE_SPRITE_SHEET = new SpriteSheetBuilder().
-			withSheet("/spriteAssets/rogueLikeSheet_transparent.png").withColumns(26).withRows(18).build();
 	public final static SpriteSheet GROUND_SPRITE_SHEET = new SpriteSheetBuilder().
+			withSheet("/spriteAssets/rogueLikeSheet_transparent.png").withColumns(26).withRows(18).build();
+	public final static SpriteSheet FURNITURE_SPRITE_SHEET = new SpriteSheetBuilder().
 			withSheet("/spriteAssets/testSpriteSheet.png").withColumns(26).withRows(18).build();
 
 	// TileMaps
