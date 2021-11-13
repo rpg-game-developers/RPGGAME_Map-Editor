@@ -35,4 +35,35 @@ public class TileMapJson {
             }
         }
     }
+
+	public String getName() {
+		return name;
+	}
+
+	public String getType() {
+		return type;
+	}
+
+	public String getSpriteSheet() {
+		return spriteSheet;
+	}
+
+	public int getWidth() {
+		return width;
+	}
+
+	public int getHeight() {
+		return height;
+	}
+
+	public int[][] getTileX() {
+		return tileX;
+	}
+
+	public int[][] getTileY() {
+		return tileY;
+	}
+    
+    
+    
 }
