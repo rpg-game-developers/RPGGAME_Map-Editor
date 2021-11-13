@@ -4,6 +4,7 @@ import com.rpggame.mapeditor.controller.LayerPanelController;
 import com.rpggame.mapeditor.model.selector.Selector;
 import com.rpggame.mapeditor.model.selector.SelectorListener;
 import com.rpggame.mapeditor.model.tile.TileMap;
+import org.jetbrains.annotations.NotNull;
 
 import javax.swing.*;
 import java.awt.*;
@@ -17,18 +18,24 @@ import java.util.stream.Collectors;
 import static com.rpggame.mapeditor.constants.FrameVariables.FRAME_HEIGHT;
 import static com.rpggame.mapeditor.constants.FrameVariables.FRAME_WIDTH;
 
+/**
+ * Creates the list of all the layers added by the user.
+ */
 public class LayerPanelList extends JPanel {
 
-	private final DefaultListModel<TileMap> layersModel = new DefaultListModel<>();
 	private final LayerPanelController layerPanelController;
-	private Selector<TileMap> tileMapSelector;
+	private final Selector<TileMap> tileMapSelector;
 
-	public LayerPanelList(LayerPanelController layerPanelController, Selector<TileMap> tileMapSelector) {
+	/**
+	 * Creates the initial list and subscribes to the onListChange event to update the list when a
+	 * new layer is added.
+	 * @param layerPanelController the controller for the layer panel.
+	 * @param tileMapSelector the tilemap selector.
+	 */
+	public LayerPanelList(LayerPanelController layerPanelController, @NotNull Selector<TileMap> tileMapSelector) {
 		this.tileMapSelector = tileMapSelector;
-		List<LayerPanelItem> layerPanels = new ArrayList<>();
 		this.layerPanelController = layerPanelController;
 		updateList(tileMapSelector.getList());
-
 		tileMapSelector.subscribe(new SelectorListener<>() {
 			@Override
 			public void onListChange(List<TileMap> newSelection) {
@@ -37,7 +44,12 @@ public class LayerPanelList extends JPanel {
 		});
 	}
 
-	public void updateList(List<TileMap> tileMaps) {
+	/**
+	 * Updates the list of all the layers when a new layer gets added.
+	 * @param tileMaps the tile maps added to the list.
+	 */
+	public void updateList(@NotNull List<TileMap> tileMaps) {
+		// TODO: Think of a better way so the list is not recreated everytime but updated instead
 		this.removeAll();
 		this.revalidate();
 		List<LayerPanelItem> layerPanels = new ArrayList<>();
@@ -48,7 +60,7 @@ public class LayerPanelList extends JPanel {
 		}
 		JList<TileMap> layers = new JList<>(layersModel);
 		layers.setCellRenderer((list, value, index, isSelected, cellHasFocus) -> {
-			LayerPanelItem layerPanelItem = new LayerPanelItem(layerPanelController, value.getName(), index);
+			LayerPanelItem layerPanelItem = new LayerPanelItem(layerPanelController, value.getName());
 			layerPanels.add(layerPanelItem);
 			return layerPanelItem;
 		});
@@ -77,6 +89,10 @@ public class LayerPanelList extends JPanel {
 		this.repaint();
 	}
 
+	/**
+	 * Getter for tileMapSelector.
+	 * @return tileMapSelector.
+	 */
 	public Selector<TileMap> getTileMapSelector() {
 		return tileMapSelector;
 	}

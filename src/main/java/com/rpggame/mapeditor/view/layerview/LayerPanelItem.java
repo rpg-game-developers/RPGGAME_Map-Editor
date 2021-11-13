@@ -17,40 +17,44 @@ import javax.swing.JPanel;
 
 import com.rpggame.mapeditor.controller.LayerPanelController;
 import com.rpggame.mapeditor.view.MapEditorWindow;
+import org.jetbrains.annotations.NotNull;
 
+/**
+ * Represents an item inside the LayerPanelList.
+ */
 public class LayerPanelItem extends JPanel {
 
-	private ArrayList<JButton> panelButtons = new ArrayList<>();
+	/**
+	 * Creates a new Layer Panel item which consists of the layer that is added, and the visibility button.
+	 * @param controller the LayerPanelController
+	 * @param tileName the name of the layer that was added.
+	 */
+	public LayerPanelItem(@NotNull LayerPanelController controller, String tileName) {
+		this.setLayout(new BorderLayout());
+		this.setOpaque(false);
+		this.setBorder(BorderFactory.createMatteBorder(0, 0, 1, 0, Color.black));
 
-	public LayerPanelItem(LayerPanelController controller, String tileName, int index) {
 		JButton visibilityButton = new JButton();
 		visibilityButton.addActionListener(controller::visibilityButtonClick);
+
 		try {
 			Image img = ImageIO.read(Objects
-					.requireNonNull(MapEditorWindow.class.getResourceAsStream("/icons/non-visible-eye-symbol-50.png")));
+					.requireNonNull(MapEditorWindow.class.getResourceAsStream("/icons/eye-symbol-50.png")));
 //			Image img = ImageIO.read(Objects.requireNonNull(MapEditorWindow.class.getResourceAsStream(
 //					"/icons/eye-symbol-50.png")));
 			visibilityButton.setIcon(new ImageIcon(img));
 		} catch (Exception ex) {
 			ex.printStackTrace();
 		}
-		this.setLayout(new BorderLayout());
-		this.setOpaque(false);
-		if (index == 0) { // checking if it's the first element
-			this.setBorder(BorderFactory.createMatteBorder(0, 0, 0, 1, Color.black));
-		} else {
-			this.setBorder(BorderFactory.createMatteBorder(1, 0, 0, 1, Color.black));
-		}
 		JLabel tileNameLabel = new JLabel(tileName);
+		ArrayList<JButton> panelButtons = new ArrayList<>();
 		panelButtons.add(visibilityButton);
 		tileNameLabel.setBorder(BorderFactory.createEmptyBorder(0, 10, 0, 0));
 		tileNameLabel.setFont(REGULAR_FONT);
+
 		this.add(tileNameLabel, BorderLayout.WEST);
 		this.add(visibilityButton, BorderLayout.EAST);
 		this.setBackground(Color.lightGray);
 	}
 
-	public ArrayList<JButton> getPanelButtons() {
-		return panelButtons;
-	}
 }
