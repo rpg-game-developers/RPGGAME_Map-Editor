@@ -9,9 +9,9 @@ import javax.swing.BorderFactory;
 import javax.swing.JPanel;
 
 import com.rpggame.mapeditor.constants.MapEditorConstants;
-import com.rpggame.mapeditor.controller.spritesheet.SpriteSheet;
 import com.rpggame.mapeditor.model.tile.Tile;
-import com.rpggame.mapeditor.utils.ImageHelper;
+import com.rpggame.spritesheet.SpriteSheet;
+import com.rpggame.spritesheet.utils.ImageHelper;
 
 public class SelectionTile extends JPanel {
 

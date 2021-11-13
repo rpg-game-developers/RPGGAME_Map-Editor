@@ -16,8 +16,8 @@ import javax.swing.border.CompoundBorder;
 
 import com.rpggame.mapeditor.constants.MapEditorConstants;
 import com.rpggame.mapeditor.model.HistoryAction;
-import com.rpggame.mapeditor.utils.ImageHelper;
 import com.rpggame.mapeditor.view.MapEditorWindow;
+import com.rpggame.spritesheet.utils.ImageHelper;
 
 public class ActionCellRenderer implements ListCellRenderer<HistoryAction> {
 

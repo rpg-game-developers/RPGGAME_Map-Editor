@@ -1,8 +1,20 @@
 package com.rpggame.mapeditor.view;
 
+import java.awt.BorderLayout;
+import java.awt.Dimension;
+import java.awt.GraphicsEnvironment;
+import java.awt.Rectangle;
+import java.awt.image.BufferedImage;
+import java.util.Arrays;
+import java.util.List;
+import java.util.stream.Collectors;
+
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+import javax.swing.SwingUtilities;
+
 import com.rpggame.mapeditor.constants.FrameVariables;
 import com.rpggame.mapeditor.controller.TopBarController;
-import com.rpggame.mapeditor.controller.spritesheet.SpriteSheet;
 import com.rpggame.mapeditor.model.selector.Selector;
 import com.rpggame.mapeditor.model.tile.TileMap;
 import com.rpggame.mapeditor.model.tile.TileSelector;
@@ -10,16 +22,7 @@ import com.rpggame.mapeditor.view.history.HistoryView;
 import com.rpggame.mapeditor.view.layerview.LayerPanelView;
 import com.rpggame.mapeditor.view.tileselector.TileSelectorView;
 import com.rpggame.mapeditor.view.topbar.TopBarView;
-
-import javax.swing.*;
-import java.awt.*;
-import java.awt.image.BufferedImage;
-import java.util.Arrays;
-import java.util.List;
-import java.util.stream.Collectors;
-
-import static com.rpggame.mapeditor.constants.MapEditorConstants.FURNITURE;
-import static com.rpggame.mapeditor.constants.MapEditorConstants.GROUND;
+import com.rpggame.spritesheet.SpriteSheet;
 
 public class MapEditorWindow {
 
