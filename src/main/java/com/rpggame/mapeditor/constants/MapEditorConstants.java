@@ -4,7 +4,6 @@ import java.awt.Color;
 import java.awt.Font;
 
 import com.rpggame.mapeditor.model.tile.TileMap;
-import com.rpggame.mapeditor.view.MapEditorWindow;
 import com.rpggame.spritesheet.SpriteSheet;
 import com.rpggame.spritesheet.SpriteSheetBuilder;
 
@@ -31,10 +30,10 @@ public interface MapEditorConstants {
 
 	// Sprite Sheets
 	public final static SpriteSheet GROUND_SPRITE_SHEET = new SpriteSheetBuilder()
-			.withSheet(MapEditorWindow.class, "/spriteAssets/rogueLikeSheet_transparent.png").withColumns(26)
+			.withSheet(MapEditorConstants.class, "/spriteAssets/rogueLikeSheet_transparent.png").withColumns(26)
 			.withRows(18).build(TILE_SIZE, TILE_BORDER);
 	public final static SpriteSheet FURNITURE_SPRITE_SHEET = new SpriteSheetBuilder()
-			.withSheet(MapEditorWindow.class, "/spriteAssets/testSpriteSheet.png").withColumns(26).withRows(18).build(TILE_SIZE, TILE_BORDER);
+			.withSheet(MapEditorConstants.class, "/spriteAssets/testSpriteSheet.png").withColumns(26).withRows(18).build(TILE_SIZE, TILE_BORDER);
 
 	// TileMaps
 	TileMap GROUND = new TileMap("ground", GROUND_SPRITE_SHEET, 100, 100);

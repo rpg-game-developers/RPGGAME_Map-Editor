@@ -2,7 +2,6 @@ package com.rpggame.mapeditor.controller;
 
 import com.rpggame.mapeditor.model.selector.Selector;
 import com.rpggame.mapeditor.model.tile.TileMap;
-import com.rpggame.mapeditor.view.layerview.LayerPanelSettings;
 import org.jetbrains.annotations.NotNull;
 
 import javax.swing.*;
@@ -14,16 +13,13 @@ import java.awt.event.ActionEvent;
  */
 public class LayerPanelController {
 
-	private final LayerPanelSettings panelSettings;
 	private final Selector<TileMap> tileMapSelector;
 
 	/**
 	 * Creates a new instance of the controller.
-	 * @param panelSettings the LayerPanelSettings panel.
 	 * @param tileMapSelector the tileMapSelector.
 	 */
-	public LayerPanelController(LayerPanelSettings panelSettings, Selector<TileMap> tileMapSelector) {
-		this.panelSettings = panelSettings;
+	public LayerPanelController(Selector<TileMap> tileMapSelector) {
 		this.tileMapSelector = tileMapSelector;
 	}
 
@@ -39,7 +35,6 @@ public class LayerPanelController {
 			JList<?> jList = (JList<?>) source;
 			int index = jList.getSelectedIndex();
 			tileMapSelector.setSelected(tileMapSelector.getList().get(index));
-			this.panelSettings.updatePanelContents(tileMapSelector.getList().get(index).getName());
 		}
 	}
 

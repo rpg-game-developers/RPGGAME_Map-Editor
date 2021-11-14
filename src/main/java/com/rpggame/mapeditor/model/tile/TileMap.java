@@ -3,7 +3,6 @@ package com.rpggame.mapeditor.model.tile;
 import java.awt.image.BufferedImage;
 
 import com.rpggame.mapeditor.constants.MapEditorConstants;
-import com.rpggame.mapeditor.view.MapEditorWindow;
 import com.rpggame.spritesheet.SpriteSheet;
 import com.rpggame.spritesheet.SpriteSheetBuilder;
 
@@ -18,7 +17,7 @@ public class TileMap {
 	private boolean visible;
 
 	public TileMap(TileMapJson tileMapJson) {
-		this.spriteSheet = new SpriteSheetBuilder().withSheet(MapEditorWindow.class, tileMapJson.getSpriteSheet())
+		this.spriteSheet = new SpriteSheetBuilder().withSheet(TileMap.class, tileMapJson.getSpriteSheet())
 				.withColumns(26).withRows(18).build(MapEditorConstants.TILE_SIZE, MapEditorConstants.TILE_BORDER);
 		this.width = tileMapJson.getWidth();
 		this.height = tileMapJson.getHeight();

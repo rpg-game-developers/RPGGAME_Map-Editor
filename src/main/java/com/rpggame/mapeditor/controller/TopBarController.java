@@ -4,11 +4,6 @@ import com.google.gson.Gson;
 import com.rpggame.mapeditor.model.selector.Selector;
 import com.rpggame.mapeditor.model.tile.TileMap;
 import com.rpggame.mapeditor.model.tile.TileMapJson;
-import com.rpggame.mapeditor.view.history.HistoryView;
-import com.rpggame.mapeditor.view.tileselector.TileSelectorView;
-import com.rpggame.mapeditor.view.topbar.AboutDialog;
-import com.rpggame.mapeditor.view.topbar.LayerDialog;
-import com.rpggame.mapeditor.view.topbar.WindowSizeChangeDialog;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -23,15 +18,11 @@ import java.util.stream.Collectors;
 
 public class TopBarController {
 
-	private final TileSelectorView tileSelectorView;
-	private final HistoryView historyView;
 	private final Consumer<String> updateWindowSize;
 	private final Selector<TileMap> tileMapSelector;
 
-	public TopBarController(Consumer<String> updateWindowSize, TileSelectorView tileSelectorView, HistoryView historyView, Selector<TileMap> tileMapSelector) {
+	public TopBarController(Consumer<String> updateWindowSize, Selector<TileMap> tileMapSelector) {
 		this.updateWindowSize = updateWindowSize;
-		this.tileSelectorView = tileSelectorView;
-		this.historyView = historyView;
 		this.tileMapSelector = tileMapSelector;
 	}
 
@@ -76,27 +67,4 @@ public class TopBarController {
 		frame.dispose();
 	}
 
-	public void openWindowSizeDialog(ActionEvent e) {
-		new WindowSizeChangeDialog(this.updateWindowSize);
-	}
-
-	public void aboutItemSelected(ActionEvent e) {
-		new AboutDialog();
-	}
-
-	public void showTileSelectionItemSelected() {
-		if(!tileSelectorView.isVisible()) {
-			tileSelectorView.setVisible(true);
-		}
-	}
-
-	public void showHistorySelected() {
-		if(!historyView.isVisible()) {
-			historyView.setVisible(true);
-		}
-	}
-
-	public void addNewLayerDialog() {
-		new LayerDialog();
-	}
 }

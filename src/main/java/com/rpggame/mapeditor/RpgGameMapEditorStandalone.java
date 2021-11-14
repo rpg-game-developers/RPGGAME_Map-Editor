@@ -1,21 +1,20 @@
 package com.rpggame.mapeditor;
 
-import com.formdev.flatlaf.FlatDarculaLaf;
-import com.google.gson.Gson;
-import com.rpggame.mapeditor.model.tile.TileMapJson;
-import com.rpggame.mapeditor.view.MapEditorWindow;
-
-import javax.swing.*;
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.backends.lwjgl3.Lwjgl3Application;
+import com.badlogic.gdx.backends.lwjgl3.Lwjgl3ApplicationConfiguration;
+import com.rpggame.mapeditor.view.MapEditor;
 
 public class RpgGameMapEditorStandalone {
 
 	public static void main(String[] args) {
-		try {
-			UIManager.setLookAndFeel(new FlatDarculaLaf());
-		} catch( Exception ex ) {
-			System.err.println( "Failed to initialize LaF" );
-		}
-		new MapEditorWindow();
+		Lwjgl3ApplicationConfiguration config = new Lwjgl3ApplicationConfiguration();
+		config.setIdleFPS(60);
+		config.useVsync(true);
+
+		config.setTitle("Rpg Game");
+		config.setWindowedMode(960, 640);
+		new Lwjgl3Application(new MapEditor(), config);
 	}
-	
+
 }
