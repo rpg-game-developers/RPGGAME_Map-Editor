@@ -6,8 +6,13 @@ import com.badlogic.gdx.backends.lwjgl3.Lwjgl3Graphics;
 import com.badlogic.gdx.utils.ScreenUtils;
 import imgui.ImGui;
 import imgui.ImGuiIO;
+import imgui.flag.ImGuiCond;
+import imgui.flag.ImGuiConfigFlags;
+import imgui.flag.ImGuiStyleVar;
+import imgui.flag.ImGuiWindowFlags;
 import imgui.gl3.ImGuiImplGl3;
 import imgui.glfw.ImGuiImplGlfw;
+import imgui.type.ImBoolean;
 import org.lwjgl.glfw.GLFWErrorCallback;
 
 import static org.lwjgl.glfw.GLFW.*;
@@ -16,31 +21,41 @@ public class MapEditor extends ApplicationAdapter {
 
     ImGuiImplGlfw imGuiGlfw = new ImGuiImplGlfw();
     ImGuiImplGl3 imGuiGl3 = new ImGuiImplGl3();
+    TileSelector tileSelector;
     long windowHandle;
 
     @Override
     public void create() {
-        // create 3D scene
+        tileSelector = new TileSelector();
+
         GLFWErrorCallback.createPrint(System.err).set();
         if (!glfwInit()) {
             throw new IllegalStateException("Unable to initialize GLFW");
         }
         ImGui.createContext();
+        final ImGuiIO io = ImGui.getIO();
+        io.setConfigFlags(ImGuiConfigFlags.DockingEnable);
+        io.setIniFilename(null);
 
         windowHandle = ((Lwjgl3Graphics) Gdx.graphics).getWindow().getWindowHandle();
 
         imGuiGlfw.init(windowHandle, true);
-        imGuiGl3.init("#version 330");
+        imGuiGl3.init("#version 330 core");
     }
 
     @Override
     public void render() {
-        // render 3D scene
         ScreenUtils.clear(0, 0, 0.2f, 1);
         imGuiGlfw.newFrame();
+
+
         ImGui.newFrame();
-        ImGui.button("I'm a Button!");
+        setUpDockSpace();
+        tileSelector.render();
+        ImGui.end();
         ImGui.render();
+
+
         imGuiGl3.renderDrawData(ImGui.getDrawData());
         glfwPollEvents();
     }
@@ -50,5 +65,22 @@ public class MapEditor extends ApplicationAdapter {
         imGuiGl3.dispose();
         imGuiGlfw.dispose();
         ImGui.destroyContext();
+    }
+
+    private void setUpDockSpace() {
+        int windowFlags = ImGuiWindowFlags.MenuBar | ImGuiWindowFlags.NoDocking;
+        ImGui.setNextWindowPos(0.0f, 0.0f, ImGuiCond.Always);
+        ImGui.setNextWindowSize(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
+        ImGui.pushStyleVar(ImGuiStyleVar.WindowRounding, 0.0f);
+        ImGui.pushStyleVar(ImGuiStyleVar.WindowBorderSize, 0.0f);
+        windowFlags |= ImGuiWindowFlags.NoTitleBar | ImGuiWindowFlags.NoCollapse |
+                ImGuiWindowFlags.NoResize | ImGuiWindowFlags.NoMove | ImGuiWindowFlags.NoBringToFrontOnFocus |
+                ImGuiWindowFlags.NoNavFocus;
+        ImGui.begin("Map editor", new ImBoolean(true), windowFlags);
+        ImGui.popStyleVar(2);
+
+        // dockspace
+        ImGui.dockSpace(ImGui.getID("Dockspace"));
+
     }
 }
