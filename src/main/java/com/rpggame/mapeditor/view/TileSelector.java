@@ -6,6 +6,7 @@ import com.rpggame.mapeditor.model.selector.Selector;
 import com.rpggame.mapeditor.model.tile.Tile;
 import imgui.ImGui;
 import imgui.ImVec2;
+import imgui.type.ImString;
 
 public class TileSelector {
     private SpriteSheet spriteSheet;

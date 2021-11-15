@@ -7,7 +7,10 @@ import com.badlogic.gdx.backends.lwjgl3.Lwjgl3Graphics;
 import com.rpggame.mapeditor.game.TestGame;
 import com.rpggame.mapeditor.model.selector.Selector;
 import com.rpggame.mapeditor.model.tile.Tile;
+import com.rpggame.mapeditor.view.entity.EntityListView;
+import com.rpggame.mapeditor.view.entity.EntityView;
 import com.rpggame.rpggame.RpgGame;
+import com.rpggame.rpggame.entity.Entity;
 import imgui.ImGui;
 import imgui.ImGuiIO;
 import imgui.flag.ImGuiCond;
@@ -27,16 +30,23 @@ public class Application extends ApplicationAdapter {
     ImGuiImplGl3 imGuiGl3 = new ImGuiImplGl3();
     TileSelector tileSelectorView;
     Selector<Tile> tileSelector;
+    Selector<Entity> entitySelector;
     GameView gameView;
     GameView editorView;
+    EntityListView entityListView;
+    EntityView entityView;
     long windowHandle;
 
     @Override
     public void create() {
         tileSelector = new Selector<>();
+        entitySelector = new Selector<>();
         tileSelectorView = new TileSelector(tileSelector);
-        gameView = new GameView("Game view", new RpgGame());
+        RpgGame rpgGame = new RpgGame();
+        gameView = new GameView("Game view", rpgGame);
         editorView = new GameView("Editor view", new TestGame(tileSelector));
+        entityListView = new EntityListView(rpgGame.getEntityWorld(), entitySelector);
+        entityView = new EntityView(entitySelector);
 
         GLFWErrorCallback.createPrint(System.err).set();
         if (!glfwInit()) {
@@ -70,6 +80,9 @@ public class Application extends ApplicationAdapter {
         tileSelectorView.imGui();
         gameView.imGui();
         editorView.imGui();
+        entityListView.imGui();
+        entityView.imGui();
+        ImGui.showDemoWindow();
         ImGui.end();
         ImGui.render();
 

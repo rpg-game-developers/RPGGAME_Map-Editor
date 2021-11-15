@@ -35,6 +35,8 @@ public class TestGame extends EntityApplicationAdapter {
 
     @Override
     public void create() {
+        super.create();
+
         tiles = new Texture(Gdx.files.internal("spriteAssets/testSpriteSheet.png"));
         splitTiles = TextureRegion.split(tiles, 17, 17);
         tileMap = new TiledMap();
