@@ -87,3 +87,8 @@ nb-configuration.xml
 ## Program data
 ##############################
 saves/
+
+##############################
+## temp
+##############################
+src/main/java/com/rpggame/rpggame

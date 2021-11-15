@@ -19,6 +19,11 @@ public class TileSelector {
     public void imGui() {
         ImGui.begin("Tile selector");
 
+        // default size
+        if (ImGui.isWindowAppearing()) {
+            ImGui.setWindowSize(400, 400);
+        }
+
         ImVec2 windowPos = new ImVec2();
         ImGui.getWindowPos(windowPos);
         ImVec2 windowSize = new ImVec2();

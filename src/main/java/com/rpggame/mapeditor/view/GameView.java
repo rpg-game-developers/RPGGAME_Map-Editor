@@ -21,6 +21,8 @@ import com.badlogic.gdx.utils.viewport.Viewport;
 import com.rpggame.mapeditor.game.TestGame;
 import com.rpggame.mapeditor.model.selector.Selector;
 import com.rpggame.mapeditor.model.tile.Tile;
+import com.rpggame.rpggame.EntityApplicationAdapter;
+import com.rpggame.rpggame.RpgGame;
 import imgui.ImGui;
 import imgui.ImVec2;
 import imgui.flag.ImGuiWindowFlags;
@@ -33,10 +35,14 @@ public class GameView implements InputProcessor {
     private FrameBuffer fbo;
     private int lastScreenX = 0;
     private int lastScreenY = 0;
-    private TestGame game;
+    private EntityApplicationAdapter game;
+    private boolean hidden = false;
+    private String name;
 
-    public GameView(TestGame game) {
+    public GameView(String name, EntityApplicationAdapter game) {
+        this.name = name;
         this.game = game;
+        this.hidden = false;
         game.create();
     }
 
@@ -47,39 +53,48 @@ public class GameView implements InputProcessor {
     }
 
     public void imGui() {
-        ImGui.begin("Game view", ImGuiWindowFlags.NoScrollbar | ImGuiWindowFlags.NoScrollWithMouse);
+        if(ImGui.begin(name, ImGuiWindowFlags.NoScrollbar | ImGuiWindowFlags.NoScrollWithMouse)) {
+            hidden = false;
 
-        ImVec2 windowPos = new ImVec2();
-        ImGui.getCursorScreenPos(windowPos);
-        windowPos.x -= ImGui.getScrollX();
-        windowPos.y -= ImGui.getScrollY();
-
-        ImVec2 windowSize = new ImVec2();
-        ImGui.getContentRegionAvail(windowSize);
-        windowSize.x -= ImGui.getScrollX();
-        windowSize.y -= ImGui.getScrollY();
-
-        if (windowSize.x > 0 && windowSize.y > 0) {
-            Viewport viewport = game.getViewport();
-
-            if (windowSize.x != viewport.getScreenWidth() || windowSize.y != viewport.getScreenHeight()) {
-                if (fbo != null)
-                    fbo.dispose();
-                fbo = new FrameBuffer(Pixmap.Format.RGBA8888, (int)windowSize.x, (int)windowSize.y, false);
-                viewport.setScreenWidth((int)windowSize.x);
-                viewport.setScreenHeight((int)windowSize.y);
+            // default size
+            if (ImGui.isWindowAppearing()) {
+                ImGui.setWindowSize(400, 400);
             }
 
-            viewport.update((int)windowSize.x, (int)windowSize.y, false);
-            viewport.setScreenX((int)windowPos.x);
-            viewport.setScreenY(Gdx.graphics.getHeight() - (int)windowPos.y - (int)windowSize.y);
+            ImVec2 windowPos = new ImVec2();
+            ImGui.getCursorScreenPos(windowPos);
+            windowPos.x -= ImGui.getScrollX();
+            windowPos.y -= ImGui.getScrollY();
 
-            draw();
+            ImVec2 windowSize = new ImVec2();
+            ImGui.getContentRegionAvail(windowSize);
+            windowSize.x -= ImGui.getScrollX();
+            windowSize.y -= ImGui.getScrollY();
 
-            Texture texture = fbo.getColorBufferTexture();
-            ImGui.image(texture.getTextureObjectHandle(), windowSize.x, windowSize.y, 0.0f, 1.0f, 1.0f ,0.0f);
+            Viewport viewport = game.getViewport();
+            if (windowSize.x > 0 && windowSize.y > 0) {
+                if (windowSize.x != viewport.getScreenWidth() || windowSize.y != viewport.getScreenHeight()) {
+                    if (fbo != null)
+                        fbo.dispose();
+                    fbo = new FrameBuffer(Pixmap.Format.RGBA8888, (int)windowSize.x, (int)windowSize.y, false);
+                    viewport.setScreenWidth((int)windowSize.x);
+                    viewport.setScreenHeight((int)windowSize.y);
+                }
+
+                viewport.update((int)windowSize.x, (int)windowSize.y, false);
+                viewport.setScreenX((int)windowPos.x);
+                viewport.setScreenY(Gdx.graphics.getHeight() - (int)windowPos.y - (int)windowSize.y);
+
+                draw();
+
+                Texture texture = fbo.getColorBufferTexture();
+                ImGui.image(texture.getTextureObjectHandle(), windowSize.x, windowSize.y, 0.0f, 1.0f, 1.0f ,0.0f);
+            } else {
+                viewport.update(0, 0, false);
+            }
+        } else {
+           hidden = true;
         }
-
         ImGui.end();
     }
 
@@ -167,6 +182,9 @@ public class GameView implements InputProcessor {
     }
 
     public boolean isMouseOutside(int x, int y) {
+        if (hidden)
+            return true;
+
         Viewport viewport = game.getViewport();
         return (x < viewport.getScreenX()
                 || y < Gdx.graphics.getHeight() - viewport.getScreenY() - viewport.getScreenHeight()

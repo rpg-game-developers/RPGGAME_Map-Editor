@@ -20,11 +20,9 @@ import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.rpggame.mapeditor.model.selector.Selector;
 import com.rpggame.mapeditor.model.tile.Tile;
+import com.rpggame.rpggame.EntityApplicationAdapter;
 
-public class TestGame extends ApplicationAdapter implements InputProcessor {
-    private OrthographicCamera camera;
-    private Viewport viewport;
-
+public class TestGame extends EntityApplicationAdapter {
     private TiledMap tileMap;
     private Texture tiles;
     private TextureRegion[][] splitTiles;
@@ -37,12 +35,6 @@ public class TestGame extends ApplicationAdapter implements InputProcessor {
 
     @Override
     public void create() {
-        camera = new OrthographicCamera();
-        camera.setToOrtho(false, 1, 1);
-        camera.update();
-
-        viewport = new ScreenViewport(camera);
-
         tiles = new Texture(Gdx.files.internal("spriteAssets/testSpriteSheet.png"));
         splitTiles = TextureRegion.split(tiles, 17, 17);
         tileMap = new TiledMap();
@@ -63,16 +55,15 @@ public class TestGame extends ApplicationAdapter implements InputProcessor {
 
     @Override
     public void dispose() {
-
     }
 
     @Override
-    public boolean keyDown(int i) {
+    public boolean keyDown(int keycode) {
         return false;
     }
 
     @Override
-    public boolean keyUp(int i) {
+    public boolean keyUp(int keycode) {
         return false;
     }
 
@@ -82,12 +73,12 @@ public class TestGame extends ApplicationAdapter implements InputProcessor {
     }
 
     @Override
-    public boolean touchDown(int x, int y, int i2, int i3) {
+    public boolean touchDown(int x, int y, int pointer, int button) {
         return false;
     }
 
     @Override
-    public boolean touchUp(int x, int y, int i2, int i3) {
+    public boolean touchUp(int x, int y, int pointer, int button) {
         return false;
     }
 
