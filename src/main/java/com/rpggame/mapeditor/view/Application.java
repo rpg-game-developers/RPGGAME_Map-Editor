@@ -3,6 +3,7 @@ package com.rpggame.mapeditor.view;
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.backends.lwjgl3.Lwjgl3Graphics;
+import com.rpggame.mapeditor.game.TestGame;
 import com.rpggame.mapeditor.model.selector.Selector;
 import com.rpggame.mapeditor.model.tile.Tile;
 import imgui.ImGui;
@@ -31,7 +32,7 @@ public class Application extends ApplicationAdapter {
     public void create() {
         tileSelector = new Selector<>();
         tileSelectorView = new TileSelector(tileSelector);
-        gameView = new GameView(tileSelector);
+        gameView = new GameView(new TestGame(tileSelector));
 
         GLFWErrorCallback.createPrint(System.err).set();
         if (!glfwInit()) {
