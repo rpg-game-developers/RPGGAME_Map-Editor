@@ -2,6 +2,7 @@ package com.rpggame.mapeditor.controller;
 
 import com.google.gson.Gson;
 import com.rpggame.mapeditor.model.selector.Selector;
+import com.rpggame.mapeditor.model.tile.Tile;
 import com.rpggame.mapeditor.model.tile.TileMap;
 import com.rpggame.mapeditor.model.tile.TileMapJson;
 
@@ -31,7 +32,7 @@ public class TopBarController {
 	}
 
 	public void saveItemSelected(ActionEvent e) {
-		TileMapJson[] tileMaps = tileMapSelector.getList().stream().map(TileMapJson::new).toArray(TileMapJson[]::new);
+		TileMapJson[] tileMaps = new TileMapJson[1];
 
 		Gson gson = new Gson();
 		String s = gson.toJson(tileMaps);
@@ -54,7 +55,6 @@ public class TopBarController {
 			String jsonString = Files.readString(Path.of("saves/tilemap.json"));
 			Gson gson = new Gson();
 			TileMapJson[] tileMaps = gson.fromJson(jsonString, TileMapJson[].class);
-			tileMapSelector.setList(Arrays.stream(tileMaps).map(TileMap::new).collect(Collectors.toList()));
 		} catch (IOException exception) {
 			System.out.println("An error occurred.");
 		}

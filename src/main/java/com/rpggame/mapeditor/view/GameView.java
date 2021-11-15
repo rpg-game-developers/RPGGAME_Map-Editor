@@ -18,6 +18,8 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
+import com.rpggame.mapeditor.model.selector.Selector;
+import com.rpggame.mapeditor.model.tile.Tile;
 import imgui.ImGui;
 import imgui.ImVec2;
 import imgui.flag.ImGuiWindowFlags;
@@ -32,30 +34,23 @@ public class GameView implements InputProcessor {
     private Viewport viewport;
     private Texture tiles;
     private TextureRegion[][] splitTiles;
+    private Selector<Tile> tileSelector;
     private int lastScreenX = 0;
     private int lastScreenY = 0;
 
-    public GameView() {
+    public GameView(Selector<Tile> tileSelector) {
+        this.tileSelector = tileSelector;
         camera = new OrthographicCamera();
         camera.setToOrtho(false, 1, 1);
         camera.update();
 
         viewport = new ScreenViewport(camera);
 
-        tiles = new Texture(Gdx.files.internal("spriteAssets/roguelikeSheet_transparent.png"));
+        tiles = new Texture(Gdx.files.internal("spriteAssets/testSpriteSheet.png"));
         splitTiles = TextureRegion.split(tiles, 17, 17);
         tileMap = new TiledMap();
         MapLayers layers = tileMap.getLayers();
         TiledMapTileLayer layer = new TiledMapTileLayer(150, 100, 16, 16);
-        for (int x = 0; x < 150; x++) {
-            for (int y = 0; y < 100; y++) {
-                int ty = (int)(Math.random() * splitTiles.length);
-                int tx = (int)(Math.random() * splitTiles[ty].length);
-                TiledMapTileLayer.Cell cell = new TiledMapTileLayer.Cell();
-                cell.setTile(new StaticTiledMapTile(splitTiles[ty][tx]));
-                layer.setCell(x, y, cell);
-            }
-        }
         layers.add(layer);
         renderer = new OrthogonalTiledMapRenderer(tileMap);
     }
@@ -153,9 +148,12 @@ public class GameView implements InputProcessor {
             int tileX = (int) (worldPos.x) / 16;
             int tileY = (int) (worldPos.y) / 16;
             TiledMapTileLayer layer = (TiledMapTileLayer) tileMap.getLayers().get(0);
-            TiledMapTileLayer.Cell cell = new TiledMapTileLayer.Cell();
-            cell.setTile(new StaticTiledMapTile(splitTiles[0][0]));
-            layer.setCell(tileX, tileY, cell);
+            Tile tile = tileSelector.getSelected();
+            if (tile != null) {
+                TiledMapTileLayer.Cell cell = new TiledMapTileLayer.Cell();
+                cell.setTile(new StaticTiledMapTile(splitTiles[tile.getSheetRow()][tile.getSheetColumn()]));
+                layer.setCell(tileX, tileY, cell);
+            }
         }
 
         if (Gdx.input.isButtonPressed(Input.Buttons.RIGHT)) {

@@ -1,19 +1,18 @@
 package com.rpggame.mapeditor.view;
 
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.Vector2;
 import com.rpggame.mapeditor.model.SpriteSheet;
+import com.rpggame.mapeditor.model.selector.Selector;
+import com.rpggame.mapeditor.model.tile.Tile;
 import imgui.ImGui;
 import imgui.ImVec2;
-import org.lwjgl.Sys;
-
-import java.awt.image.BufferedImage;
 
 public class TileSelector {
     private SpriteSheet spriteSheet;
+    private Selector<Tile> selector;
 
-    public TileSelector() {
+    public TileSelector(Selector<Tile> selector) {
+        this.selector = selector;
         this.spriteSheet = new SpriteSheet("spriteAssets/testSpriteSheet.png", 18, 27, 16, 1);
     }
 
@@ -38,7 +37,7 @@ public class TileSelector {
 
                 ImGui.pushID(i*columns + j);
                 if (ImGui.imageButton(spriteSheet.getTextureID(), spriteWidth, spriteHeight, coords[0].x, coords[0].y, coords[1].x, coords[1].y, 1)) {
-                    System.out.println("Button " + i + " " + j + " clicked");
+                    selector.setSelected(new Tile(i, j));
                 }
                 ImGui.popID();
 

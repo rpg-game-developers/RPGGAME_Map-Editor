@@ -33,8 +33,6 @@ public class LayerPanelController {
 			if (!(source instanceof JList<?> ) )
 				throw new ClassCastException("Object was not of type JList");
 			JList<?> jList = (JList<?>) source;
-			int index = jList.getSelectedIndex();
-			tileMapSelector.setSelected(tileMapSelector.getList().get(index));
 		}
 	}
 
