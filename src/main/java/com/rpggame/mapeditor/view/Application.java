@@ -37,6 +37,7 @@ public class Application extends ApplicationAdapter {
         ImGui.createContext();
         final ImGuiIO io = ImGui.getIO();
         io.setConfigFlags(ImGuiConfigFlags.DockingEnable);
+        io.setConfigWindowsMoveFromTitleBarOnly(true);
         io.setIniFilename(null);
 
         windowHandle = ((Lwjgl3Graphics) Gdx.graphics).getWindow().getWindowHandle();

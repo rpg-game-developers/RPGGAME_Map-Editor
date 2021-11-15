@@ -4,12 +4,10 @@ import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputProcessor;
-import com.badlogic.gdx.graphics.GL20;
-import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.graphics.Pixmap;
-import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.*;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.glutils.FrameBuffer;
+import com.badlogic.gdx.maps.MapLayer;
 import com.badlogic.gdx.maps.MapLayers;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapRenderer;
@@ -17,6 +15,7 @@ import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.maps.tiled.tiles.StaticTiledMapTile;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import imgui.ImGui;
@@ -32,18 +31,19 @@ public class GameView implements InputProcessor {
     private OrthographicCamera camera;
     private Viewport viewport;
     private Texture tiles;
+    private TextureRegion[][] splitTiles;
     private int lastScreenX = 0;
     private int lastScreenY = 0;
 
     public GameView() {
         camera = new OrthographicCamera();
-        camera.setToOrtho(false, 500, 500);
+        camera.setToOrtho(false, 1, 1);
         camera.update();
 
         viewport = new ScreenViewport(camera);
 
         tiles = new Texture(Gdx.files.internal("spriteAssets/roguelikeSheet_transparent.png"));
-        TextureRegion[][] splitTiles = TextureRegion.split(tiles, 17, 17);
+        splitTiles = TextureRegion.split(tiles, 17, 17);
         tileMap = new TiledMap();
         MapLayers layers = tileMap.getLayers();
         TiledMapTileLayer layer = new TiledMapTileLayer(150, 100, 16, 16);
@@ -62,7 +62,7 @@ public class GameView implements InputProcessor {
 
     public void draw() {
         fbo.begin();
-        Gdx.gl.glClearColor(1, 0, 0.5f, 1);
+        Gdx.gl.glClearColor(0.0f, 0.0f, 0.2f, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         camera.update();
         renderer.setView(camera);
@@ -75,20 +75,26 @@ public class GameView implements InputProcessor {
 
         ImVec2 windowPos = new ImVec2();
         ImGui.getCursorScreenPos(windowPos);
+        windowPos.x -= ImGui.getScrollX();
+        windowPos.y -= ImGui.getScrollY();
+
         ImVec2 windowSize = new ImVec2();
         ImGui.getContentRegionAvail(windowSize);
         windowSize.x -= ImGui.getScrollX();
         windowSize.y -= ImGui.getScrollY();
 
         if (windowSize.x > 0 && windowSize.y > 0) {
-            if (fbo != null)
-                fbo.dispose();
-            fbo = new FrameBuffer(Pixmap.Format.RGBA8888, (int)windowSize.x, (int)windowSize.y, false);
+            if (windowSize.x != viewport.getScreenWidth() || windowSize.y != viewport.getScreenHeight()) {
+                if (fbo != null)
+                    fbo.dispose();
+                fbo = new FrameBuffer(Pixmap.Format.RGBA8888, (int)windowSize.x, (int)windowSize.y, false);
+                viewport.setScreenWidth((int)windowSize.x);
+                viewport.setScreenHeight((int)windowSize.y);
+            }
+
             viewport.update((int)windowSize.x, (int)windowSize.y, false);
             viewport.setScreenX((int)windowPos.x);
-            viewport.setScreenY((int)windowPos.y);
-            viewport.setScreenWidth((int)windowSize.x);
-            viewport.setScreenHeight((int)windowSize.y);
+            viewport.setScreenY(Gdx.graphics.getHeight() - (int)windowPos.y - (int)windowSize.y);
 
             draw();
 
@@ -116,34 +122,49 @@ public class GameView implements InputProcessor {
 
     @Override
     public boolean touchDown(int x, int y, int pointer, int button) {
-        if (x < viewport.getScreenX() || y < viewport.getScreenY()
-                || x > viewport.getScreenX() + viewport.getScreenWidth()
-                || y > viewport.getScreenY() + viewport.getScreenHeight())
+        if (isMouseOutside(x, y))
             return false;
 
         lastScreenX = x;
         lastScreenY = y;
-        return false;
+
+        touchDragged(x, y, pointer);
+
+        return true;
     }
 
     @Override
     public boolean touchUp(int x, int y, int pointer, int button) {
-        if (x < viewport.getScreenX() || y < viewport.getScreenY()
-                || x > viewport.getScreenX() + viewport.getScreenWidth()
-                || y > viewport.getScreenY() + viewport.getScreenHeight())
+        if (isMouseOutside(x, y))
             return false;
 
         lastScreenX = x;
         lastScreenY = y;
-        return false;
+        return true;
     }
 
     @Override
     public boolean touchDragged(int x, int y, int pointer) {
-        if (x < viewport.getScreenX() || y < viewport.getScreenY()
-                || x > viewport.getScreenX() + viewport.getScreenWidth()
-                || y > viewport.getScreenY() + viewport.getScreenHeight())
+        if (isMouseOutside(x, y))
             return false;
+
+        if (Gdx.input.isButtonPressed(Input.Buttons.LEFT)) {
+            Vector2 worldPos = viewport.unproject(new Vector2(x, y));
+            int tileX = (int) (worldPos.x) / 16;
+            int tileY = (int) (worldPos.y) / 16;
+            TiledMapTileLayer layer = (TiledMapTileLayer) tileMap.getLayers().get(0);
+            TiledMapTileLayer.Cell cell = new TiledMapTileLayer.Cell();
+            cell.setTile(new StaticTiledMapTile(splitTiles[0][0]));
+            layer.setCell(tileX, tileY, cell);
+        }
+
+        if (Gdx.input.isButtonPressed(Input.Buttons.RIGHT)) {
+            Vector2 worldPos = viewport.unproject(new Vector2(x, y));
+            int tileX = (int) (worldPos.x) / 16;
+            int tileY = (int) (worldPos.y) / 16;
+            TiledMapTileLayer layer = (TiledMapTileLayer) tileMap.getLayers().get(0);
+            layer.setCell(tileX, tileY, null);
+        }
 
         if (Gdx.input.isButtonPressed(Input.Buttons.MIDDLE)) {
             Vector2 oldPos = viewport.unproject(new Vector2(lastScreenX, lastScreenY));
@@ -163,21 +184,29 @@ public class GameView implements InputProcessor {
 
     @Override
     public boolean mouseMoved(int x, int y) {
-        return false;
+        if (isMouseOutside(x, y))
+            return false;
+
+        return true;
     }
 
     @Override
     public boolean scrolled(float amountX, float amountY) {
         int x = Gdx.input.getX();
         int y = Gdx.input.getY();
-        if (x < viewport.getScreenX() || y < viewport.getScreenY()
-                || x > viewport.getScreenX() + viewport.getScreenWidth()
-                || y > viewport.getScreenY() + viewport.getScreenHeight())
+        if (isMouseOutside(x, y))
             return false;
 
         camera.zoom *= Math.pow(1.1, amountX);
         camera.zoom *= Math.pow(1.1, amountY);
 
-        return false;
+        return true;
+    }
+
+    public boolean isMouseOutside(int x, int y) {
+        return (x < viewport.getScreenX()
+                || y < Gdx.graphics.getHeight() - viewport.getScreenY() - viewport.getScreenHeight()
+                || x > viewport.getScreenX() + viewport.getScreenWidth()
+                || y > Gdx.graphics.getHeight() - viewport.getScreenY());
     }
 }
