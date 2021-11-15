@@ -1,9 +1,8 @@
 package com.rpggame.mapeditor;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.backends.lwjgl3.Lwjgl3Application;
 import com.badlogic.gdx.backends.lwjgl3.Lwjgl3ApplicationConfiguration;
-import com.rpggame.mapeditor.view.MapEditor;
+import com.rpggame.mapeditor.view.Application;
 
 public class RpgGameMapEditorStandalone {
 
@@ -14,7 +13,7 @@ public class RpgGameMapEditorStandalone {
 
 		config.setTitle("Rpg Game");
 		config.setWindowedMode(960, 640);
-		new Lwjgl3Application(new MapEditor(), config);
+		new Lwjgl3Application(new Application(), config);
 	}
 
 }

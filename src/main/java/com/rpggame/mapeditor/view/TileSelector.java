@@ -17,7 +17,7 @@ public class TileSelector {
         this.spriteSheet = new SpriteSheet("spriteAssets/testSpriteSheet.png", 18, 27, 16, 1);
     }
 
-    public void render() {
+    public void imGui() {
         ImGui.begin("Tile selector");
 
         ImVec2 windowPos = new ImVec2();

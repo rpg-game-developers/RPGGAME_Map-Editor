@@ -17,16 +17,18 @@ import org.lwjgl.glfw.GLFWErrorCallback;
 
 import static org.lwjgl.glfw.GLFW.*;
 
-public class MapEditor extends ApplicationAdapter {
+public class Application extends ApplicationAdapter {
 
     ImGuiImplGlfw imGuiGlfw = new ImGuiImplGlfw();
     ImGuiImplGl3 imGuiGl3 = new ImGuiImplGl3();
     TileSelector tileSelector;
+    GameView gameView;
     long windowHandle;
 
     @Override
     public void create() {
         tileSelector = new TileSelector();
+        gameView = new GameView();
 
         GLFWErrorCallback.createPrint(System.err).set();
         if (!glfwInit()) {
@@ -38,6 +40,7 @@ public class MapEditor extends ApplicationAdapter {
         io.setIniFilename(null);
 
         windowHandle = ((Lwjgl3Graphics) Gdx.graphics).getWindow().getWindowHandle();
+        Gdx.input.setInputProcessor(gameView);
 
         imGuiGlfw.init(windowHandle, true);
         imGuiGl3.init("#version 330 core");
@@ -45,13 +48,13 @@ public class MapEditor extends ApplicationAdapter {
 
     @Override
     public void render() {
-        ScreenUtils.clear(0, 0, 0.2f, 1);
         imGuiGlfw.newFrame();
 
 
         ImGui.newFrame();
         setUpDockSpace();
-        tileSelector.render();
+        tileSelector.imGui();
+        gameView.imGui();
         ImGui.end();
         ImGui.render();
 
