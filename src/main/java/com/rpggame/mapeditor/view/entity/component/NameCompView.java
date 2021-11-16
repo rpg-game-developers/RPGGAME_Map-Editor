@@ -8,7 +8,7 @@ public class NameCompView extends ComponentView<NameComp> {
     ImString name;
 
     public NameCompView() {
-        super(NameComp.class, "Name");
+        super(NameComp.class, NameComp::new, "Name");
         this.name = new ImString();
     }
 

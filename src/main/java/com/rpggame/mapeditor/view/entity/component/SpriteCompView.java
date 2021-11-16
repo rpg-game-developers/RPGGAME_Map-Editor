@@ -6,13 +6,15 @@ import imgui.ImGui;
 public class SpriteCompView extends ComponentView<SpriteComp> {
 
     public SpriteCompView() {
-        super(SpriteComp.class, "Sprite");
+        super(SpriteComp.class, SpriteComp::new, "Sprite");
     }
 
     @Override
     public void imGui() {
-        ImGui.text(comp.getSprite().getTextureData().getFormat().name());
-        ImGui.text("Width: " + comp.getSprite().getTextureData().getWidth());
-        ImGui.text("Height: " + comp.getSprite().getTextureData().getHeight());
+        if (comp.getSprite() != null) {
+            ImGui.text(comp.getSprite().getTextureData().getFormat().name());
+            ImGui.text("Width: " + comp.getSprite().getTextureData().getWidth());
+            ImGui.text("Height: " + comp.getSprite().getTextureData().getHeight());
+        }
     }
 }

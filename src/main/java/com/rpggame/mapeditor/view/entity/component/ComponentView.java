@@ -4,12 +4,16 @@ import com.rpggame.rpggame.component.Component;
 import com.rpggame.rpggame.entity.Entity;
 import imgui.ImGui;
 
-public abstract class ComponentView<T> {
+import java.util.function.Supplier;
+
+public abstract class ComponentView<T extends Component> {
     private Class<T> componentType;
+    private Supplier<T> supplier;
     private String name;
     protected T comp;
 
-    public ComponentView(Class<T> componentType, String name) {
+    public ComponentView(Class<T> componentType, Supplier<T> supplier, String name) {
+        this.supplier = supplier;
         this.componentType = componentType;
         this.name = name;
     }
@@ -24,4 +28,13 @@ public abstract class ComponentView<T> {
             }
         }
     }
+
+    public String getName() {
+        return name;
+    }
+
+    public T createComponent() {
+        return supplier.get();
+    }
+
 }

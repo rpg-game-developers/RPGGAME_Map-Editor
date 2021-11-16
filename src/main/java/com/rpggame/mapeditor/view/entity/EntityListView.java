@@ -52,6 +52,10 @@ public class EntityListView {
             ImGui.treePop();
         }
 
+        if (ImGui.button("Add entity")) {
+            world.addEntity(new Entity());
+        }
+
         ImGui.end();
     }
 }

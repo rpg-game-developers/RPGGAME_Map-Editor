@@ -11,7 +11,7 @@ public class VelocityComponentView extends ComponentView<VelocityComp> {
     private ImFloat y;
 
     public VelocityComponentView() {
-        super(VelocityComp.class, "Velocity");
+        super(VelocityComp.class, VelocityComp::new, "Velocity");
         this.x = new ImFloat();
         this.y = new ImFloat();
     }

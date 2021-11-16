@@ -11,7 +11,7 @@ public class TransformComponentView extends ComponentView<TransformComp> {
     private ImFloat y;
 
     public TransformComponentView() {
-        super(TransformComp.class, "Transform");
+        super(TransformComp.class, TransformComp::new, "Transform");
         this.x = new ImFloat();
         this.y = new ImFloat();
     }

@@ -11,7 +11,7 @@ public class RectangleCollisionCompView extends ComponentView<RectangleCollision
     private ImFloat y;
 
     public RectangleCollisionCompView() {
-        super(RectangleCollisionComp.class, "Rectangle collision");
+        super(RectangleCollisionComp.class, RectangleCollisionComp::new, "Rectangle collision");
         this.x = new ImFloat();
         this.y = new ImFloat();
     }
