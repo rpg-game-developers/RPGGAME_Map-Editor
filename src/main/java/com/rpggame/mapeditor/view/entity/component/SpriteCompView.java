@@ -1,5 +1,6 @@
 package com.rpggame.mapeditor.view.entity.component;
 
+import com.badlogic.gdx.graphics.Texture;
 import com.rpggame.rpggame.component.rendering.SpriteComp;
 import imgui.ImGui;
 
@@ -12,9 +13,26 @@ public class SpriteCompView extends ComponentView<SpriteComp> {
     @Override
     public void imGui() {
         if (comp.getSprite() != null) {
+            int width = comp.getSprite().getTextureData().getWidth();
+            int height = comp.getSprite().getTextureData().getHeight();
             ImGui.text(comp.getSprite().getTextureData().getFormat().name());
-            ImGui.text("Width: " + comp.getSprite().getTextureData().getWidth());
-            ImGui.text("Height: " + comp.getSprite().getTextureData().getHeight());
+            ImGui.text("Width: " + width);
+            ImGui.text("Height: " + height);
+            ImGui.image(comp.getSprite().getTextureObjectHandle(), width, height, 0, 0, 1, 1);
+            createDropTarget();
+        }
+        ImGui.button("Load sprite");
+        createDropTarget();
+    }
+
+    private void createDropTarget() {
+        if (ImGui.beginDragDropTarget()) {
+            String fileHandle = ImGui.acceptDragDropPayload(String.class);
+            if (fileHandle != null) {
+                comp.setSprite(new Texture(fileHandle));
+            }
+
+            ImGui.endDragDropTarget();
         }
     }
 }

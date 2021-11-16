@@ -86,7 +86,9 @@ public class EntityListView {
         }
 
         if (ImGui.button("Add entity")) {
-            world.addEntity(new Entity());
+            Entity entity = new Entity();
+            entity.addComponent(new NameComp("Entity"));
+            world.addEntity(entity);
         }
 
         ImGui.end();

@@ -9,6 +9,7 @@ import com.rpggame.mapeditor.model.selector.Selector;
 import com.rpggame.mapeditor.model.tile.Tile;
 import com.rpggame.mapeditor.view.entity.EntityListView;
 import com.rpggame.mapeditor.view.entity.EntityView;
+import com.rpggame.mapeditor.view.filesystem.FileSystemView;
 import com.rpggame.rpggame.RpgGame;
 import com.rpggame.rpggame.entity.Entity;
 import imgui.ImGui;
@@ -36,6 +37,7 @@ public class Application extends ApplicationAdapter {
     GameView editorView;
     EntityListView entityListView;
     EntityView entityView;
+    FileSystemView fileSystemView;
     long windowHandle;
 
     @Override
@@ -48,6 +50,7 @@ public class Application extends ApplicationAdapter {
         editorView = new GameView("Editor view", new TestGame(tileSelector));
         entityListView = new EntityListView(rpgGame.getEntityWorld(), entitySelector);
         entityView = new EntityView(entitySelector);
+        fileSystemView = new FileSystemView();
 
         GLFWErrorCallback.createPrint(System.err).set();
         if (!glfwInit()) {
@@ -82,10 +85,9 @@ public class Application extends ApplicationAdapter {
         gameView.imGui();
         editorView.imGui();
         entityListView.imGui();
-
         entityView.imGui();
-
-         ImGui.showDemoWindow();
+        fileSystemView.imGui();
+        ImGui.showDemoWindow();
         ImGui.end();
         ImGui.render();
 
