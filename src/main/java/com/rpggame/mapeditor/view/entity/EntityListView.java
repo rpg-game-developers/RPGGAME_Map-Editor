@@ -1,5 +1,7 @@
 package com.rpggame.mapeditor.view.entity;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import com.rpggame.mapeditor.model.selector.Selector;
 import com.rpggame.rpggame.component.NameComp;
 import com.rpggame.rpggame.component.input.PlayerControllerComp;
@@ -10,7 +12,12 @@ import com.rpggame.rpggame.component.rendering.SpriteComp;
 import com.rpggame.rpggame.entity.Entity;
 import com.rpggame.rpggame.entity.EntityWorld;
 import imgui.ImGui;
+import imgui.flag.ImGuiKey;
+import imgui.flag.ImGuiKeyModFlags;
 import imgui.flag.ImGuiTreeNodeFlags;
+import org.lwjgl.Sys;
+
+import java.awt.desktop.SystemSleepEvent;
 
 public class EntityListView {
     EntityWorld world;
@@ -33,6 +40,16 @@ public class EntityListView {
 
                 if (entitySelector.getSelected() == entity) {
                     flags |= ImGuiTreeNodeFlags.Selected;
+                    if (Gdx.input.isKeyJustPressed(Input.Keys.FORWARD_DEL)) {
+                        world.removeEntity(entity);
+                        if (entitySelector.getSelected() == entity) {
+                            entitySelector.setSelected(null);
+                        }
+                    }
+                    if (Gdx.input.isKeyJustPressed(Input.Keys.D) && Gdx.input.isKeyPressed(Input.Keys.CONTROL_LEFT)) {
+                        Entity clone = entity.clone();
+                        world.addEntity(clone);
+                    }
                 }
 
                 String name = "Entity";
@@ -44,15 +61,19 @@ public class EntityListView {
                 if (ImGui.isItemClicked() && !ImGui.isItemToggledOpen()) {
                     entitySelector.setSelected(entity);
                 }
+
                 if (ImGui.beginPopupContextItem()) {
-                    if (ImGui.selectable("Clone")) {
+                    if (ImGui.menuItem("Clone", "Ctrl+D")) {
                         Entity clone = entity.clone();
                         world.addEntity(clone);
                         ImGui.closeCurrentPopup();
                     }
-                    if (ImGui.selectable("Delete")) {
+                    if (ImGui.menuItem("Delete", "Del")) {
                         world.removeEntity(entity);
                         ImGui.closeCurrentPopup();
+                        if (entitySelector.getSelected() == entity) {
+                            entitySelector.setSelected(null);
+                        }
                     }
                     ImGui.endPopup();
                 }
