@@ -44,6 +44,18 @@ public class EntityListView {
                 if (ImGui.isItemClicked() && !ImGui.isItemToggledOpen()) {
                     entitySelector.setSelected(entity);
                 }
+                if (ImGui.beginPopupContextItem()) {
+                    if (ImGui.selectable("Clone")) {
+                        Entity clone = entity.clone();
+                        world.addEntity(clone);
+                        ImGui.closeCurrentPopup();
+                    }
+                    if (ImGui.selectable("Delete")) {
+                        world.removeEntity(entity);
+                        ImGui.closeCurrentPopup();
+                    }
+                    ImGui.endPopup();
+                }
                 if (isOpen) {
                     ImGui.treePop();
                 }
