@@ -20,6 +20,7 @@ import imgui.flag.ImGuiWindowFlags;
 import imgui.gl3.ImGuiImplGl3;
 import imgui.glfw.ImGuiImplGlfw;
 import imgui.type.ImBoolean;
+import org.lwjgl.Sys;
 import org.lwjgl.glfw.GLFWErrorCallback;
 
 import static org.lwjgl.glfw.GLFW.*;
@@ -54,9 +55,9 @@ public class Application extends ApplicationAdapter {
         }
         ImGui.createContext();
         final ImGuiIO io = ImGui.getIO();
+        io.setIniFilename("imgui.ini");
         io.setConfigFlags(ImGuiConfigFlags.DockingEnable);
         io.setConfigWindowsMoveFromTitleBarOnly(true);
-        io.setIniFilename(null);
 
         windowHandle = ((Lwjgl3Graphics) Gdx.graphics).getWindow().getWindowHandle();
 
@@ -81,8 +82,10 @@ public class Application extends ApplicationAdapter {
         gameView.imGui();
         editorView.imGui();
         entityListView.imGui();
+
         entityView.imGui();
-        ImGui.showDemoWindow();
+
+         ImGui.showDemoWindow();
         ImGui.end();
         ImGui.render();
 

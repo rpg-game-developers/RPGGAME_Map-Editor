@@ -29,7 +29,7 @@ public class EntityListView {
                 Entity entity = world.getEntities().get(i);
                 ImGui.pushID(i);
 
-                int flags = ImGuiTreeNodeFlags.OpenOnArrow;
+                int flags = ImGuiTreeNodeFlags.OpenOnArrow | ImGuiTreeNodeFlags.Leaf;
 
                 if (entitySelector.getSelected() == entity) {
                     flags |= ImGuiTreeNodeFlags.Selected;
