@@ -20,6 +20,7 @@ public class TransformComponentView extends ComponentView<TransformComp> {
     public void imGui() {
         x.set(comp.getX());
         y.set(comp.getY());
+        ImGui.text("Position");
         ImGui.inputScalar("X", ImGuiDataType.Float, x);
         ImGui.inputScalar("Y", ImGuiDataType.Float, y);
         comp.setX(x.get());

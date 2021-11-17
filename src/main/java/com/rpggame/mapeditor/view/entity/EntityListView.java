@@ -4,20 +4,10 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.rpggame.mapeditor.model.selector.Selector;
 import com.rpggame.rpggame.component.NameComp;
-import com.rpggame.rpggame.component.input.PlayerControllerComp;
-import com.rpggame.rpggame.component.physics.TransformComp;
-import com.rpggame.rpggame.component.physics.VelocityComp;
-import com.rpggame.rpggame.component.physics.collision.CollisionComp;
-import com.rpggame.rpggame.component.rendering.SpriteComp;
 import com.rpggame.rpggame.entity.Entity;
 import com.rpggame.rpggame.entity.EntityWorld;
 import imgui.ImGui;
-import imgui.flag.ImGuiKey;
-import imgui.flag.ImGuiKeyModFlags;
 import imgui.flag.ImGuiTreeNodeFlags;
-import org.lwjgl.Sys;
-
-import java.awt.desktop.SystemSleepEvent;
 
 public class EntityListView {
     EntityWorld world;

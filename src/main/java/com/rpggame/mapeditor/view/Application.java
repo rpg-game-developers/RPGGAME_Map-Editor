@@ -45,7 +45,7 @@ public class Application extends ApplicationAdapter {
     public void create() {
         tileSelector = new Selector<>();
         entitySelector = new Selector<>();
-        tileSelectorView = new TileSelector(tileSelector);
+        tileSelectorView = new TileSelector(tileSelector, entitySelector);
         RpgGame rpgGame = new RpgGame();
         gameView = new GameView("Game view", rpgGame);
         editorView = new GameView("Editor view", new TestGame(tileSelector));

@@ -10,9 +10,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class EntityView {
-    private Selector<Entity> entitySelector;
-    private List<ComponentView<?>> components;
-    private Selector<ComponentView<?>> componentSelector;
+    private final Selector<Entity> entitySelector;
+    private final List<ComponentView<?>> components;
+    private final Selector<ComponentView<?>> componentSelector;
 
     public EntityView(Selector<Entity> entitySelector) {
         this.entitySelector = entitySelector;
@@ -22,6 +22,7 @@ public class EntityView {
         this.components.add(new TransformComponentView());
         this.components.add(new VelocityComponentView());
         this.components.add(new RectangleCollisionCompView());
+        this.components.add(new PlayerControllerCompView());
         this.components.add(new SpriteCompView());
         this.components.add(new TileMapCompView());
     }
