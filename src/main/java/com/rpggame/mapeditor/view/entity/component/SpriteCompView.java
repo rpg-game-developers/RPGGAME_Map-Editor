@@ -15,9 +15,8 @@ public class SpriteCompView extends ComponentView<SpriteComp> {
         if (comp.getSprite() != null) {
             int width = comp.getSprite().getTextureData().getWidth();
             int height = comp.getSprite().getTextureData().getHeight();
-            ImGui.text(comp.getSprite().getTextureData().getFormat().name());
-            ImGui.text("Width: " + width);
-            ImGui.text("Height: " + height);
+            ImGui.text("Image width: " + width);
+            ImGui.text("Image height: " + height);
             ImGui.image(comp.getSprite().getTextureObjectHandle(), width, height, 0, 0, 1, 1);
             createDropTarget();
         }

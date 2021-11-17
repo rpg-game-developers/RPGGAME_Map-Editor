@@ -40,7 +40,7 @@ public class DirectoryView {
         } else {
             if (ImGui.treeNodeEx(fileHandle.name(), ImGuiTreeNodeFlags.Leaf)) {
                 if (ImGui.beginDragDropSource()) {
-                    ImGui.setDragDropPayload(fileHandle.name());
+                    ImGui.setDragDropPayload(fileHandle.path());
                     ImGui.text(fileHandle.name());
                     ImGui.endDragDropSource();
                 }

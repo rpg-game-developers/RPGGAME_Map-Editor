@@ -7,6 +7,7 @@ import com.badlogic.gdx.backends.lwjgl3.Lwjgl3Graphics;
 import com.rpggame.mapeditor.game.TestGame;
 import com.rpggame.mapeditor.model.selector.Selector;
 import com.rpggame.mapeditor.model.tile.Tile;
+import com.rpggame.mapeditor.system.TileMapEditingSystem;
 import com.rpggame.mapeditor.view.entity.EntityListView;
 import com.rpggame.mapeditor.view.entity.EntityView;
 import com.rpggame.mapeditor.view.filesystem.FileSystemView;
@@ -51,6 +52,8 @@ public class Application extends ApplicationAdapter {
         entityListView = new EntityListView(rpgGame.getEntityWorld(), entitySelector);
         entityView = new EntityView(entitySelector);
         fileSystemView = new FileSystemView();
+
+        rpgGame.getEntityWorld().addSystem(new TileMapEditingSystem(rpgGame.getViewport(), entitySelector, tileSelector));
 
         GLFWErrorCallback.createPrint(System.err).set();
         if (!glfwInit()) {

@@ -24,7 +24,6 @@ import com.rpggame.rpggame.EntityApplicationAdapter;
 
 public class TestGame extends EntityApplicationAdapter {
     private TiledMap tileMap;
-    private Texture tiles;
     private TextureRegion[][] splitTiles;
     private Selector<Tile> tileSelector;
     private TiledMapRenderer renderer;
@@ -37,7 +36,7 @@ public class TestGame extends EntityApplicationAdapter {
     public void create() {
         super.create();
 
-        tiles = new Texture(Gdx.files.internal("spriteAssets/testSpriteSheet.png"));
+        Texture tiles = new Texture(Gdx.files.internal("spriteAssets/testSpriteSheet.png"));
         splitTiles = TextureRegion.split(tiles, 17, 17);
         tileMap = new TiledMap();
         MapLayers layers = tileMap.getLayers();

@@ -23,6 +23,7 @@ public class EntityView {
         this.components.add(new VelocityComponentView());
         this.components.add(new RectangleCollisionCompView());
         this.components.add(new SpriteCompView());
+        this.components.add(new TileMapCompView());
     }
 
     public void imGui() {
@@ -30,12 +31,12 @@ public class EntityView {
 
         Entity entity = entitySelector.getSelected();
         if (entity != null) {
-            for (ComponentView<?> componentView : components) {
-                componentView.imGui(entity);
-            }
-
             if (ImGui.button("Add component")) {
                 ImGui.openPopup("Add component");
+            }
+
+            for (ComponentView<?> componentView : components) {
+                componentView.imGui(entity);
             }
         }
 

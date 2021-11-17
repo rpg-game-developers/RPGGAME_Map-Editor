@@ -11,7 +11,7 @@ public class FileSystemView {
     public void imGui() {
         ImGui.begin("Files");
 
-        DirectoryView directoryView = new DirectoryView(Gdx.files.local("src/main/resources/"));
+        DirectoryView directoryView = new DirectoryView(Gdx.files.local("../resources/"));
         directoryView.imGui();
 
         ImGui.end();
