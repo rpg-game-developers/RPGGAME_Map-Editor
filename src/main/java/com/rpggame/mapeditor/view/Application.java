@@ -9,7 +9,7 @@ import com.rpggame.mapeditor.model.selector.Selector;
 import com.rpggame.mapeditor.model.tile.Tile;
 import com.rpggame.mapeditor.system.TileMapEditingSystem;
 import com.rpggame.mapeditor.view.entity.EntityListView;
-import com.rpggame.mapeditor.view.entity.EntityView;
+import com.rpggame.mapeditor.view.entity.EntityCompView;
 import com.rpggame.mapeditor.view.filesystem.FileSystemView;
 import com.rpggame.rpggame.RpgGame;
 import com.rpggame.rpggame.entity.Entity;
@@ -22,7 +22,6 @@ import imgui.flag.ImGuiWindowFlags;
 import imgui.gl3.ImGuiImplGl3;
 import imgui.glfw.ImGuiImplGlfw;
 import imgui.type.ImBoolean;
-import org.lwjgl.Sys;
 import org.lwjgl.glfw.GLFWErrorCallback;
 
 import static org.lwjgl.glfw.GLFW.*;
@@ -37,7 +36,7 @@ public class Application extends ApplicationAdapter {
     GameView gameView;
     GameView editorView;
     EntityListView entityListView;
-    EntityView entityView;
+    EntityCompView entityCompView;
     FileSystemView fileSystemView;
     long windowHandle;
 
@@ -50,7 +49,7 @@ public class Application extends ApplicationAdapter {
         gameView = new GameView("Game view", rpgGame);
         editorView = new GameView("Editor view", new TestGame(tileSelector));
         entityListView = new EntityListView(rpgGame.getEntityWorld(), entitySelector);
-        entityView = new EntityView(entitySelector);
+        entityCompView = new EntityCompView(entitySelector);
         fileSystemView = new FileSystemView();
 
         rpgGame.getEntityWorld().addSystem(new TileMapEditingSystem(rpgGame.getViewport(), entitySelector, tileSelector));
@@ -88,7 +87,7 @@ public class Application extends ApplicationAdapter {
         gameView.imGui();
         editorView.imGui();
         entityListView.imGui();
-        entityView.imGui();
+        entityCompView.imGui();
         fileSystemView.imGui();
         ImGui.showDemoWindow();
         ImGui.end();

@@ -4,7 +4,6 @@ import com.rpggame.rpggame.component.physics.TransformComp;
 import imgui.ImGui;
 import imgui.flag.ImGuiDataType;
 import imgui.type.ImFloat;
-import org.lwjgl.system.CallbackI;
 
 public class TransformComponentView extends ComponentView<TransformComp> {
     private ImFloat x;

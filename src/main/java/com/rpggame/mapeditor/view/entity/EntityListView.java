@@ -10,8 +10,8 @@ import imgui.ImGui;
 import imgui.flag.ImGuiTreeNodeFlags;
 
 public class EntityListView {
-    EntityWorld world;
-    Selector<Entity> entitySelector;
+    private EntityWorld world;
+    private Selector<Entity> entitySelector;
 
     public EntityListView(EntityWorld world, Selector<Entity> entitySelector) {
         this.world = world;
@@ -21,65 +21,10 @@ public class EntityListView {
     public void imGui() {
         ImGui.begin("Entities");
 
-        if (ImGui.treeNodeEx("Entities")) {
-            for (int i=0; i<world.getEntities().size(); i++) {
-                Entity entity = world.getEntities().get(i);
-                ImGui.pushID(i);
-
-                int flags = ImGuiTreeNodeFlags.OpenOnArrow | ImGuiTreeNodeFlags.Leaf;
-
-                if (entitySelector.getSelected() == entity) {
-                    flags |= ImGuiTreeNodeFlags.Selected;
-                    if (Gdx.input.isKeyJustPressed(Input.Keys.FORWARD_DEL)) {
-                        world.removeEntity(entity);
-                        if (entitySelector.getSelected() == entity) {
-                            entitySelector.setSelected(null);
-                        }
-                    }
-                    if (Gdx.input.isKeyJustPressed(Input.Keys.D) && Gdx.input.isKeyPressed(Input.Keys.CONTROL_LEFT)) {
-                        Entity clone = entity.clone();
-                        world.addEntity(clone);
-                    }
-                }
-
-                String name = "Entity";
-                if (entity.hasComponent(NameComp.class)) {
-                    name = entity.getComponent(NameComp.class).getName();
-                }
-
-                boolean isOpen = ImGui.treeNodeEx(name, flags);
-                if (ImGui.isItemClicked() && !ImGui.isItemToggledOpen()) {
-                    entitySelector.setSelected(entity);
-                }
-
-                if (ImGui.beginPopupContextItem()) {
-                    if (ImGui.menuItem("Clone", "Ctrl+D")) {
-                        Entity clone = entity.clone();
-                        world.addEntity(clone);
-                        ImGui.closeCurrentPopup();
-                    }
-                    if (ImGui.menuItem("Delete", "Del")) {
-                        world.removeEntity(entity);
-                        ImGui.closeCurrentPopup();
-                        if (entitySelector.getSelected() == entity) {
-                            entitySelector.setSelected(null);
-                        }
-                    }
-                    ImGui.endPopup();
-                }
-                if (isOpen) {
-                    ImGui.treePop();
-                }
-                ImGui.popID();
-            }
-            ImGui.treePop();
-        }
-
-        if (ImGui.button("Add entity")) {
-            Entity entity = new Entity();
-            entity.addComponent(new NameComp("Entity"));
-            world.addEntity(entity);
-        }
+        ImGui.pushID(0);
+        EntityView entityView = new EntityView(world.getRoot(), entitySelector);
+        entityView.imGui();
+        ImGui.popID();
 
         ImGui.end();
     }
