@@ -10,15 +10,16 @@ import com.rpggame.rpggame.entity.Entity;
 import imgui.ImGui;
 import imgui.ImVec2;
 
-public class TileSelector {
-    private Selector<Tile> selector;
-    private Selector<Entity> entitySelector;
+public class TileSelector implements ImGuiView {
+    private final Selector<Tile> selector;
+    private final Selector<Entity> entitySelector;
 
     public TileSelector(Selector<Tile> selector, Selector<Entity> entitySelector) {
         this.selector = selector;
         this.entitySelector = entitySelector;
     }
 
+    @Override
     public void imGui() {
         if (!ImGui.begin("Tile selector")) {
             ImGui.end();

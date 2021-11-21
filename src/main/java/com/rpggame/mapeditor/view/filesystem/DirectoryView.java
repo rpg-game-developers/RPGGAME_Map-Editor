@@ -1,16 +1,18 @@
 package com.rpggame.mapeditor.view.filesystem;
 
 import com.badlogic.gdx.files.FileHandle;
+import com.rpggame.mapeditor.view.ImGuiView;
 import imgui.ImGui;
 import imgui.flag.ImGuiTreeNodeFlags;
 
-public class DirectoryView {
+public class DirectoryView implements ImGuiView {
     FileHandle fileHandle;
 
     public DirectoryView(FileHandle fileHandle) {
         this.fileHandle = fileHandle;
     }
 
+    @Override
     public void imGui() {
         if (!fileHandle.exists())
             return;

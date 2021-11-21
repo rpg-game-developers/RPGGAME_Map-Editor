@@ -1,5 +1,6 @@
 package com.rpggame.mapeditor.view.entity.component;
 
+import com.rpggame.mapeditor.view.ImGuiView;
 import com.rpggame.rpggame.component.Component;
 import com.rpggame.rpggame.entity.Entity;
 import imgui.ImGui;
@@ -7,7 +8,7 @@ import imgui.type.ImBoolean;
 
 import java.util.function.Supplier;
 
-public abstract class ComponentView<T extends Component> {
+public abstract class ComponentView<T extends Component> implements ImGuiView {
     private Class<T> componentType;
     private Supplier<T> supplier;
     private String name;
@@ -19,6 +20,7 @@ public abstract class ComponentView<T extends Component> {
         this.name = name;
     }
 
+    @Override
     public abstract void imGui();
 
     public void imGui(Entity entity) {

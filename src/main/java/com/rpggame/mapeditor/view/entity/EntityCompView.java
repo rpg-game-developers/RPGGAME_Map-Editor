@@ -1,6 +1,7 @@
 package com.rpggame.mapeditor.view.entity;
 
 import com.rpggame.mapeditor.model.selector.Selector;
+import com.rpggame.mapeditor.view.ImGuiView;
 import com.rpggame.mapeditor.view.entity.component.*;
 import com.rpggame.rpggame.component.Component;
 import com.rpggame.rpggame.entity.Entity;
@@ -9,7 +10,7 @@ import imgui.ImGui;
 import java.util.ArrayList;
 import java.util.List;
 
-public class EntityCompView {
+public class EntityCompView implements ImGuiView {
     private final Selector<Entity> entitySelector;
     private final List<ComponentView<?>> components;
     private final Selector<ComponentView<?>> componentSelector;
@@ -27,6 +28,7 @@ public class EntityCompView {
         this.components.add(new TileMapCompView());
     }
 
+    @Override
     public void imGui() {
         ImGui.begin("Entity");
 
@@ -57,9 +59,12 @@ public class EntityCompView {
                 ImGui.endListBox();
             }
             if (ImGui.button("Add")) {
-                Component comp = componentSelector.getSelected().createComponent();
-                entitySelector.getSelected().addComponent(comp);
-                ImGui.closeCurrentPopup();
+                ComponentView<?> selected = componentSelector.getSelected();
+                if (selected != null) {
+                    Component comp = componentSelector.getSelected().createComponent();
+                    entitySelector.getSelected().addComponent(comp);
+                    ImGui.closeCurrentPopup();
+                }
             }
             ImGui.sameLine();
             if (ImGui.button("Cancel")) {

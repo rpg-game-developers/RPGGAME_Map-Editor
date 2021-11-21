@@ -1,23 +1,21 @@
 package com.rpggame.mapeditor.view.entity;
 
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Input;
 import com.rpggame.mapeditor.model.selector.Selector;
-import com.rpggame.rpggame.component.NameComp;
+import com.rpggame.mapeditor.view.ImGuiView;
 import com.rpggame.rpggame.entity.Entity;
 import com.rpggame.rpggame.entity.EntityWorld;
 import imgui.ImGui;
-import imgui.flag.ImGuiTreeNodeFlags;
 
-public class EntityListView {
-    private EntityWorld world;
-    private Selector<Entity> entitySelector;
+public class EntityListView implements ImGuiView {
+    private final EntityWorld world;
+    private final Selector<Entity> entitySelector;
 
     public EntityListView(EntityWorld world, Selector<Entity> entitySelector) {
         this.world = world;
         this.entitySelector = entitySelector;
     }
 
+    @Override
     public void imGui() {
         ImGui.begin("Entities");
 

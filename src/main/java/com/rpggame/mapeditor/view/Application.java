@@ -11,6 +11,7 @@ import com.rpggame.mapeditor.system.TileMapEditingSystem;
 import com.rpggame.mapeditor.view.entity.EntityListView;
 import com.rpggame.mapeditor.view.entity.EntityCompView;
 import com.rpggame.mapeditor.view.filesystem.FileSystemView;
+import com.rpggame.mapeditor.view.texteditor.TextEditorView;
 import com.rpggame.rpggame.RpgGame;
 import com.rpggame.rpggame.entity.Entity;
 import imgui.ImGui;
@@ -24,33 +25,36 @@ import imgui.glfw.ImGuiImplGlfw;
 import imgui.type.ImBoolean;
 import org.lwjgl.glfw.GLFWErrorCallback;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import static org.lwjgl.glfw.GLFW.*;
 
 public class Application extends ApplicationAdapter {
 
     ImGuiImplGlfw imGuiGlfw = new ImGuiImplGlfw();
     ImGuiImplGl3 imGuiGl3 = new ImGuiImplGl3();
-    TileSelector tileSelectorView;
     Selector<Tile> tileSelector;
     Selector<Entity> entitySelector;
-    GameView gameView;
-    GameView editorView;
-    EntityListView entityListView;
-    EntityCompView entityCompView;
-    FileSystemView fileSystemView;
+    List<ImGuiView> windows;
     long windowHandle;
 
     @Override
     public void create() {
+        windows = new ArrayList<>();
         tileSelector = new Selector<>();
         entitySelector = new Selector<>();
-        tileSelectorView = new TileSelector(tileSelector, entitySelector);
         RpgGame rpgGame = new RpgGame();
-        gameView = new GameView("Game view", rpgGame);
-        editorView = new GameView("Editor view", new TestGame(tileSelector));
-        entityListView = new EntityListView(rpgGame.getEntityWorld(), entitySelector);
-        entityCompView = new EntityCompView(entitySelector);
-        fileSystemView = new FileSystemView();
+
+        GameView gameView = new GameView("Game view", rpgGame);
+        GameView editorView = new GameView("Editor view", new TestGame(tileSelector));
+        windows.add(new TileSelector(tileSelector, entitySelector));
+        windows.add(gameView);
+        windows.add(editorView);
+        windows.add(new EntityListView(rpgGame.getEntityWorld(), entitySelector));
+        windows.add(new EntityCompView(entitySelector));
+        windows.add(new FileSystemView());
+        windows.add(new TextEditorView());
 
         rpgGame.getEntityWorld().addSystem(new TileMapEditingSystem(rpgGame.getViewport(), entitySelector, tileSelector));
 
@@ -83,13 +87,10 @@ public class Application extends ApplicationAdapter {
 
         ImGui.newFrame();
         setUpDockSpace();
-        tileSelectorView.imGui();
-        gameView.imGui();
-        editorView.imGui();
-        entityListView.imGui();
-        entityCompView.imGui();
-        fileSystemView.imGui();
         ImGui.showDemoWindow();
+        for (ImGuiView window : windows) {
+            window.imGui();
+        }
         ImGui.end();
         ImGui.render();
 

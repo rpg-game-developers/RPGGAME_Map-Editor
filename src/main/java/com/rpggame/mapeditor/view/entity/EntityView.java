@@ -3,6 +3,7 @@ package com.rpggame.mapeditor.view.entity;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.rpggame.mapeditor.model.selector.Selector;
+import com.rpggame.mapeditor.view.ImGuiView;
 import com.rpggame.rpggame.component.NameComp;
 import com.rpggame.rpggame.entity.Entity;
 import imgui.ImGui;
@@ -10,7 +11,7 @@ import imgui.flag.ImGuiTreeNodeFlags;
 
 import java.util.List;
 
-public class EntityView {
+public class EntityView implements ImGuiView {
 
     private Entity root;
     private Selector<Entity> entitySelector;
@@ -20,6 +21,7 @@ public class EntityView {
         this.entitySelector = entitySelector;
     }
 
+    @Override
     public void imGui() {
         List<Entity> children = root.getChildren();
 

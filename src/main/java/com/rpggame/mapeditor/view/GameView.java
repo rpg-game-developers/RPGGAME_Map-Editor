@@ -1,36 +1,19 @@
 package com.rpggame.mapeditor.view;
 
-import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.graphics.*;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.glutils.FrameBuffer;
-import com.badlogic.gdx.maps.MapLayer;
-import com.badlogic.gdx.maps.MapLayers;
-import com.badlogic.gdx.maps.tiled.TiledMap;
-import com.badlogic.gdx.maps.tiled.TiledMapRenderer;
-import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
-import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
-import com.badlogic.gdx.maps.tiled.tiles.StaticTiledMapTile;
 import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.math.Vector3;
-import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
-import com.rpggame.mapeditor.game.TestGame;
-import com.rpggame.mapeditor.model.selector.Selector;
-import com.rpggame.mapeditor.model.tile.Tile;
 import com.rpggame.rpggame.EntityApplicationAdapter;
-import com.rpggame.rpggame.RpgGame;
 import imgui.ImGui;
 import imgui.ImVec2;
 import imgui.flag.ImGuiWindowFlags;
-import org.lwjgl.Sys;
 
-import javax.swing.text.View;
 
-public class GameView implements InputProcessor {
+public class GameView implements InputProcessor, ImGuiView {
 
     private FrameBuffer fbo;
     private int lastScreenX = 0;
@@ -52,6 +35,7 @@ public class GameView implements InputProcessor {
         fbo.end();
     }
 
+    @Override
     public void imGui() {
         if(ImGui.begin(name, ImGuiWindowFlags.NoScrollbar | ImGuiWindowFlags.NoScrollWithMouse)) {
             hidden = false;
