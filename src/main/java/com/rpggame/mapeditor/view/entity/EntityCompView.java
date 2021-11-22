@@ -4,6 +4,7 @@ import com.rpggame.mapeditor.model.selector.Selector;
 import com.rpggame.mapeditor.view.ImGuiView;
 import com.rpggame.mapeditor.view.entity.component.*;
 import com.rpggame.mapeditor.view.entity.component.input.PlayerControllerCompView;
+import com.rpggame.mapeditor.view.entity.component.loot.SingleItemLootTableCompView;
 import com.rpggame.mapeditor.view.entity.component.physics.TransformComponentView;
 import com.rpggame.mapeditor.view.entity.component.physics.VelocityComponentView;
 import com.rpggame.mapeditor.view.entity.component.physics.collision.RectangleCollisionCompView;
@@ -33,6 +34,7 @@ public class EntityCompView implements ImGuiView {
         this.components.add(new SpriteCompView());
         this.components.add(new TileMapCompView());
         this.components.add(new ScriptCompView());
+        this.components.add(new SingleItemLootTableCompView());
     }
 
     @Override
