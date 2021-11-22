@@ -1,5 +1,6 @@
 package com.rpggame.mapeditor.view.entity.component;
 
+import com.badlogic.gdx.graphics.Texture;
 import com.rpggame.rpggame.component.ScriptComp;
 import imgui.ImGui;
 import imgui.type.ImString;
@@ -19,5 +20,18 @@ public class ScriptCompView extends ComponentView<ScriptComp> {
         ImGui.inputText("Script file", filePath);
         ImGui.popID();
         comp.setFilePath(filePath.get());
+        
+        createDropTarget();
+    }
+
+
+    private void createDropTarget() {
+        if (ImGui.beginDragDropTarget()) {
+            String fileHandle = ImGui.acceptDragDropPayload(String.class);
+            if (fileHandle != null) {
+                comp.setFilePath(fileHandle);
+            }
+            ImGui.endDragDropTarget();
+        }
     }
 }
