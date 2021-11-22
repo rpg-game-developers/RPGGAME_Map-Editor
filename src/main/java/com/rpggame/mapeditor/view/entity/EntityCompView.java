@@ -3,6 +3,12 @@ package com.rpggame.mapeditor.view.entity;
 import com.rpggame.mapeditor.model.selector.Selector;
 import com.rpggame.mapeditor.view.ImGuiView;
 import com.rpggame.mapeditor.view.entity.component.*;
+import com.rpggame.mapeditor.view.entity.component.input.PlayerControllerCompView;
+import com.rpggame.mapeditor.view.entity.component.physics.TransformComponentView;
+import com.rpggame.mapeditor.view.entity.component.physics.VelocityComponentView;
+import com.rpggame.mapeditor.view.entity.component.physics.collision.RectangleCollisionCompView;
+import com.rpggame.mapeditor.view.entity.component.rendering.SpriteCompView;
+import com.rpggame.mapeditor.view.entity.component.rendering.TileMapCompView;
 import com.rpggame.rpggame.component.Component;
 import com.rpggame.rpggame.entity.Entity;
 import imgui.ImGui;
@@ -26,6 +32,7 @@ public class EntityCompView implements ImGuiView {
         this.components.add(new PlayerControllerCompView());
         this.components.add(new SpriteCompView());
         this.components.add(new TileMapCompView());
+        this.components.add(new ScriptCompView());
     }
 
     @Override

@@ -1,5 +1,6 @@
-package com.rpggame.mapeditor.view.entity.component;
+package com.rpggame.mapeditor.view.entity.component.input;
 
+import com.rpggame.mapeditor.view.entity.component.ComponentView;
 import com.rpggame.rpggame.component.input.PlayerControllerComp;
 import imgui.ImGui;
 import imgui.type.ImFloat;

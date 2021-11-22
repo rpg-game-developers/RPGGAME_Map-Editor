@@ -1,6 +1,7 @@
-package com.rpggame.mapeditor.view.entity.component;
+package com.rpggame.mapeditor.view.entity.component.physics.collision;
 
 import com.badlogic.gdx.math.Vector2;
+import com.rpggame.mapeditor.view.entity.component.ComponentView;
 import com.rpggame.rpggame.component.physics.collision.RectangleCollisionComp;
 import imgui.ImGui;
 import imgui.flag.ImGuiDataType;
