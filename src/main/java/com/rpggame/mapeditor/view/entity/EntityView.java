@@ -31,45 +31,61 @@ public class EntityView implements ImGuiView {
             flags |= ImGuiTreeNodeFlags.Leaf;
         }
 
-        if (entitySelector.getSelected() == root) {
+        if (entitySelector.getSelected() == this.root) {
             flags |= ImGuiTreeNodeFlags.Selected;
             if (Gdx.input.isKeyJustPressed(Input.Keys.FORWARD_DEL)) {
-                root.destroy();
-                if (entitySelector.getSelected() == root) {
+                this.root.destroy();
+                if (entitySelector.getSelected() == this.root) {
                     entitySelector.setSelected(null);
                 }
             }
             if (Gdx.input.isKeyJustPressed(Input.Keys.D) && Gdx.input.isKeyPressed(Input.Keys.CONTROL_LEFT)) {
-                Entity clone = root.clone();
-                root.getParent().addChild(clone);
+                Entity clone = this.root.clone();
+                this.root.getParent().addChild(clone);
             }
         }
 
         String name = "Entity";
-        if (root.hasComponent(NameComp.class)) {
-            name = root.getComponent(NameComp.class).getName();
+        if (this.root.hasComponent(NameComp.class)) {
+            name = this.root.getComponent(NameComp.class).getName();
         }
 
         boolean isOpen = ImGui.treeNodeEx(name, flags);
         if (ImGui.isItemClicked() && !ImGui.isItemToggledOpen()) {
-            entitySelector.setSelected(root);
+            this.entitySelector.setSelected(this.root);
+        }
+
+        if (ImGui.beginDragDropSource()) {
+            ImGui.setDragDropPayload(this.root);
+            ImGui.text(name);
+            ImGui.endDragDropSource();
+        }
+
+        if (ImGui.beginDragDropTarget()) {
+            Entity entity = ImGui.acceptDragDropPayload(Entity.class);
+            if (entity != null) {
+                root.addChild(entity.clone());
+                entity.destroy();
+            }
+
+            ImGui.endDragDropTarget();
         }
 
         if (ImGui.beginPopupContextItem()) {
             if (ImGui.menuItem("Add new entity")) {
                 Entity newEntity = new Entity();
                 newEntity.addComponent(new NameComp("Entity"));
-                root.addChild(newEntity);
+                this.root.addChild(newEntity);
             }
             if (ImGui.menuItem("Clone", "Ctrl+D")) {
-                Entity clone = root.clone();
-                root.getParent().addChild(clone);
+                Entity clone = this.root.clone();
+                this.root.getParent().addChild(clone);
                 ImGui.closeCurrentPopup();
             }
             if (ImGui.menuItem("Delete", "Del")) {
-                root.destroy();
+                this.root.destroy();
                 ImGui.closeCurrentPopup();
-                if (entitySelector.getSelected() == root) {
+                if (entitySelector.getSelected() == this.root) {
                     entitySelector.setSelected(null);
                 }
             }
@@ -80,6 +96,18 @@ public class EntityView implements ImGuiView {
             for (int i=0; i<children.size(); i++) {
                 Entity entity = children.get(i);
                 ImGui.pushID(i);
+
+                ImGui.invisibleButton("Invisible Button", 400.0f, 5.0f);
+                if (ImGui.beginDragDropTarget()) {
+                    Entity payload = ImGui.acceptDragDropPayload(Entity.class);
+                    if (payload != null) {
+                        entity.addPrev(payload.clone());
+                        payload.destroy();
+                    }
+
+                    ImGui.endDragDropTarget();
+                }
+
                 EntityView entityView = new EntityView(entity, entitySelector);
                 entityView.imGui();
                 ImGui.popID();

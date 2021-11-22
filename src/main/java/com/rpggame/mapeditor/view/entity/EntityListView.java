@@ -5,6 +5,7 @@ import com.rpggame.mapeditor.view.ImGuiView;
 import com.rpggame.rpggame.entity.Entity;
 import com.rpggame.rpggame.entity.EntityWorld;
 import imgui.ImGui;
+import imgui.flag.ImGuiStyleVar;
 
 public class EntityListView implements ImGuiView {
     private final EntityWorld world;
@@ -20,8 +21,10 @@ public class EntityListView implements ImGuiView {
         ImGui.begin("Entities");
 
         ImGui.pushID(0);
+        ImGui.pushStyleVar(ImGuiStyleVar.ItemSpacing, 0.0f, 0.0f);
         EntityView entityView = new EntityView(world.getRoot(), entitySelector);
         entityView.imGui();
+        ImGui.popStyleVar();
         ImGui.popID();
 
         ImGui.end();

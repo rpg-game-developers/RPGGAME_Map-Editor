@@ -7,7 +7,7 @@ var Math = Java.type("java.lang.Math");
 
 var easRotation = Interpolation.swing;
 var elapsed = 0.0;
-var lifeTime = 0.3;
+var lifeTime = 0.34;
 
 function update(entity) {
 	transform = entity.getComponent(TransformComp.class);
@@ -23,6 +23,4 @@ function update(entity) {
 		transform.setRotation(0.0);
 	}
 }
-
-
 
