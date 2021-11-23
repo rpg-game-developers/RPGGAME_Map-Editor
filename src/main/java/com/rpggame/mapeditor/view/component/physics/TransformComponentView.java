@@ -1,13 +1,11 @@
-package com.rpggame.mapeditor.view.entity.component.physics;
+package com.rpggame.mapeditor.view.component.physics;
 
 import com.badlogic.gdx.math.Vector2;
-import com.rpggame.mapeditor.view.entity.component.ComponentView;
+import com.rpggame.mapeditor.view.component.ComponentView;
 import com.rpggame.rpggame.component.physics.TransformComp;
 import imgui.ImGui;
 import imgui.flag.ImGuiDataType;
 import imgui.type.ImFloat;
-
-import javax.xml.crypto.dsig.Transform;
 
 public class TransformComponentView extends ComponentView<TransformComp> {
     private final ImFloat x;

@@ -1,7 +1,7 @@
-package com.rpggame.mapeditor.view.entity.component.rendering;
+package com.rpggame.mapeditor.view.component.rendering;
 
 import com.badlogic.gdx.Gdx;
-import com.rpggame.mapeditor.view.entity.component.ComponentView;
+import com.rpggame.mapeditor.view.component.ComponentView;
 import com.rpggame.rpggame.component.rendering.TileMapComp;
 import imgui.ImGui;
 import imgui.flag.ImGuiDataType;

@@ -1,11 +1,11 @@
-package com.rpggame.mapeditor.view.entity.component;
+package com.rpggame.mapeditor.view.component;
 
 import com.rpggame.rpggame.component.NameComp;
 import imgui.ImGui;
 import imgui.type.ImString;
 
 public class NameCompView extends ComponentView<NameComp> {
-    ImString name;
+    private final ImString name;
 
     public NameCompView() {
         super(NameComp.class, NameComp::new, "Name");

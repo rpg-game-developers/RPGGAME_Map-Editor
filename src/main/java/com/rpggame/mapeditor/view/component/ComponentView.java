@@ -1,4 +1,4 @@
-package com.rpggame.mapeditor.view.entity.component;
+package com.rpggame.mapeditor.view.component;
 
 import com.rpggame.mapeditor.view.ImGuiView;
 import com.rpggame.rpggame.component.Component;

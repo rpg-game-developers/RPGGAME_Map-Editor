@@ -13,8 +13,8 @@ import java.util.List;
 
 public class EntityView implements ImGuiView {
 
-    private Entity root;
-    private Selector<Entity> entitySelector;
+    private final Entity root;
+    private final Selector<Entity> entitySelector;
 
     public EntityView(Entity root, Selector<Entity> entitySelector) {
         this.root = root;
