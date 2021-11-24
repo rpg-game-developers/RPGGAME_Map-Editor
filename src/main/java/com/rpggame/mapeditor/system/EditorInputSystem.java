@@ -42,14 +42,16 @@ public class EditorInputSystem extends EntitySystem {
 
             if (entity.hasComponent(SpriteComp.class)) {
                 Texture sprite = entity.getComponent(SpriteComp.class).getSprite();
-                collision.x = sprite.getWidth();
-                collision.y = sprite.getHeight();
+                if (sprite != null) {
+                    collision.x = sprite.getWidth();
+                    collision.y = sprite.getHeight();
+                }
             } else if (entity.hasComponent(RectangleCollisionComp.class)) {
                 collision = entity.getComponent(RectangleCollisionComp.class).getSize();
             }
 
             Vector2 mousePos = viewport.unproject(new Vector2(x, y));
-            mousePos.mul(entity.getComponent(TransformComp.class).getMatrix().inv());
+            mousePos.mul(TransformComp.getCombinedMatrix(entity).inv());
 
             if (mousePos.x >= 0.0f && mousePos.y >= 0.0f && mousePos.x <= collision.x && mousePos.y <= collision.y) {
                 entitySelector.setSelected(entity);

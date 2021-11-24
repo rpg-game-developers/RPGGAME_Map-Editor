@@ -4,6 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Matrix3;
@@ -13,6 +14,7 @@ import com.rpggame.mapeditor.model.selector.Selector;
 import com.rpggame.rpggame.component.physics.TransformComp;
 import com.rpggame.rpggame.component.physics.collision.CollisionComp;
 import com.rpggame.rpggame.component.physics.collision.RectangleCollisionComp;
+import com.rpggame.rpggame.component.rendering.SpriteComp;
 import com.rpggame.rpggame.entity.Entity;
 import com.rpggame.rpggame.system.RenderingSystem;
 
@@ -43,11 +45,21 @@ public class EditorRenderingSystem extends RenderingSystem {
         super.onRender();
 
         Entity entity = entitySelector.getSelected();
-        if (entity != null && entity.hasComponent(RectangleCollisionComp.class) && entity.hasComponent(TransformComp.class)) {
-            RectangleCollisionComp rect = entity.getComponent(RectangleCollisionComp.class);
-            Vector2 size = rect.getSize();
+        if (entity != null && entity.hasComponent(TransformComp.class)) {
+            Vector2 size = new Vector2(0.0f, 0.0f);
+
+            if (entity.hasComponent(SpriteComp.class)) {
+                Texture sprite = entity.getComponent(SpriteComp.class).getSprite();
+                if (sprite != null) {
+                    size.x = sprite.getWidth();
+                    size.y = sprite.getHeight();
+                }
+            } else if (entity.hasComponent(RectangleCollisionComp.class)) {
+                size = entity.getComponent(RectangleCollisionComp.class).getSize();
+            }
+
             Matrix4 projection = new Matrix4();
-            projection.set(entity.getComponent(TransformComp.class).getMatrix());
+            projection.set(TransformComp.getCombinedMatrix(entity));
             projection.mulLeft(camera.combined);
             Gdx.gl.glEnable(GL20.GL_BLEND);
             Gdx.gl.glBlendFunc(GL20.GL_SRC_ALPHA, GL20.GL_ONE_MINUS_SRC_ALPHA);
