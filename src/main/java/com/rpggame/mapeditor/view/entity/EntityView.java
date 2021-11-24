@@ -64,8 +64,7 @@ public class EntityView implements ImGuiView {
         if (ImGui.beginDragDropTarget()) {
             Entity entity = ImGui.acceptDragDropPayload(Entity.class);
             if (entity != null) {
-                root.addChild(entity.clone());
-                entity.destroy();
+                root.addChild(entity);
             }
 
             ImGui.endDragDropTarget();
@@ -101,8 +100,7 @@ public class EntityView implements ImGuiView {
                 if (ImGui.beginDragDropTarget()) {
                     Entity payload = ImGui.acceptDragDropPayload(Entity.class);
                     if (payload != null) {
-                        entity.addPrev(payload.clone());
-                        payload.destroy();
+                        entity.addPrev(payload);
                     }
 
                     ImGui.endDragDropTarget();

@@ -42,8 +42,8 @@ public class TileMapEditingSystem extends EntitySystem {
                 return false;
 
             Vector2 worldPos = viewport.unproject(new Vector2(x, y));
-            int tileX = (int) (worldPos.x) / 16;
-            int tileY = (int) (worldPos.y) / 16;
+            int tileX = (int) (worldPos.x) / tileMapComp.getTileWidth();
+            int tileY = (int) (worldPos.y) / tileMapComp.getTileHeight();
             TiledMapTileLayer layer = (TiledMapTileLayer) tileMapComp.getTiledMap().getLayers().get(0);
             Tile tile = tileSelector.getSelected();
             if (tile != null) {
@@ -67,8 +67,8 @@ public class TileMapEditingSystem extends EntitySystem {
                 return false;
 
             Vector2 worldPos = viewport.unproject(new Vector2(x, y));
-            int tileX = (int) (worldPos.x) / 16;
-            int tileY = (int) (worldPos.y) / 16;
+            int tileX = (int) (worldPos.x) / tileMapComp.getTileWidth();
+            int tileY = (int) (worldPos.y) / tileMapComp.getTileHeight();
             TiledMapTileLayer layer = (TiledMapTileLayer) tileMapComp.getTiledMap().getLayers().get(0);
             layer.setCell(tileX, tileY, null);
 

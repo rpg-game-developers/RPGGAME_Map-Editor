@@ -13,8 +13,10 @@ public class FileSystemView implements ImGuiView {
     public void imGui() {
         ImGui.begin("Files");
 
+        ImGui.pushID(0);
         DirectoryView directoryView = new DirectoryView(Gdx.files.local("../resources/"));
         directoryView.imGui();
+        ImGui.popID();
 
         ImGui.end();
     }
