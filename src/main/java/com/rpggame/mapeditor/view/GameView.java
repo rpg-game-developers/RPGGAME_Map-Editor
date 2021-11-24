@@ -109,6 +109,7 @@ public class GameView implements InputProcessor, ImGuiView {
         lastScreenX = x;
         lastScreenY = y;
 
+        game.touchDown(x, y, pointer, button);
         touchDragged(x, y, pointer);
 
         return true;
@@ -121,6 +122,9 @@ public class GameView implements InputProcessor, ImGuiView {
 
         lastScreenX = x;
         lastScreenY = y;
+
+        game.touchUp(x, y, pointer, button);
+
         return true;
     }
 

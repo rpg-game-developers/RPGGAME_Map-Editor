@@ -43,7 +43,7 @@ public class EditorRenderingSystem extends RenderingSystem {
         super.onRender();
 
         Entity entity = entitySelector.getSelected();
-        if (entity != null && entity.hasComponent(RectangleCollisionComp.class)) {
+        if (entity != null && entity.hasComponent(RectangleCollisionComp.class) && entity.hasComponent(TransformComp.class)) {
             RectangleCollisionComp rect = entity.getComponent(RectangleCollisionComp.class);
             Vector2 size = rect.getSize();
             Matrix4 projection = new Matrix4();

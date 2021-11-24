@@ -7,6 +7,7 @@ import com.badlogic.gdx.backends.lwjgl3.Lwjgl3Graphics;
 import com.rpggame.mapeditor.game.TestGame;
 import com.rpggame.mapeditor.model.selector.Selector;
 import com.rpggame.mapeditor.model.tile.Tile;
+import com.rpggame.mapeditor.system.EditorInputSystem;
 import com.rpggame.mapeditor.system.EditorRenderingSystem;
 import com.rpggame.mapeditor.system.TileMapEditingSystem;
 import com.rpggame.mapeditor.view.entity.EntityListView;
@@ -61,6 +62,7 @@ public class Application extends ApplicationAdapter {
         EntityWorld world = rpgGame.getEntityWorld();
         world.removeSystem(world.getSystem(RenderingSystem.class));
         world.addSystem(new TileMapEditingSystem(rpgGame.getViewport(), entitySelector, tileSelector));
+        world.addSystem(new EditorInputSystem(rpgGame.getViewport(), entitySelector));
         world.addSystem(new EditorRenderingSystem(rpgGame.getCamera(), rpgGame.getSpriteBatch(), entitySelector));
 
         GLFWErrorCallback.createPrint(System.err).set();
