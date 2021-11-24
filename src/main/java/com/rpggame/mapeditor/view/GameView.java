@@ -7,7 +7,10 @@ import com.badlogic.gdx.graphics.*;
 import com.badlogic.gdx.graphics.glutils.FrameBuffer;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.viewport.Viewport;
+import com.rpggame.mapeditor.system.EditorRenderingSystem;
 import com.rpggame.rpggame.EntityApplicationAdapter;
+import com.rpggame.rpggame.entity.EntityWorld;
+import com.rpggame.rpggame.system.RenderingSystem;
 import imgui.ImGui;
 import imgui.ImVec2;
 import imgui.flag.ImGuiWindowFlags;
@@ -26,7 +29,8 @@ public class GameView implements InputProcessor, ImGuiView {
         this.name = name;
         this.game = game;
         this.hidden = false;
-        game.create();
+        this.game.create();
+        EntityWorld world = this.game.getEntityWorld();
     }
 
     public void draw() {

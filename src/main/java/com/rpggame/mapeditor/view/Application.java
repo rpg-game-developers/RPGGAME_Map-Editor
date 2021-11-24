@@ -7,6 +7,7 @@ import com.badlogic.gdx.backends.lwjgl3.Lwjgl3Graphics;
 import com.rpggame.mapeditor.game.TestGame;
 import com.rpggame.mapeditor.model.selector.Selector;
 import com.rpggame.mapeditor.model.tile.Tile;
+import com.rpggame.mapeditor.system.EditorRenderingSystem;
 import com.rpggame.mapeditor.system.TileMapEditingSystem;
 import com.rpggame.mapeditor.view.entity.EntityListView;
 import com.rpggame.mapeditor.view.entity.EntityCompView;
@@ -14,6 +15,8 @@ import com.rpggame.mapeditor.view.filesystem.FileSystemView;
 import com.rpggame.mapeditor.view.texteditor.TextEditorView;
 import com.rpggame.rpggame.RpgGame;
 import com.rpggame.rpggame.entity.Entity;
+import com.rpggame.rpggame.entity.EntityWorld;
+import com.rpggame.rpggame.system.RenderingSystem;
 import imgui.ImGui;
 import imgui.ImGuiIO;
 import imgui.flag.ImGuiCond;
@@ -47,16 +50,18 @@ public class Application extends ApplicationAdapter {
         RpgGame rpgGame = new RpgGame();
 
         GameView gameView = new GameView("Game view", rpgGame);
-        GameView editorView = new GameView("Editor view", new TestGame(tileSelector));
         windows.add(new TileSelector(tileSelector, entitySelector));
         windows.add(gameView);
-        windows.add(editorView);
         windows.add(new EntityListView(rpgGame.getEntityWorld(), entitySelector));
         windows.add(new EntityCompView(entitySelector));
         windows.add(new FileSystemView());
         windows.add(new TextEditorView());
 
-        rpgGame.getEntityWorld().addSystem(new TileMapEditingSystem(rpgGame.getViewport(), entitySelector, tileSelector));
+        // changing the systems
+        EntityWorld world = rpgGame.getEntityWorld();
+        world.removeSystem(world.getSystem(RenderingSystem.class));
+        world.addSystem(new TileMapEditingSystem(rpgGame.getViewport(), entitySelector, tileSelector));
+        world.addSystem(new EditorRenderingSystem(rpgGame.getCamera(), rpgGame.getSpriteBatch(), entitySelector));
 
         GLFWErrorCallback.createPrint(System.err).set();
         if (!glfwInit()) {
@@ -73,7 +78,6 @@ public class Application extends ApplicationAdapter {
         // input handling
         InputMultiplexer multiplexer = new InputMultiplexer();
         multiplexer.addProcessor(gameView);
-        multiplexer.addProcessor(editorView);
         Gdx.input.setInputProcessor(multiplexer);
 
         imGuiGlfw.init(windowHandle, true);
