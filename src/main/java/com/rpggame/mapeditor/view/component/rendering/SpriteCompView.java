@@ -14,11 +14,13 @@ public class SpriteCompView extends ComponentView<SpriteComp> {
     @Override
     public void imGui() {
         if (comp.getSprite() != null) {
-            int width = comp.getSprite().getTextureData().getWidth();
-            int height = comp.getSprite().getTextureData().getHeight();
+            String spritePath = comp.getSprite();
+            Texture sprite = game.getSprites().getSprite(spritePath);
+            int width = sprite.getWidth();
+            int height = sprite.getHeight();
             ImGui.text("Image width: " + width);
             ImGui.text("Image height: " + height);
-            ImGui.image(comp.getSprite().getTextureObjectHandle(), width, height, 0, 0, 1, 1);
+            ImGui.image(sprite.getTextureObjectHandle(), width, height, 0, 0, 1, 1);
             createDropTarget();
         }
         ImGui.button("Load sprite");
@@ -29,7 +31,7 @@ public class SpriteCompView extends ComponentView<SpriteComp> {
         if (ImGui.beginDragDropTarget()) {
             String fileHandle = ImGui.acceptDragDropPayload(String.class);
             if (fileHandle != null) {
-                comp.setSprite(new Texture(fileHandle));
+                comp.setSprite(fileHandle);
             }
 
             ImGui.endDragDropTarget();

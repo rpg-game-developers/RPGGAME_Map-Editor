@@ -1,6 +1,8 @@
 package com.rpggame.mapeditor.view.component;
 
+import com.badlogic.gdx.Game;
 import com.rpggame.mapeditor.view.ImGuiView;
+import com.rpggame.rpggame.EntityApplicationAdapter;
 import com.rpggame.rpggame.component.Component;
 import com.rpggame.rpggame.entity.Entity;
 import imgui.ImGui;
@@ -13,11 +15,17 @@ public abstract class ComponentView<T extends Component> implements ImGuiView {
     private Supplier<T> supplier;
     private String name;
     protected T comp;
+    protected EntityApplicationAdapter game;
 
     public ComponentView(Class<T> componentType, Supplier<T> supplier, String name) {
         this.supplier = supplier;
         this.componentType = componentType;
         this.name = name;
+        this.game = null;
+    }
+
+    public void setGame(EntityApplicationAdapter game) {
+        this.game = game;
     }
 
     @Override

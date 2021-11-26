@@ -10,6 +10,7 @@ import com.rpggame.mapeditor.view.component.physics.VelocityComponentView;
 import com.rpggame.mapeditor.view.component.physics.collision.RectangleCollisionCompView;
 import com.rpggame.mapeditor.view.component.rendering.SpriteCompView;
 import com.rpggame.mapeditor.view.component.rendering.TileMapCompView;
+import com.rpggame.rpggame.EntityApplicationAdapter;
 import com.rpggame.rpggame.component.Component;
 import com.rpggame.rpggame.entity.Entity;
 import imgui.ImGui;
@@ -22,7 +23,7 @@ public class EntityCompView implements ImGuiView {
     private final List<ComponentView<?>> components;
     private final Selector<ComponentView<?>> componentSelector;
 
-    public EntityCompView(Selector<Entity> entitySelector) {
+    public EntityCompView(EntityApplicationAdapter game, Selector<Entity> entitySelector) {
         this.entitySelector = entitySelector;
         this.componentSelector = new Selector<>();
         this.components = new ArrayList<>();
@@ -36,6 +37,11 @@ public class EntityCompView implements ImGuiView {
         this.components.add(new TileMapCompView());
         this.components.add(new ScriptCompView());
         this.components.add(new SingleItemLootTableCompView());
+
+
+        for (ComponentView<?> componentView : components) {
+            componentView.setGame(game);
+        }
     }
 
     @Override

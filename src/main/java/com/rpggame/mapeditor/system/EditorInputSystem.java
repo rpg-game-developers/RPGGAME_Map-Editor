@@ -3,6 +3,7 @@ package com.rpggame.mapeditor.system;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.rpggame.mapeditor.model.selector.Selector;
@@ -12,18 +13,20 @@ import com.rpggame.rpggame.component.rendering.SpriteComp;
 import com.rpggame.rpggame.entity.Entity;
 import com.rpggame.rpggame.entity.EntityFamily;
 import com.rpggame.rpggame.system.EntitySystem;
-import imgui.ImGui;
+import com.rpggame.rpggame.system.SpriteManager;
 
 public class EditorInputSystem extends EntitySystem {
 
     private final Viewport viewport;
+    private final SpriteManager sprites;
     private Selector<Entity> entitySelector;
     private Selector<Entity> justSelected;
     private int lastScreenX = 0;
     private int lastScreenY = 0;
 
-    public EditorInputSystem(Viewport viewport, Selector<Entity> entitySelector) {
+    public EditorInputSystem(SpriteManager sprites, Viewport viewport, Selector<Entity> entitySelector) {
         super(new EntityFamily(TransformComp.class));
+        this.sprites = sprites;
         this.viewport = viewport;
         this.entitySelector = entitySelector;
         justSelected = new Selector<>();
@@ -41,7 +44,8 @@ public class EditorInputSystem extends EntitySystem {
             Vector2 collision = new Vector2(0.0f, 0.0f);
 
             if (entity.hasComponent(SpriteComp.class)) {
-                Texture sprite = entity.getComponent(SpriteComp.class).getSprite();
+                String spritePath = entity.getComponent(SpriteComp.class).getSprite();
+                Texture sprite = sprites.getSprite(spritePath);
                 if (sprite != null) {
                     collision.x = sprite.getWidth();
                     collision.y = sprite.getHeight();

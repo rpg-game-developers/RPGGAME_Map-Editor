@@ -7,24 +7,24 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
-import com.badlogic.gdx.math.Matrix3;
 import com.badlogic.gdx.math.Matrix4;
 import com.badlogic.gdx.math.Vector2;
 import com.rpggame.mapeditor.model.selector.Selector;
 import com.rpggame.rpggame.component.physics.TransformComp;
-import com.rpggame.rpggame.component.physics.collision.CollisionComp;
 import com.rpggame.rpggame.component.physics.collision.RectangleCollisionComp;
 import com.rpggame.rpggame.component.rendering.SpriteComp;
+import com.rpggame.rpggame.component.rendering.TileMapComp;
 import com.rpggame.rpggame.entity.Entity;
 import com.rpggame.rpggame.system.RenderingSystem;
+import com.rpggame.rpggame.system.SpriteManager;
 
 public class EditorRenderingSystem extends RenderingSystem {
 
     private static ShapeRenderer shapeRenderer = new ShapeRenderer();
     private final Selector<Entity> entitySelector;
 
-    public EditorRenderingSystem(OrthographicCamera camera, SpriteBatch batch, Selector<Entity> entitySelector) {
-        super(camera, batch);
+    public EditorRenderingSystem(SpriteManager sprites, OrthographicCamera camera, SpriteBatch batch, Selector<Entity> entitySelector) {
+        super(sprites, camera, batch);
         this.entitySelector = entitySelector;
     }
 
@@ -49,7 +49,8 @@ public class EditorRenderingSystem extends RenderingSystem {
             Vector2 size = new Vector2(0.0f, 0.0f);
 
             if (entity.hasComponent(SpriteComp.class)) {
-                Texture sprite = entity.getComponent(SpriteComp.class).getSprite();
+                String spritePath = entity.getComponent(SpriteComp.class).getSprite();
+                Texture sprite = sprites.getSprite(spritePath);
                 if (sprite != null) {
                     size.x = sprite.getWidth();
                     size.y = sprite.getHeight();
@@ -70,6 +71,30 @@ public class EditorRenderingSystem extends RenderingSystem {
             shapeRenderer.end();
             Gdx.gl.glDisable(GL20.GL_BLEND);
         }
+
+        // tile map lines
+        if (entity != null && entity.hasComponent(TileMapComp.class) && entity.hasComponent(TransformComp.class)) {
+            TileMapComp tileMap = entity.getComponent(TileMapComp.class);
+            Matrix4 projection = new Matrix4();
+            projection.set(TransformComp.getCombinedMatrix(entity));
+            projection.mulLeft(camera.combined);
+
+            int rows = tileMap.getRows();
+            int columns = tileMap.getColumns();
+            int tileWidth = tileMap.getTileWidth();
+            int tileHeight = tileMap.getTileHeight();
+            Color color = new Color(1.0f, 1.0f, 1.0f, 0.4f);
+            Gdx.gl.glEnable(GL20.GL_BLEND);
+            Gdx.gl.glBlendFunc(GL20.GL_SRC_ALPHA, GL20.GL_ONE_MINUS_SRC_ALPHA);
+            for (int i=0; i<=rows; i++) {
+                drawLine(new Vector2(0, i*tileHeight), new Vector2(columns*tileWidth,i*tileHeight), 1, color, projection);
+            }
+            for (int i=0; i<=columns; i++) {
+                drawLine(new Vector2(i*tileWidth, 0), new Vector2(i*tileWidth,rows*tileHeight), 1, color, projection);
+            }
+            Gdx.gl.glDisable(GL20.GL_BLEND);
+        }
+
     }
 
 }

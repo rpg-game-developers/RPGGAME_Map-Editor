@@ -24,7 +24,9 @@ public class TextEditorView implements ImGuiView {
             if (ImGui.beginMenuBar()) {
                 if (ImGui.beginMenu("File")) {
                     if (ImGui.menuItem("Save")) {
-                        selectedFile.save();
+                        if (selectedFile != null) {
+                            selectedFile.save();
+                        }
                     }
 
                     ImGui.endMenu();

@@ -4,7 +4,6 @@ import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.backends.lwjgl3.Lwjgl3Graphics;
-import com.rpggame.mapeditor.game.TestGame;
 import com.rpggame.mapeditor.model.selector.Selector;
 import com.rpggame.mapeditor.model.tile.Tile;
 import com.rpggame.mapeditor.system.EditorInputSystem;
@@ -13,6 +12,7 @@ import com.rpggame.mapeditor.system.TileMapEditingSystem;
 import com.rpggame.mapeditor.view.entity.EntityListView;
 import com.rpggame.mapeditor.view.entity.EntityCompView;
 import com.rpggame.mapeditor.view.filesystem.FileSystemView;
+import com.rpggame.mapeditor.view.menu.MenuBarView;
 import com.rpggame.mapeditor.view.texteditor.TextEditorView;
 import com.rpggame.rpggame.RpgGame;
 import com.rpggame.rpggame.entity.Entity;
@@ -36,34 +36,32 @@ import static org.lwjgl.glfw.GLFW.*;
 
 public class Application extends ApplicationAdapter {
 
-    ImGuiImplGlfw imGuiGlfw = new ImGuiImplGlfw();
-    ImGuiImplGl3 imGuiGl3 = new ImGuiImplGl3();
-    Selector<Tile> tileSelector;
-    Selector<Entity> entitySelector;
-    List<ImGuiView> windows;
-    long windowHandle;
+    private final ImGuiImplGlfw imGuiGlfw = new ImGuiImplGlfw();
+    private final ImGuiImplGl3 imGuiGl3 = new ImGuiImplGl3();
+    private List<ImGuiView> windows;
 
     @Override
     public void create() {
         windows = new ArrayList<>();
-        tileSelector = new Selector<>();
-        entitySelector = new Selector<>();
+        Selector<Tile> tileSelector = new Selector<>();
+        Selector<Entity> entitySelector = new Selector<>();
         RpgGame rpgGame = new RpgGame();
 
         GameView gameView = new GameView("Game view", rpgGame);
         windows.add(new TileSelector(tileSelector, entitySelector));
         windows.add(gameView);
         windows.add(new EntityListView(rpgGame.getEntityWorld(), entitySelector));
-        windows.add(new EntityCompView(entitySelector));
+        windows.add(new EntityCompView(rpgGame, entitySelector));
         windows.add(new FileSystemView());
         windows.add(new TextEditorView());
+        windows.add(new MenuBarView(rpgGame));
 
         // changing the systems
         EntityWorld world = rpgGame.getEntityWorld();
         world.removeSystem(world.getSystem(RenderingSystem.class));
         world.addSystem(new TileMapEditingSystem(rpgGame.getViewport(), entitySelector, tileSelector));
-        world.addSystem(new EditorInputSystem(rpgGame.getViewport(), entitySelector));
-        world.addSystem(new EditorRenderingSystem(rpgGame.getCamera(), rpgGame.getSpriteBatch(), entitySelector));
+        world.addSystem(new EditorInputSystem(rpgGame.getSprites(), rpgGame.getViewport(), entitySelector));
+        world.addSystem(new EditorRenderingSystem(rpgGame.getSprites(), rpgGame.getCamera(), rpgGame.getSpriteBatch(), entitySelector));
 
         GLFWErrorCallback.createPrint(System.err).set();
         if (!glfwInit()) {
@@ -75,7 +73,7 @@ public class Application extends ApplicationAdapter {
         io.setConfigFlags(ImGuiConfigFlags.DockingEnable);
         io.setConfigWindowsMoveFromTitleBarOnly(true);
 
-        windowHandle = ((Lwjgl3Graphics) Gdx.graphics).getWindow().getWindowHandle();
+        long windowHandle = ((Lwjgl3Graphics) Gdx.graphics).getWindow().getWindowHandle();
 
         // input handling
         InputMultiplexer multiplexer = new InputMultiplexer();

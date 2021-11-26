@@ -1,8 +1,6 @@
 package com.rpggame.mapeditor.view;
 
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.badlogic.gdx.math.Vector2;
-import com.rpggame.mapeditor.model.SpriteSheet;
 import com.rpggame.mapeditor.model.selector.Selector;
 import com.rpggame.mapeditor.model.tile.Tile;
 import com.rpggame.rpggame.component.rendering.TileMapComp;
@@ -44,8 +42,8 @@ public class TileSelector implements ImGuiView {
             ImVec2 itemSpacing = new ImVec2();
             ImGui.getStyle().getItemSpacing(itemSpacing);
             float windowX2 = windowPos.x + windowSize.x;
-            int rows = tileMap.getRows();
-            int columns = tileMap.getColumns();
+            int rows = tileMap.getSheetRows();
+            int columns = tileMap.getSheetColumns();
             for (int i=0; i<rows; i++) {
                 for (int j=0; j<columns; j++) {
                     float spriteWidth = 32.0f;

@@ -9,6 +9,7 @@ import com.badlogic.gdx.utils.viewport.Viewport;
 import com.rpggame.mapeditor.model.selector.Selector;
 import com.rpggame.mapeditor.model.tile.Tile;
 import com.rpggame.mapeditor.view.TileSelector;
+import com.rpggame.rpggame.component.physics.TransformComp;
 import com.rpggame.rpggame.component.rendering.TileMapComp;
 import com.rpggame.rpggame.entity.Entity;
 import com.rpggame.rpggame.entity.EntityFamily;
@@ -42,6 +43,7 @@ public class TileMapEditingSystem extends EntitySystem {
                 return false;
 
             Vector2 worldPos = viewport.unproject(new Vector2(x, y));
+            worldPos.mul(TransformComp.getCombinedMatrix(entity).inv());
             int tileX = (int) (worldPos.x) / tileMapComp.getTileWidth();
             int tileY = (int) (worldPos.y) / tileMapComp.getTileHeight();
             TiledMapTileLayer layer = (TiledMapTileLayer) tileMapComp.getTiledMap().getLayers().get(0);
@@ -67,6 +69,7 @@ public class TileMapEditingSystem extends EntitySystem {
                 return false;
 
             Vector2 worldPos = viewport.unproject(new Vector2(x, y));
+            worldPos.mul(TransformComp.getCombinedMatrix(entity).inv());
             int tileX = (int) (worldPos.x) / tileMapComp.getTileWidth();
             int tileY = (int) (worldPos.y) / tileMapComp.getTileHeight();
             TiledMapTileLayer layer = (TiledMapTileLayer) tileMapComp.getTiledMap().getLayers().get(0);
